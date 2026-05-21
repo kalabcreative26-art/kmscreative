@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Palette, Video, QrCode, PenTool, Phone, Mail, Send, Sparkles } from "lucide-react";
+import { Palette, Video, QrCode, PenTool, Phone, Mail, Send, Sparkles, Globe, CreditCard } from "lucide-react";
 import logo from "@/assets/kms-logo.jpg";
 
 export const Route = createFileRoute("/")({
@@ -17,6 +17,8 @@ const services = [
   { icon: Palette, title: "Graphic Design", desc: "Eye-catching graphics for social media, print, and web." },
   { icon: Video, title: "Video Editing", desc: "Polished edits, transitions, and storytelling that hook viewers." },
   { icon: QrCode, title: "QR Code Menus", desc: "Modern digital menus for restaurants, cafés, and events." },
+  { icon: Globe, title: "Website Design & Publishing", desc: "Custom websites built and published for your business — fast, modern, and ready to go live." },
+  { icon: CreditCard, title: "Business Cards", desc: "Professionally designed business cards that leave a lasting impression on every client." },
 ];
 
 function Index() {
