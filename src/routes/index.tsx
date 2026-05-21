@@ -200,6 +200,34 @@ function Index() {
           <p>Crafted with care by Kalab.</p>
         </div>
       </footer>
+
+      <Dialog open={openService !== null} onOpenChange={(o) => !o && setOpenService(null)}>
+        <DialogContent className="sm:max-w-md">
+          {active && (
+            <>
+              <DialogHeader>
+                <div
+                  className="inline-flex h-12 w-12 items-center justify-center rounded-xl mb-3"
+                  style={{ background: "var(--gradient-primary)" }}
+                >
+                  <active.icon className="h-6 w-6 text-primary-foreground" />
+                </div>
+                <DialogTitle className="font-serif text-2xl">{active.title}</DialogTitle>
+                <DialogDescription className="text-base leading-relaxed pt-2">
+                  {active.details}
+                </DialogDescription>
+              </DialogHeader>
+              <a
+                href="#contact"
+                onClick={() => setOpenService(null)}
+                className="mt-4 inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:opacity-90 transition-[var(--transition-smooth)]"
+              >
+                Request this service
+              </a>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </main>
   );
 }
