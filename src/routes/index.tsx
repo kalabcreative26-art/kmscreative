@@ -143,9 +143,13 @@ function Index() {
       {/* SERVICES */}
       <section id="services" className="py-24 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-center mb-10">
             <p className="text-xs uppercase tracking-[0.3em] text-primary mb-3">What I do</p>
             <h2 className="font-serif text-4xl md:text-5xl tracking-tight">Services tailored to your brand</h2>
+            <p className="mt-4 text-sm text-muted-foreground">
+              Tap a card to read the full details — then hit{" "}
+              <span className="text-primary font-medium">Order on Telegram</span> only when you're ready.
+            </p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {services.map((s, i) => (
@@ -153,8 +157,12 @@ function Index() {
                 key={s.title}
                 type="button"
                 onClick={() => setOpenService(i)}
-                className="group text-left rounded-2xl border border-border bg-card p-7 hover:border-primary/50 hover:-translate-y-1 transition-[var(--transition-smooth)] cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="group relative text-left rounded-2xl border border-border bg-card p-7 hover:border-primary/50 hover:-translate-y-1 transition-[var(--transition-smooth)] cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/50"
               >
+                <span className="absolute top-3 right-3 inline-flex items-center gap-1 rounded-full bg-primary/10 text-primary text-[10px] uppercase tracking-widest px-2 py-1 border border-primary/20">
+                  <MousePointerClick className="h-3 w-3" />
+                  Tap for details
+                </span>
                 <div
                   className="inline-flex h-12 w-12 items-center justify-center rounded-xl mb-5"
                   style={{ background: "var(--gradient-primary)" }}
@@ -163,10 +171,11 @@ function Index() {
                 </div>
                 <h3 className="font-serif text-xl mb-2">{s.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
-                <p className="mt-4 text-xs uppercase tracking-widest text-primary opacity-0 group-hover:opacity-100 transition-opacity">Tap to learn more →</p>
+                <p className="mt-4 text-xs uppercase tracking-widest text-primary opacity-70 group-hover:opacity-100 transition-opacity">Read first → Order after</p>
               </button>
             ))}
           </div>
+
         </div>
       </section>
 
