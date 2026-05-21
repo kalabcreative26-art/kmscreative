@@ -1,8 +1,24 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Palette, Video, QrCode, PenTool, Phone, Mail, Send, Sparkles, Globe, CreditCard } from "lucide-react";
+import { Palette, Video, QrCode, PenTool, Phone, Mail, Send, Sparkles, Globe, CreditCard, MousePointerClick } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { toast } from "sonner";
 import logo from "@/assets/kms-logo.jpg";
+
+const TELEGRAM_USERNAME = "kalabms";
+
+function orderOnTelegram(serviceTitle: string) {
+  const message = `Hi Kalab! 👋 I'd like to order: ${serviceTitle}. Please share details on pricing, timeline, and what you need from me to get started.`;
+  try {
+    navigator.clipboard?.writeText(message);
+    toast.success("Order message copied!", {
+      description: "Paste it in the Telegram chat that just opened.",
+    });
+  } catch {
+    // ignore clipboard failures
+  }
+  window.open(`https://t.me/${TELEGRAM_USERNAME}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
+}
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -127,9 +143,13 @@ function Index() {
       {/* SERVICES */}
       <section id="services" className="py-24 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-center mb-10">
             <p className="text-xs uppercase tracking-[0.3em] text-primary mb-3">What I do</p>
             <h2 className="font-serif text-4xl md:text-5xl tracking-tight">Services tailored to your brand</h2>
+            <p className="mt-4 text-sm text-muted-foreground">
+              Tap a card to read the full details — then hit{" "}
+              <span className="text-primary font-medium">Order on Telegram</span> only when you're ready.
+            </p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {services.map((s, i) => (
@@ -137,8 +157,12 @@ function Index() {
                 key={s.title}
                 type="button"
                 onClick={() => setOpenService(i)}
-                className="group text-left rounded-2xl border border-border bg-card p-7 hover:border-primary/50 hover:-translate-y-1 transition-[var(--transition-smooth)] cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="group relative text-left rounded-2xl border border-border bg-card p-7 hover:border-primary/50 hover:-translate-y-1 transition-[var(--transition-smooth)] cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/50"
               >
+                <span className="absolute top-3 right-3 inline-flex items-center gap-1 rounded-full bg-primary/10 text-primary text-[10px] uppercase tracking-widest px-2 py-1 border border-primary/20">
+                  <MousePointerClick className="h-3 w-3" />
+                  Tap for details
+                </span>
                 <div
                   className="inline-flex h-12 w-12 items-center justify-center rounded-xl mb-5"
                   style={{ background: "var(--gradient-primary)" }}
@@ -147,10 +171,11 @@ function Index() {
                 </div>
                 <h3 className="font-serif text-xl mb-2">{s.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
-                <p className="mt-4 text-xs uppercase tracking-widest text-primary opacity-0 group-hover:opacity-100 transition-opacity">Tap to learn more →</p>
+                <p className="mt-4 text-xs uppercase tracking-widest text-primary opacity-70 group-hover:opacity-100 transition-opacity">Read first → Order after</p>
               </button>
             ))}
           </div>
+
         </div>
       </section>
 
@@ -223,13 +248,33 @@ function Index() {
                   {active.details}
                 </DialogDescription>
               </DialogHeader>
-              <a
-                href="#contact"
-                onClick={() => setOpenService(null)}
-                className="mt-4 inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:opacity-90 transition-[var(--transition-smooth)]"
-              >
-                Request this service
-              </a>
+              <div className="mt-5 rounded-xl border border-primary/20 bg-primary/5 p-4">
+                <p className="text-xs uppercase tracking-widest text-primary mb-2">Ready to order?</p>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Clicking below opens Telegram and sends me a message that you want{" "}
+                  <span className="text-foreground font-medium">{active.title}</span> — no typing needed.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      orderOnTelegram(active.title);
+                      setOpenService(null);
+                    }}
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:opacity-90 transition-[var(--transition-smooth)]"
+                  >
+                    <Send className="h-4 w-4" />
+                    Order on Telegram
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setOpenService(null)}
+                    className="inline-flex items-center justify-center rounded-full border border-border bg-card/40 px-5 py-2.5 text-sm font-medium hover:bg-accent transition-[var(--transition-smooth)]"
+                  >
+                    Not yet — keep browsing
+                  </button>
+                </div>
+              </div>
             </>
           )}
         </DialogContent>
