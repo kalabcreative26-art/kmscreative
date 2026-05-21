@@ -1,8 +1,24 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Palette, Video, QrCode, PenTool, Phone, Mail, Send, Sparkles, Globe, CreditCard } from "lucide-react";
+import { Palette, Video, QrCode, PenTool, Phone, Mail, Send, Sparkles, Globe, CreditCard, MousePointerClick } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { toast } from "sonner";
 import logo from "@/assets/kms-logo.jpg";
+
+const TELEGRAM_USERNAME = "kalabms";
+
+function orderOnTelegram(serviceTitle: string) {
+  const message = `Hi Kalab! 👋 I'd like to order: ${serviceTitle}. Please share details on pricing, timeline, and what you need from me to get started.`;
+  try {
+    navigator.clipboard?.writeText(message);
+    toast.success("Order message copied!", {
+      description: "Paste it in the Telegram chat that just opened.",
+    });
+  } catch {
+    // ignore clipboard failures
+  }
+  window.open(`https://t.me/${TELEGRAM_USERNAME}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
+}
 
 export const Route = createFileRoute("/")({
   component: Index,
