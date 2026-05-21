@@ -54,6 +54,8 @@ const services = [
 ];
 
 function Index() {
+  const [openService, setOpenService] = useState<number | null>(null);
+  const active = openService !== null ? services[openService] : null;
   return (
     <main className="min-h-screen bg-background text-foreground">
       {/* NAV */}
@@ -124,10 +126,12 @@ function Index() {
             <h2 className="font-serif text-4xl md:text-5xl tracking-tight">Services tailored to your brand</h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {services.map((s) => (
-              <article
+            {services.map((s, i) => (
+              <button
                 key={s.title}
-                className="group rounded-2xl border border-border bg-card p-7 hover:border-primary/50 hover:-translate-y-1 transition-[var(--transition-smooth)]"
+                type="button"
+                onClick={() => setOpenService(i)}
+                className="group text-left rounded-2xl border border-border bg-card p-7 hover:border-primary/50 hover:-translate-y-1 transition-[var(--transition-smooth)] cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/50"
               >
                 <div
                   className="inline-flex h-12 w-12 items-center justify-center rounded-xl mb-5"
@@ -137,7 +141,8 @@ function Index() {
                 </div>
                 <h3 className="font-serif text-xl mb-2">{s.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
-              </article>
+                <p className="mt-4 text-xs uppercase tracking-widest text-primary opacity-0 group-hover:opacity-100 transition-opacity">Tap to learn more →</p>
+              </button>
             ))}
           </div>
         </div>
