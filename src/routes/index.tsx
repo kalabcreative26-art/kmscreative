@@ -19,37 +19,43 @@ const services = [
     icon: PenTool,
     title: "Logo Design",
     desc: "Distinctive logos that capture your brand identity.",
-    details: "I design unique, memorable logos that represent your brand's personality and values. You'll get multiple concepts, unlimited revisions until you're happy, and final files in all formats you need (PNG, JPG, SVG, PDF) — ready for web, print, social media, and merchandise.",
+    details:
+      "Your logo is the face of your brand — and I make sure it tells the right story. I design custom, original logos built around your business, your audience, and your vision. Every project starts with understanding what makes you unique, then I sketch and refine multiple concepts until we land on something powerful. You'll get a clean, scalable logo that looks sharp on a business card, a billboard, a phone screen, or a t-shirt. Final delivery includes all file formats (PNG, JPG, SVG, PDF), light and dark versions, and a simple guide on how to use it. Unlimited revisions until you genuinely love it.",
   },
   {
     icon: Palette,
     title: "Graphic Design",
     desc: "Eye-catching graphics for social media, print, and web.",
-    details: "From social media posts and story templates to flyers, posters, banners, brochures, and digital ads — I create scroll-stopping visuals tailored to your brand. Perfect for businesses that want a consistent, professional look across every platform.",
+    details:
+      "I create graphics that stop the scroll and make your brand impossible to ignore. Social media posts, story templates, Instagram and Facebook ads, flyers, posters, banners, brochures, menus, packaging, event graphics, T-shirt designs — if it needs to look good, I can design it. Every piece is built to match your brand colors, fonts, and personality so everything you put out feels consistent and professional. Whether you need a single post or a full month of content, I deliver clean, modern designs that actually convert viewers into customers.",
   },
   {
     icon: Video,
     title: "Video Editing",
     desc: "Polished edits, transitions, and storytelling that hook viewers.",
-    details: "I edit videos for Reels, TikTok, YouTube, weddings, events, ads, and promotional content. This includes color grading, smooth transitions, sound design, subtitles, motion graphics, and music syncing — turning raw footage into content people actually watch.",
+    details:
+      "I turn raw footage into videos people actually finish watching. Reels, TikToks, YouTube videos, wedding films, event highlights, business promos, product showcases, and ads — I handle it all. Each edit includes professional color grading, smooth transitions, sound design, music syncing, subtitles, motion graphics, and pacing that keeps the viewer locked in. I focus on storytelling first, then polish — because beautiful clips mean nothing if the message doesn't land. Quick turnaround, clean delivery, and revisions until it feels right.",
   },
   {
     icon: QrCode,
     title: "QR Code Menus",
     desc: "Modern digital menus for restaurants, cafés, and events.",
-    details: "Custom digital menus accessed by scanning a QR code — no app needed. Great for restaurants, cafés, hotels, and events. Easy to update anytime, mobile-friendly, and styled to match your brand. Print-ready QR code included.",
+    details:
+      "Skip the printing costs and outdated menus. I build sleek, mobile-friendly digital menus that your customers open instantly by scanning a QR code — no app, no signup. Perfect for restaurants, cafés, hotels, food trucks, and events. You can update prices, items, and photos anytime without reprinting anything. I design the menu to match your brand, organize it for easy browsing, and deliver a print-ready QR code you can stick on tables, walls, or receipts. Clean, fast, and saves you money every month.",
   },
   {
     icon: Globe,
     title: "Website Design & Publishing",
     desc: "Custom websites built and published for your business — fast, modern, and ready to go live.",
-    details: "I design and publish complete websites for businesses, portfolios, and personal brands. Mobile-responsive, fast-loading, SEO-friendly, and tailored to your goals. I handle everything from design to publishing — and updates whenever you need them.",
+    details:
+      "I design and build complete websites for businesses, restaurants, portfolios, personal brands, and small shops — then publish them so they're live on the internet, ready for the world. Every site is mobile-friendly, fast-loading, SEO-friendly, and crafted to match your brand. I handle the whole process: design, content layout, contact buttons, social links, photo galleries, hosting, and publishing. Best part — you can ask me to change anything anytime: text, photos, colors, new pages, new sections. Your website grows with your business.",
   },
   {
     icon: CreditCard,
     title: "Business Cards",
     desc: "Professionally designed business cards that leave a lasting impression on every client.",
-    details: "Premium business card designs that match your brand. Front and back layouts, multiple style options, and print-ready files (PDF/PNG) delivered with proper bleed and dimensions — ready to take straight to any print shop.",
+    details:
+      "First impressions matter, and a well-designed business card still beats a phone contact every time. I design premium, modern business cards that reflect your brand and feel valuable in someone's hand. Front and back designs, multiple style options (minimal, bold, luxury, creative), and proper print-ready files (PDF/PNG) with bleed, crop marks, and the right dimensions — so you can take them straight to any print shop without issues. Whether you need 50 cards or 5,000, I make sure yours stands out.",
   },
 ];
 
