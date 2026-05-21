@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 import { Palette, Video, QrCode, PenTool, Phone, Mail, Send, Sparkles, Globe, CreditCard } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import logo from "@/assets/kms-logo.jpg";
 
 export const Route = createFileRoute("/")({
@@ -13,12 +15,42 @@ export const Route = createFileRoute("/")({
 });
 
 const services = [
-  { icon: PenTool, title: "Logo Design", desc: "Distinctive logos that capture your brand identity." },
-  { icon: Palette, title: "Graphic Design", desc: "Eye-catching graphics for social media, print, and web." },
-  { icon: Video, title: "Video Editing", desc: "Polished edits, transitions, and storytelling that hook viewers." },
-  { icon: QrCode, title: "QR Code Menus", desc: "Modern digital menus for restaurants, cafés, and events." },
-  { icon: Globe, title: "Website Design & Publishing", desc: "Custom websites built and published for your business — fast, modern, and ready to go live." },
-  { icon: CreditCard, title: "Business Cards", desc: "Professionally designed business cards that leave a lasting impression on every client." },
+  {
+    icon: PenTool,
+    title: "Logo Design",
+    desc: "Distinctive logos that capture your brand identity.",
+    details: "I design unique, memorable logos that represent your brand's personality and values. You'll get multiple concepts, unlimited revisions until you're happy, and final files in all formats you need (PNG, JPG, SVG, PDF) — ready for web, print, social media, and merchandise.",
+  },
+  {
+    icon: Palette,
+    title: "Graphic Design",
+    desc: "Eye-catching graphics for social media, print, and web.",
+    details: "From social media posts and story templates to flyers, posters, banners, brochures, and digital ads — I create scroll-stopping visuals tailored to your brand. Perfect for businesses that want a consistent, professional look across every platform.",
+  },
+  {
+    icon: Video,
+    title: "Video Editing",
+    desc: "Polished edits, transitions, and storytelling that hook viewers.",
+    details: "I edit videos for Reels, TikTok, YouTube, weddings, events, ads, and promotional content. This includes color grading, smooth transitions, sound design, subtitles, motion graphics, and music syncing — turning raw footage into content people actually watch.",
+  },
+  {
+    icon: QrCode,
+    title: "QR Code Menus",
+    desc: "Modern digital menus for restaurants, cafés, and events.",
+    details: "Custom digital menus accessed by scanning a QR code — no app needed. Great for restaurants, cafés, hotels, and events. Easy to update anytime, mobile-friendly, and styled to match your brand. Print-ready QR code included.",
+  },
+  {
+    icon: Globe,
+    title: "Website Design & Publishing",
+    desc: "Custom websites built and published for your business — fast, modern, and ready to go live.",
+    details: "I design and publish complete websites for businesses, portfolios, and personal brands. Mobile-responsive, fast-loading, SEO-friendly, and tailored to your goals. I handle everything from design to publishing — and updates whenever you need them.",
+  },
+  {
+    icon: CreditCard,
+    title: "Business Cards",
+    desc: "Professionally designed business cards that leave a lasting impression on every client.",
+    details: "Premium business card designs that match your brand. Front and back layouts, multiple style options, and print-ready files (PDF/PNG) delivered with proper bleed and dimensions — ready to take straight to any print shop.",
+  },
 ];
 
 function Index() {
