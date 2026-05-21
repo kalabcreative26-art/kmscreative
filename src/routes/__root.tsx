@@ -72,14 +72,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "KMS creative" },
+      { name: "description", content: "KMS Creative Studio is a professional web presence showcasing graphic design, logo creation, and video editing services." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "KMS creative" },
+      { property: "og:description", content: "KMS Creative Studio is a professional web presence showcasing graphic design, logo creation, and video editing services." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "KMS creative" },
+      { name: "twitter:description", content: "KMS Creative Studio is a professional web presence showcasing graphic design, logo creation, and video editing services." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/5596d1ed-8d43-49ea-a60c-17c0b98111f8/id-preview-87f06703--761c7174-cf56-46ca-a2ff-f53f3a28cb04.lovable.app-1779378205877.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/5596d1ed-8d43-49ea-a60c-17c0b98111f8/id-preview-87f06703--761c7174-cf56-46ca-a2ff-f53f3a28cb04.lovable.app-1779378205877.png" },
     ],
     links: [
       {
