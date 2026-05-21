@@ -248,13 +248,33 @@ function Index() {
                   {active.details}
                 </DialogDescription>
               </DialogHeader>
-              <a
-                href="#contact"
-                onClick={() => setOpenService(null)}
-                className="mt-4 inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:opacity-90 transition-[var(--transition-smooth)]"
-              >
-                Request this service
-              </a>
+              <div className="mt-5 rounded-xl border border-primary/20 bg-primary/5 p-4">
+                <p className="text-xs uppercase tracking-widest text-primary mb-2">Ready to order?</p>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Clicking below opens Telegram and sends me a message that you want{" "}
+                  <span className="text-foreground font-medium">{active.title}</span> — no typing needed.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      orderOnTelegram(active.title);
+                      setOpenService(null);
+                    }}
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:opacity-90 transition-[var(--transition-smooth)]"
+                  >
+                    <Send className="h-4 w-4" />
+                    Order on Telegram
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setOpenService(null)}
+                    className="inline-flex items-center justify-center rounded-full border border-border bg-card/40 px-5 py-2.5 text-sm font-medium hover:bg-accent transition-[var(--transition-smooth)]"
+                  >
+                    Not yet — keep browsing
+                  </button>
+                </div>
+              </div>
             </>
           )}
         </DialogContent>
