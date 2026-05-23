@@ -182,7 +182,7 @@ function Index() {
       {/* CONTACT */}
       <section id="contact" className="py-24 px-6 border-t border-border">
         <div className="max-w-4xl mx-auto text-center">
-          <p className="text-xs uppercase tracking-[0.3em] text-primary mb-3">Let's connect</p>
+          <p className="text-xs uppercase tracking-[0.3em] text-primary mb-3">Contact us</p>
           <h2 className="font-serif text-4xl md:text-5xl tracking-tight mb-4">
             Have a project in mind?
           </h2>
