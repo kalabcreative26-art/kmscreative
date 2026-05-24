@@ -248,34 +248,36 @@ function Index() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((s, i) => (
-              <button
-                key={s.title}
-                type="button"
-                onClick={() => setOpenService(i)}
-                className="group relative text-left p-8 rounded-3xl bg-card/40 border border-border/60 hover:bg-card hover:border-primary/30 transition-[var(--transition-smooth)] cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/40"
-              >
-                <div className="flex justify-between items-start mb-10">
-                  <div
-                    className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary border border-primary/15 group-hover:scale-110 group-hover:bg-primary/20 transition-[var(--transition-smooth)]"
-                  >
-                    <s.icon className="h-6 w-6" />
+              <Reveal key={s.title} delay={i * 90}>
+                <button
+                  type="button"
+                  onClick={() => setOpenService(i)}
+                  className="group relative w-full h-full text-left p-8 rounded-3xl bg-card/40 border border-border/60 hover:bg-card hover:border-primary/40 hover:-translate-y-2 hover:shadow-[var(--shadow-elegant)] transition-[var(--transition-smooth)] cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/40"
+                >
+                  <div className="flex justify-between items-start mb-10">
+                    <div
+                      className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary border border-primary/15 group-hover:scale-110 group-hover:rotate-3 group-hover:bg-primary/20 transition-[var(--transition-smooth)]"
+                    >
+                      <s.icon className="h-6 w-6" />
+                    </div>
+                    <span className="inline-flex items-center gap-1 text-[9px] uppercase tracking-widest text-muted-foreground border border-border px-2.5 py-1 rounded-full group-hover:border-primary/30 group-hover:text-primary transition-colors">
+                      <MousePointerClick className="h-3 w-3" />
+                      Tap for details
+                    </span>
                   </div>
-                  <span className="inline-flex items-center gap-1 text-[9px] uppercase tracking-widest text-muted-foreground border border-border px-2.5 py-1 rounded-full group-hover:border-primary/30 group-hover:text-primary transition-colors">
-                    <MousePointerClick className="h-3 w-3" />
-                    Tap for details
-                  </span>
-                </div>
-                <h3 className="text-2xl font-light mb-3 tracking-tight">{s.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed mb-10">{s.desc}</p>
-                <div className="flex gap-3 text-[10px] font-bold uppercase tracking-widest items-center">
-                  <span className="text-primary opacity-70 group-hover:opacity-100 transition-opacity">Read First</span>
-                  <span className="text-muted-foreground/40">→</span>
-                  <span className="text-primary opacity-70 group-hover:opacity-100 transition-opacity">Order After</span>
-                </div>
-              </button>
+                  <h3 className="text-2xl font-light mb-3 tracking-tight">{s.title}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-10">{s.desc}</p>
+                  <div className="flex gap-3 text-[10px] font-bold uppercase tracking-widest items-center">
+                    <span className="text-primary opacity-70 group-hover:opacity-100 transition-opacity">Read First</span>
+                    <span className="text-muted-foreground/40 group-hover:translate-x-1 transition-transform">→</span>
+                    <span className="text-primary opacity-70 group-hover:opacity-100 transition-opacity">Order After</span>
+                  </div>
+                </button>
+              </Reveal>
             ))}
           </div>
         </section>
+
 
         {/* CONTACT */}
         <section id="contact" className="max-w-6xl mx-auto px-6 relative">
