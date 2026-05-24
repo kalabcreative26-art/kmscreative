@@ -1,9 +1,38 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Palette, Video, QrCode, PenTool, Phone, Mail, Send, Sparkles, Globe, CreditCard, MousePointerClick } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { toast } from "sonner";
 import logo from "@/assets/kms-logo.jpg";
+
+function Reveal({ children, delay = 0, className = "" }: { children: ReactNode; delay?: number; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [shown, setShown] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          setShown(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -60px 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return (
+    <div
+      ref={ref}
+      style={{ transitionDelay: `${delay}ms` }}
+      className={`transition-all duration-700 ease-out ${shown ? "opacity-100 translate-y-0 blur-0" : "opacity-0 translate-y-8 blur-sm"} ${className}`}
+    >
+      {children}
+    </div>
+  );
+}
 
 const TELEGRAM_USERNAME = "kalabms";
 
@@ -77,10 +106,42 @@ const services = [
 
 function Index() {
   const [openService, setOpenService] = useState<number | null>(null);
+  const [scrollY, setScrollY] = useState(0);
   const active = openService !== null ? services[openService] : null;
 
+  useEffect(() => {
+    const onScroll = () => setScrollY(window.scrollY);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // 0 at top → 1 deep into page
+  const t = Math.min(scrollY / 1400, 1);
+
   return (
-    <main className="min-h-screen bg-background text-foreground antialiased selection:bg-primary/30">
+    <main
+      className="relative min-h-screen text-foreground antialiased selection:bg-primary/30 overflow-hidden scroll-smooth"
+      style={{
+        background: `
+          radial-gradient(ellipse at 20% ${10 + t * 30}%, oklch(${0.28 + t * 0.08} ${0.16 + t * 0.06} 295 / ${0.55 + t * 0.25}), transparent 55%),
+          radial-gradient(ellipse at 80% ${90 - t * 20}%, oklch(${0.32 + t * 0.05} 0.2 280 / ${0.4 + t * 0.3}), transparent 60%),
+          linear-gradient(180deg, oklch(${0.08 - t * 0.02} 0.02 285), oklch(${0.06 + t * 0.04} ${0.04 + t * 0.05} 290))
+        `,
+        transition: "background 0.6s ease-out",
+      }}
+    >
+      {/* floating orbs */}
+      <div
+        className="pointer-events-none fixed top-1/4 -left-32 w-[420px] h-[420px] rounded-full blur-[140px] opacity-50 animate-pulse"
+        style={{ background: "var(--gradient-primary)", animationDuration: "6s" }}
+      />
+      <div
+        className="pointer-events-none fixed bottom-1/4 -right-32 w-[480px] h-[480px] rounded-full blur-[160px] opacity-40 animate-pulse"
+        style={{ background: "var(--gradient-primary)", animationDuration: "8s", animationDelay: "1s" }}
+      />
+
+
       {/* NAV */}
       <header className="fixed top-0 inset-x-0 z-50 border-b border-border/60 bg-background/70 backdrop-blur-xl">
         <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -112,96 +173,111 @@ function Index() {
           />
 
           <div className="relative flex flex-col items-center text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/5 text-primary text-[10px] uppercase tracking-[0.2em] font-bold mb-8">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-              <Sparkles className="h-3 w-3" />
-              Creative Studio
-            </div>
+            <Reveal>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/5 text-primary text-[10px] uppercase tracking-[0.2em] font-bold mb-8">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                <Sparkles className="h-3 w-3" />
+                Creative Studio
+              </div>
+            </Reveal>
 
-            <h1 className="text-5xl md:text-8xl font-light leading-[1.05] mb-8 tracking-tight">
-              Design that <span className="font-serif italic font-medium text-primary">speaks</span>.<br />
-              Stories that <span className="font-serif italic font-medium text-primary">stick</span>.
-            </h1>
+            <Reveal delay={100}>
+              <h1 className="text-5xl md:text-8xl font-light leading-[1.05] mb-8 tracking-tight">
+                Design that <span className="font-serif italic font-medium text-primary">speaks</span>.<br />
+                Stories that <span className="font-serif italic font-medium text-primary">stick</span>.
+              </h1>
+            </Reveal>
 
-            <p className="text-lg md:text-xl text-muted-foreground font-light leading-relaxed mb-10 max-w-xl">
-              I'm Kalab — founder of KMS Creative. I craft logos, graphic design, video edits, and QR menus that elevate brands.
-            </p>
+            <Reveal delay={250}>
+              <p className="text-lg md:text-xl text-muted-foreground font-light leading-relaxed mb-10 max-w-xl">
+                I'm Kalab — founder of KMS Creative. I craft logos, graphic design, video edits, and QR menus that elevate brands.
+              </p>
+            </Reveal>
 
-            <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-              <a
-                href="#services"
-                className="inline-flex items-center justify-center px-10 py-4 bg-primary hover:opacity-90 text-primary-foreground rounded-full font-semibold transition-[var(--transition-smooth)] active:scale-95"
-                style={{ boxShadow: "var(--shadow-elegant)" }}
-              >
-                Explore services
-              </a>
-              <a
-                href="#contact"
-                className="inline-flex items-center justify-center px-10 py-4 bg-card/40 hover:bg-accent border border-border rounded-full font-semibold transition-[var(--transition-smooth)] active:scale-95"
-              >
-                Start a project
-              </a>
-            </div>
+            <Reveal delay={400}>
+              <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                <a
+                  href="#services"
+                  className="inline-flex items-center justify-center px-10 py-4 bg-primary hover:opacity-90 hover:scale-[1.03] text-primary-foreground rounded-full font-semibold transition-[var(--transition-smooth)] active:scale-95"
+                  style={{ boxShadow: "var(--shadow-elegant)" }}
+                >
+                  Explore services
+                </a>
+                <a
+                  href="#contact"
+                  className="inline-flex items-center justify-center px-10 py-4 bg-card/40 hover:bg-accent hover:scale-[1.03] border border-border rounded-full font-semibold transition-[var(--transition-smooth)] active:scale-95"
+                >
+                  Start a project
+                </a>
+              </div>
+            </Reveal>
           </div>
 
           {/* Featured Image Card */}
-          <div className="mt-24 md:mt-32 relative max-w-2xl mx-auto group">
-            <div
-              className="absolute -inset-1 rounded-3xl blur opacity-30 group-hover:opacity-50 transition duration-1000"
-              style={{ background: "var(--gradient-primary)" }}
-            />
-            <div
-              className="relative aspect-square md:aspect-[4/3] bg-card rounded-3xl overflow-hidden flex items-center justify-center border border-border"
-              style={{ boxShadow: "var(--shadow-glow)" }}
-            >
-              <img src={logo} alt="KMS Creative" className="w-full h-full object-cover" />
+          <Reveal delay={500} className="mt-24 md:mt-32 max-w-2xl mx-auto">
+            <div className="relative group">
+              <div
+                className="absolute -inset-1 rounded-3xl blur opacity-30 group-hover:opacity-60 transition duration-1000"
+                style={{ background: "var(--gradient-primary)" }}
+              />
+              <div
+                className="relative aspect-square md:aspect-[4/3] bg-card rounded-3xl overflow-hidden flex items-center justify-center border border-border transition-transform duration-700 group-hover:scale-[1.02]"
+                style={{ boxShadow: "var(--shadow-glow)" }}
+              >
+                <img src={logo} alt="KMS Creative" className="w-full h-full object-cover" />
+              </div>
             </div>
-          </div>
+          </Reveal>
         </section>
 
         {/* SERVICES */}
         <section id="services" className="max-w-6xl mx-auto px-6 mb-32 md:mb-40">
-          <div className="text-center mb-16 md:mb-20">
-            <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-primary">What I do</span>
-            <h2 className="text-4xl md:text-5xl font-light mt-6 mb-4 tracking-tight">
-              Services tailored to your brand
-            </h2>
-            <p className="text-muted-foreground text-sm max-w-md mx-auto">
-              Tap a card to read the full details — then hit{" "}
-              <span className="text-primary font-medium">Order on Telegram</span> only when you're ready.
-            </p>
-          </div>
+          <Reveal>
+            <div className="text-center mb-16 md:mb-20">
+              <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-primary">What I do</span>
+              <h2 className="text-4xl md:text-5xl font-light mt-6 mb-4 tracking-tight">
+                Services tailored to your brand
+              </h2>
+              <p className="text-muted-foreground text-sm max-w-md mx-auto">
+                Tap a card to read the full details — then hit{" "}
+                <span className="text-primary font-medium">Order on Telegram</span> only when you're ready.
+              </p>
+            </div>
+          </Reveal>
+
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((s, i) => (
-              <button
-                key={s.title}
-                type="button"
-                onClick={() => setOpenService(i)}
-                className="group relative text-left p-8 rounded-3xl bg-card/40 border border-border/60 hover:bg-card hover:border-primary/30 transition-[var(--transition-smooth)] cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/40"
-              >
-                <div className="flex justify-between items-start mb-10">
-                  <div
-                    className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary border border-primary/15 group-hover:scale-110 group-hover:bg-primary/20 transition-[var(--transition-smooth)]"
-                  >
-                    <s.icon className="h-6 w-6" />
+              <Reveal key={s.title} delay={i * 90}>
+                <button
+                  type="button"
+                  onClick={() => setOpenService(i)}
+                  className="group relative w-full h-full text-left p-8 rounded-3xl bg-card/40 border border-border/60 hover:bg-card hover:border-primary/40 hover:-translate-y-2 hover:shadow-[var(--shadow-elegant)] transition-[var(--transition-smooth)] cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/40"
+                >
+                  <div className="flex justify-between items-start mb-10">
+                    <div
+                      className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary border border-primary/15 group-hover:scale-110 group-hover:rotate-3 group-hover:bg-primary/20 transition-[var(--transition-smooth)]"
+                    >
+                      <s.icon className="h-6 w-6" />
+                    </div>
+                    <span className="inline-flex items-center gap-1 text-[9px] uppercase tracking-widest text-muted-foreground border border-border px-2.5 py-1 rounded-full group-hover:border-primary/30 group-hover:text-primary transition-colors">
+                      <MousePointerClick className="h-3 w-3" />
+                      Tap for details
+                    </span>
                   </div>
-                  <span className="inline-flex items-center gap-1 text-[9px] uppercase tracking-widest text-muted-foreground border border-border px-2.5 py-1 rounded-full group-hover:border-primary/30 group-hover:text-primary transition-colors">
-                    <MousePointerClick className="h-3 w-3" />
-                    Tap for details
-                  </span>
-                </div>
-                <h3 className="text-2xl font-light mb-3 tracking-tight">{s.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed mb-10">{s.desc}</p>
-                <div className="flex gap-3 text-[10px] font-bold uppercase tracking-widest items-center">
-                  <span className="text-primary opacity-70 group-hover:opacity-100 transition-opacity">Read First</span>
-                  <span className="text-muted-foreground/40">→</span>
-                  <span className="text-primary opacity-70 group-hover:opacity-100 transition-opacity">Order After</span>
-                </div>
-              </button>
+                  <h3 className="text-2xl font-light mb-3 tracking-tight">{s.title}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-10">{s.desc}</p>
+                  <div className="flex gap-3 text-[10px] font-bold uppercase tracking-widest items-center">
+                    <span className="text-primary opacity-70 group-hover:opacity-100 transition-opacity">Read First</span>
+                    <span className="text-muted-foreground/40 group-hover:translate-x-1 transition-transform">→</span>
+                    <span className="text-primary opacity-70 group-hover:opacity-100 transition-opacity">Order After</span>
+                  </div>
+                </button>
+              </Reveal>
             ))}
           </div>
         </section>
+
 
         {/* CONTACT */}
         <section id="contact" className="max-w-6xl mx-auto px-6 relative">
@@ -211,45 +287,54 @@ function Index() {
           />
 
           <div className="relative text-center max-w-2xl mx-auto">
-            <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-primary">Contact us</span>
-            <h2 className="font-serif text-5xl md:text-7xl italic font-medium mt-6 mb-8 tracking-tight">
-              Have a project in mind?
-            </h2>
-            <p className="text-muted-foreground mb-16 text-lg">
-              Reach out through any channel below — I'd love to hear about your idea.
-            </p>
+            <Reveal>
+              <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-primary">Contact us</span>
+              <h2 className="font-serif text-5xl md:text-7xl italic font-medium mt-6 mb-8 tracking-tight">
+                Have a project in mind?
+              </h2>
+              <p className="text-muted-foreground mb-16 text-lg">
+                Reach out through any channel below — I'd love to hear about your idea.
+              </p>
+            </Reveal>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <a
-                href="tel:+251978792495"
-                className="flex flex-col items-center p-10 rounded-3xl bg-card/40 border border-border/60 hover:bg-card hover:border-primary/30 transition-[var(--transition-smooth)] group"
-              >
-                <Phone className="h-9 w-9 text-primary mb-6 group-hover:scale-110 transition-transform" strokeWidth={1.25} />
-                <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground mb-2">Phone</span>
-                <span className="text-base md:text-lg font-medium tracking-tight">+251 978 792 495</span>
-              </a>
+              <Reveal delay={0}>
+                <a
+                  href="tel:+251978792495"
+                  className="flex flex-col items-center p-10 rounded-3xl bg-card/40 border border-border/60 hover:bg-card hover:border-primary/40 hover:-translate-y-2 hover:shadow-[var(--shadow-elegant)] transition-[var(--transition-smooth)] group"
+                >
+                  <Phone className="h-9 w-9 text-primary mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform" strokeWidth={1.25} />
+                  <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground mb-2">Phone</span>
+                  <span className="text-base md:text-lg font-medium tracking-tight">+251 978 792 495</span>
+                </a>
+              </Reveal>
 
-              <a
-                href="https://t.me/kalabms"
-                target="_blank"
-                rel="noreferrer"
-                className="flex flex-col items-center p-10 rounded-3xl bg-card/40 border border-border/60 hover:bg-card hover:border-primary/30 transition-[var(--transition-smooth)] group"
-              >
-                <Send className="h-9 w-9 text-primary mb-6 group-hover:scale-110 transition-transform" strokeWidth={1.25} />
-                <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground mb-2">Telegram</span>
-                <span className="text-base md:text-lg font-medium tracking-tight">@kalabms</span>
-              </a>
+              <Reveal delay={120}>
+                <a
+                  href="https://t.me/kalabms"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex flex-col items-center p-10 rounded-3xl bg-card/40 border border-border/60 hover:bg-card hover:border-primary/40 hover:-translate-y-2 hover:shadow-[var(--shadow-elegant)] transition-[var(--transition-smooth)] group"
+                >
+                  <Send className="h-9 w-9 text-primary mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform" strokeWidth={1.25} />
+                  <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground mb-2">Telegram</span>
+                  <span className="text-base md:text-lg font-medium tracking-tight">@kalabms</span>
+                </a>
+              </Reveal>
 
-              <a
-                href="mailto:kalabcreative26@gmail.com"
-                className="flex flex-col items-center p-10 rounded-3xl bg-card/40 border border-border/60 hover:bg-card hover:border-primary/30 transition-[var(--transition-smooth)] group"
-              >
-                <Mail className="h-9 w-9 text-primary mb-6 group-hover:scale-110 transition-transform" strokeWidth={1.25} />
-                <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground mb-2">Email</span>
-                <span className="text-sm md:text-base font-medium tracking-tight break-all px-2">kalabcreative26@gmail.com</span>
-              </a>
+              <Reveal delay={240}>
+                <a
+                  href="mailto:kalabcreative26@gmail.com"
+                  className="flex flex-col items-center p-10 rounded-3xl bg-card/40 border border-border/60 hover:bg-card hover:border-primary/40 hover:-translate-y-2 hover:shadow-[var(--shadow-elegant)] transition-[var(--transition-smooth)] group"
+                >
+                  <Mail className="h-9 w-9 text-primary mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform" strokeWidth={1.25} />
+                  <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground mb-2">Email</span>
+                  <span className="text-sm md:text-base font-medium tracking-tight break-all px-2">kalabcreative26@gmail.com</span>
+                </a>
+              </Reveal>
             </div>
           </div>
+
         </section>
       </div>
 
