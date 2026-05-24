@@ -287,45 +287,54 @@ function Index() {
           />
 
           <div className="relative text-center max-w-2xl mx-auto">
-            <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-primary">Contact us</span>
-            <h2 className="font-serif text-5xl md:text-7xl italic font-medium mt-6 mb-8 tracking-tight">
-              Have a project in mind?
-            </h2>
-            <p className="text-muted-foreground mb-16 text-lg">
-              Reach out through any channel below — I'd love to hear about your idea.
-            </p>
+            <Reveal>
+              <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-primary">Contact us</span>
+              <h2 className="font-serif text-5xl md:text-7xl italic font-medium mt-6 mb-8 tracking-tight">
+                Have a project in mind?
+              </h2>
+              <p className="text-muted-foreground mb-16 text-lg">
+                Reach out through any channel below — I'd love to hear about your idea.
+              </p>
+            </Reveal>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <a
-                href="tel:+251978792495"
-                className="flex flex-col items-center p-10 rounded-3xl bg-card/40 border border-border/60 hover:bg-card hover:border-primary/30 transition-[var(--transition-smooth)] group"
-              >
-                <Phone className="h-9 w-9 text-primary mb-6 group-hover:scale-110 transition-transform" strokeWidth={1.25} />
-                <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground mb-2">Phone</span>
-                <span className="text-base md:text-lg font-medium tracking-tight">+251 978 792 495</span>
-              </a>
+              <Reveal delay={0}>
+                <a
+                  href="tel:+251978792495"
+                  className="flex flex-col items-center p-10 rounded-3xl bg-card/40 border border-border/60 hover:bg-card hover:border-primary/40 hover:-translate-y-2 hover:shadow-[var(--shadow-elegant)] transition-[var(--transition-smooth)] group"
+                >
+                  <Phone className="h-9 w-9 text-primary mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform" strokeWidth={1.25} />
+                  <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground mb-2">Phone</span>
+                  <span className="text-base md:text-lg font-medium tracking-tight">+251 978 792 495</span>
+                </a>
+              </Reveal>
 
-              <a
-                href="https://t.me/kalabms"
-                target="_blank"
-                rel="noreferrer"
-                className="flex flex-col items-center p-10 rounded-3xl bg-card/40 border border-border/60 hover:bg-card hover:border-primary/30 transition-[var(--transition-smooth)] group"
-              >
-                <Send className="h-9 w-9 text-primary mb-6 group-hover:scale-110 transition-transform" strokeWidth={1.25} />
-                <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground mb-2">Telegram</span>
-                <span className="text-base md:text-lg font-medium tracking-tight">@kalabms</span>
-              </a>
+              <Reveal delay={120}>
+                <a
+                  href="https://t.me/kalabms"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex flex-col items-center p-10 rounded-3xl bg-card/40 border border-border/60 hover:bg-card hover:border-primary/40 hover:-translate-y-2 hover:shadow-[var(--shadow-elegant)] transition-[var(--transition-smooth)] group"
+                >
+                  <Send className="h-9 w-9 text-primary mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform" strokeWidth={1.25} />
+                  <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground mb-2">Telegram</span>
+                  <span className="text-base md:text-lg font-medium tracking-tight">@kalabms</span>
+                </a>
+              </Reveal>
 
-              <a
-                href="mailto:kalabcreative26@gmail.com"
-                className="flex flex-col items-center p-10 rounded-3xl bg-card/40 border border-border/60 hover:bg-card hover:border-primary/30 transition-[var(--transition-smooth)] group"
-              >
-                <Mail className="h-9 w-9 text-primary mb-6 group-hover:scale-110 transition-transform" strokeWidth={1.25} />
-                <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground mb-2">Email</span>
-                <span className="text-sm md:text-base font-medium tracking-tight break-all px-2">kalabcreative26@gmail.com</span>
-              </a>
+              <Reveal delay={240}>
+                <a
+                  href="mailto:kalabcreative26@gmail.com"
+                  className="flex flex-col items-center p-10 rounded-3xl bg-card/40 border border-border/60 hover:bg-card hover:border-primary/40 hover:-translate-y-2 hover:shadow-[var(--shadow-elegant)] transition-[var(--transition-smooth)] group"
+                >
+                  <Mail className="h-9 w-9 text-primary mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform" strokeWidth={1.25} />
+                  <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground mb-2">Email</span>
+                  <span className="text-sm md:text-base font-medium tracking-tight break-all px-2">kalabcreative26@gmail.com</span>
+                </a>
+              </Reveal>
             </div>
           </div>
+
         </section>
       </div>
 
