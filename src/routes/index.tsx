@@ -106,10 +106,42 @@ const services = [
 
 function Index() {
   const [openService, setOpenService] = useState<number | null>(null);
+  const [scrollY, setScrollY] = useState(0);
   const active = openService !== null ? services[openService] : null;
 
+  useEffect(() => {
+    const onScroll = () => setScrollY(window.scrollY);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // 0 at top → 1 deep into page
+  const t = Math.min(scrollY / 1400, 1);
+
   return (
-    <main className="min-h-screen bg-background text-foreground antialiased selection:bg-primary/30">
+    <main
+      className="relative min-h-screen text-foreground antialiased selection:bg-primary/30 overflow-hidden scroll-smooth"
+      style={{
+        background: `
+          radial-gradient(ellipse at 20% ${10 + t * 30}%, oklch(${0.28 + t * 0.08} ${0.16 + t * 0.06} 295 / ${0.55 + t * 0.25}), transparent 55%),
+          radial-gradient(ellipse at 80% ${90 - t * 20}%, oklch(${0.32 + t * 0.05} 0.2 280 / ${0.4 + t * 0.3}), transparent 60%),
+          linear-gradient(180deg, oklch(${0.08 - t * 0.02} 0.02 285), oklch(${0.06 + t * 0.04} ${0.04 + t * 0.05} 290))
+        `,
+        transition: "background 0.6s ease-out",
+      }}
+    >
+      {/* floating orbs */}
+      <div
+        className="pointer-events-none fixed top-1/4 -left-32 w-[420px] h-[420px] rounded-full blur-[140px] opacity-50 animate-pulse"
+        style={{ background: "var(--gradient-primary)", animationDuration: "6s" }}
+      />
+      <div
+        className="pointer-events-none fixed bottom-1/4 -right-32 w-[480px] h-[480px] rounded-full blur-[160px] opacity-40 animate-pulse"
+        style={{ background: "var(--gradient-primary)", animationDuration: "8s", animationDelay: "1s" }}
+      />
+
+
       {/* NAV */}
       <header className="fixed top-0 inset-x-0 z-50 border-b border-border/60 bg-background/70 backdrop-blur-xl">
         <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
