@@ -78,157 +78,191 @@ const services = [
 function Index() {
   const [openService, setOpenService] = useState<number | null>(null);
   const active = openService !== null ? services[openService] : null;
+
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main className="min-h-screen bg-background text-foreground antialiased selection:bg-primary/30">
       {/* NAV */}
-      <header className="sticky top-0 z-50 backdrop-blur-xl bg-background/70 border-b border-border">
-        <nav className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <header className="fixed top-0 inset-x-0 z-50 border-b border-border/60 bg-background/70 backdrop-blur-xl">
+        <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <img src={logo} alt="KMS Creative logo" className="h-10 w-10 rounded-md object-cover" />
-            <span className="font-serif text-xl tracking-wide">KMS <span className="text-primary">Creative</span></span>
+            <img src={logo} alt="KMS Creative logo" className="h-8 w-8 rounded-md object-cover" />
+            <span className="font-medium text-base tracking-tight">
+              KMS <span className="text-primary">Creative</span>
+            </span>
+          </div>
+          <div className="hidden md:flex gap-8 text-[11px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">
+            <a href="#services" className="hover:text-primary transition-colors">Services</a>
+            <a href="#contact" className="hover:text-primary transition-colors">Contact</a>
           </div>
           <a
             href="#contact"
-            className="hidden sm:inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition-[var(--transition-smooth)]"
+            className="md:hidden inline-flex items-center rounded-full bg-primary px-4 py-1.5 text-xs font-medium text-primary-foreground hover:opacity-90"
           >
             Get in touch
           </a>
         </nav>
       </header>
 
-      {/* HERO */}
-      <section
-        className="relative overflow-hidden"
-        style={{ background: "var(--gradient-hero)" }}
-      >
-        <div className="max-w-6xl mx-auto px-6 py-24 md:py-32 grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-4 py-1.5 text-xs uppercase tracking-widest text-muted-foreground mb-6">
-              <Sparkles className="h-3.5 w-3.5 text-primary" />
+      <div className="pt-32 pb-20">
+        {/* HERO */}
+        <section className="max-w-6xl mx-auto px-6 relative mb-32 md:mb-40">
+          <div
+            className="absolute -top-24 -left-20 w-[500px] h-[500px] rounded-full blur-[120px] pointer-events-none opacity-60"
+            style={{ background: "var(--gradient-primary)" }}
+          />
+
+          <div className="relative flex flex-col items-center text-center max-w-3xl mx-auto">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/5 text-primary text-[10px] uppercase tracking-[0.2em] font-bold mb-8">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+              <Sparkles className="h-3 w-3" />
               Creative Studio
             </div>
-            <h1 className="font-serif text-5xl md:text-7xl leading-[1.05] tracking-tight">
-              Design that <span className="italic text-primary">speaks</span>.
-              <br /> Stories that <span className="italic text-primary">stick</span>.
+
+            <h1 className="text-5xl md:text-8xl font-light leading-[1.05] mb-8 tracking-tight">
+              Design that <span className="font-serif italic font-medium text-primary">speaks</span>.<br />
+              Stories that <span className="font-serif italic font-medium text-primary">stick</span>.
             </h1>
-            <p className="mt-6 text-lg text-muted-foreground max-w-lg">
+
+            <p className="text-lg md:text-xl text-muted-foreground font-light leading-relaxed mb-10 max-w-xl">
               I'm Kalab — founder of KMS Creative. I craft logos, graphic design, video edits, and QR menus that elevate brands.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a href="#services" className="rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:opacity-90 transition-[var(--transition-smooth)]"
-                style={{ boxShadow: "var(--shadow-elegant)" }}>
+
+            <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+              <a
+                href="#services"
+                className="inline-flex items-center justify-center px-10 py-4 bg-primary hover:opacity-90 text-primary-foreground rounded-full font-semibold transition-[var(--transition-smooth)] active:scale-95"
+                style={{ boxShadow: "var(--shadow-elegant)" }}
+              >
                 Explore services
               </a>
-              <a href="#contact" className="rounded-full border border-border bg-card/40 px-6 py-3 text-sm font-medium hover:bg-accent transition-[var(--transition-smooth)]">
+              <a
+                href="#contact"
+                className="inline-flex items-center justify-center px-10 py-4 bg-card/40 hover:bg-accent border border-border rounded-full font-semibold transition-[var(--transition-smooth)] active:scale-95"
+              >
                 Start a project
               </a>
             </div>
           </div>
 
-          <div className="relative flex justify-center">
+          {/* Featured Image Card */}
+          <div className="mt-24 md:mt-32 relative max-w-2xl mx-auto group">
             <div
-              className="absolute inset-0 rounded-full blur-3xl opacity-60"
+              className="absolute -inset-1 rounded-3xl blur opacity-30 group-hover:opacity-50 transition duration-1000"
               style={{ background: "var(--gradient-primary)" }}
             />
-            <img
-              src={logo}
-              alt="KMS Creative"
-              className="relative z-10 rounded-2xl bg-card p-6 max-w-sm w-full"
+            <div
+              className="relative aspect-square md:aspect-[4/3] bg-card rounded-3xl overflow-hidden flex items-center justify-center border border-border"
               style={{ boxShadow: "var(--shadow-glow)" }}
-            />
+            >
+              <img src={logo} alt="KMS Creative" className="w-full h-full object-cover" />
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* SERVICES */}
-      <section id="services" className="py-24 px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-10">
-            <p className="text-xs uppercase tracking-[0.3em] text-primary mb-3">What I do</p>
-            <h2 className="font-serif text-4xl md:text-5xl tracking-tight">Services tailored to your brand</h2>
-            <p className="mt-4 text-sm text-muted-foreground">
+        {/* SERVICES */}
+        <section id="services" className="max-w-6xl mx-auto px-6 mb-32 md:mb-40">
+          <div className="text-center mb-16 md:mb-20">
+            <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-primary">What I do</span>
+            <h2 className="text-4xl md:text-5xl font-light mt-6 mb-4 tracking-tight">
+              Services tailored to your brand
+            </h2>
+            <p className="text-muted-foreground text-sm max-w-md mx-auto">
               Tap a card to read the full details — then hit{" "}
               <span className="text-primary font-medium">Order on Telegram</span> only when you're ready.
             </p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((s, i) => (
               <button
                 key={s.title}
                 type="button"
                 onClick={() => setOpenService(i)}
-                className="group relative text-left rounded-2xl border border-border bg-card p-7 hover:border-primary/50 hover:-translate-y-1 transition-[var(--transition-smooth)] cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="group relative text-left p-8 rounded-3xl bg-card/40 border border-border/60 hover:bg-card hover:border-primary/30 transition-[var(--transition-smooth)] cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/40"
               >
-                <span className="absolute top-3 right-3 inline-flex items-center gap-1 rounded-full bg-primary/10 text-primary text-[10px] uppercase tracking-widest px-2 py-1 border border-primary/20">
-                  <MousePointerClick className="h-3 w-3" />
-                  Tap for details
-                </span>
-                <div
-                  className="inline-flex h-12 w-12 items-center justify-center rounded-xl mb-5"
-                  style={{ background: "var(--gradient-primary)" }}
-                >
-                  <s.icon className="h-6 w-6 text-primary-foreground" />
+                <div className="flex justify-between items-start mb-10">
+                  <div
+                    className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary border border-primary/15 group-hover:scale-110 group-hover:bg-primary/20 transition-[var(--transition-smooth)]"
+                  >
+                    <s.icon className="h-6 w-6" />
+                  </div>
+                  <span className="inline-flex items-center gap-1 text-[9px] uppercase tracking-widest text-muted-foreground border border-border px-2.5 py-1 rounded-full group-hover:border-primary/30 group-hover:text-primary transition-colors">
+                    <MousePointerClick className="h-3 w-3" />
+                    Tap for details
+                  </span>
                 </div>
-                <h3 className="font-serif text-xl mb-2">{s.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
-                <p className="mt-4 text-xs uppercase tracking-widest text-primary opacity-70 group-hover:opacity-100 transition-opacity">Read first → Order after</p>
+                <h3 className="text-2xl font-light mb-3 tracking-tight">{s.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed mb-10">{s.desc}</p>
+                <div className="flex gap-3 text-[10px] font-bold uppercase tracking-widest items-center">
+                  <span className="text-primary opacity-70 group-hover:opacity-100 transition-opacity">Read First</span>
+                  <span className="text-muted-foreground/40">→</span>
+                  <span className="text-primary opacity-70 group-hover:opacity-100 transition-opacity">Order After</span>
+                </div>
               </button>
             ))}
           </div>
+        </section>
 
-        </div>
-      </section>
+        {/* CONTACT */}
+        <section id="contact" className="max-w-6xl mx-auto px-6 relative">
+          <div
+            className="absolute -bottom-40 right-0 w-[400px] h-[400px] rounded-full blur-[100px] pointer-events-none opacity-40"
+            style={{ background: "var(--gradient-primary)" }}
+          />
 
-      {/* CONTACT */}
-      <section id="contact" className="py-24 px-6 border-t border-border">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-xs uppercase tracking-[0.3em] text-primary mb-3">Contact us</p>
-          <h2 className="font-serif text-4xl md:text-5xl tracking-tight mb-4">
-            Have a project in mind?
-          </h2>
-          <p className="text-muted-foreground mb-12 max-w-xl mx-auto">
-            Reach out through any channel below — I'd love to hear about your idea.
-          </p>
+          <div className="relative text-center max-w-2xl mx-auto">
+            <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-primary">Contact us</span>
+            <h2 className="font-serif text-5xl md:text-7xl italic font-medium mt-6 mb-8 tracking-tight">
+              Have a project in mind?
+            </h2>
+            <p className="text-muted-foreground mb-16 text-lg">
+              Reach out through any channel below — I'd love to hear about your idea.
+            </p>
 
-          <div className="grid sm:grid-cols-3 gap-4">
-            <a
-              href="tel:+251978792495"
-              className="group rounded-2xl border border-border bg-card p-6 hover:border-primary/50 hover:-translate-y-1 transition-[var(--transition-smooth)]"
-            >
-              <Phone className="h-6 w-6 text-primary mx-auto mb-3" />
-              <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">Phone</p>
-              <p className="font-medium">+251 978 792 495</p>
-            </a>
-            <a
-              href="https://t.me/kalabms"
-              target="_blank"
-              rel="noreferrer"
-              className="group rounded-2xl border border-border bg-card p-6 hover:border-primary/50 hover:-translate-y-1 transition-[var(--transition-smooth)]"
-            >
-              <Send className="h-6 w-6 text-primary mx-auto mb-3" />
-              <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">Telegram</p>
-              <p className="font-medium">@kalabms</p>
-            </a>
-            <a
-              href="mailto:kalabcreative26@gmail.com"
-              className="group rounded-2xl border border-border bg-card p-6 hover:border-primary/50 hover:-translate-y-1 transition-[var(--transition-smooth)]"
-            >
-              <Mail className="h-6 w-6 text-primary mx-auto mb-3" />
-              <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">Email</p>
-              <p className="font-medium text-sm break-all">kalabcreative26@gmail.com</p>
-            </a>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <a
+                href="tel:+251978792495"
+                className="flex flex-col items-center p-10 rounded-3xl bg-card/40 border border-border/60 hover:bg-card hover:border-primary/30 transition-[var(--transition-smooth)] group"
+              >
+                <Phone className="h-9 w-9 text-primary mb-6 group-hover:scale-110 transition-transform" strokeWidth={1.25} />
+                <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground mb-2">Phone</span>
+                <span className="text-base md:text-lg font-medium tracking-tight">+251 978 792 495</span>
+              </a>
+
+              <a
+                href="https://t.me/kalabms"
+                target="_blank"
+                rel="noreferrer"
+                className="flex flex-col items-center p-10 rounded-3xl bg-card/40 border border-border/60 hover:bg-card hover:border-primary/30 transition-[var(--transition-smooth)] group"
+              >
+                <Send className="h-9 w-9 text-primary mb-6 group-hover:scale-110 transition-transform" strokeWidth={1.25} />
+                <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground mb-2">Telegram</span>
+                <span className="text-base md:text-lg font-medium tracking-tight">@kalabms</span>
+              </a>
+
+              <a
+                href="mailto:kalabcreative26@gmail.com"
+                className="flex flex-col items-center p-10 rounded-3xl bg-card/40 border border-border/60 hover:bg-card hover:border-primary/30 transition-[var(--transition-smooth)] group"
+              >
+                <Mail className="h-9 w-9 text-primary mb-6 group-hover:scale-110 transition-transform" strokeWidth={1.25} />
+                <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground mb-2">Email</span>
+                <span className="text-sm md:text-base font-medium tracking-tight break-all px-2">kalabcreative26@gmail.com</span>
+              </a>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
       {/* FOOTER */}
-      <footer className="border-t border-border py-8 px-6">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-          <div className="flex items-center gap-2">
-            <img src={logo} alt="" className="h-6 w-6 rounded object-cover" />
-            <span>© {new Date().getFullYear()} KMS Creative. All rights reserved.</span>
-          </div>
-          <p>Crafted with care by Kalab.</p>
+      <footer className="border-t border-border/60 py-16 mt-20">
+        <div className="max-w-6xl mx-auto px-6 flex flex-col items-center text-center">
+          <img src={logo} alt="" className="w-12 h-12 rounded-xl object-cover mb-8 shadow-2xl" />
+          <p className="text-muted-foreground text-sm mb-3 font-medium tracking-wide">
+            © {new Date().getFullYear()} KMS Creative. All rights reserved.
+          </p>
+          <p className="text-muted-foreground/60 text-[10px] uppercase tracking-[0.3em] font-bold">
+            Crafted with care by Kalab.
+          </p>
         </div>
       </footer>
 
