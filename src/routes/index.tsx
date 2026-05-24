@@ -173,65 +173,78 @@ function Index() {
           />
 
           <div className="relative flex flex-col items-center text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/5 text-primary text-[10px] uppercase tracking-[0.2em] font-bold mb-8">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-              <Sparkles className="h-3 w-3" />
-              Creative Studio
-            </div>
+            <Reveal>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/5 text-primary text-[10px] uppercase tracking-[0.2em] font-bold mb-8">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                <Sparkles className="h-3 w-3" />
+                Creative Studio
+              </div>
+            </Reveal>
 
-            <h1 className="text-5xl md:text-8xl font-light leading-[1.05] mb-8 tracking-tight">
-              Design that <span className="font-serif italic font-medium text-primary">speaks</span>.<br />
-              Stories that <span className="font-serif italic font-medium text-primary">stick</span>.
-            </h1>
+            <Reveal delay={100}>
+              <h1 className="text-5xl md:text-8xl font-light leading-[1.05] mb-8 tracking-tight">
+                Design that <span className="font-serif italic font-medium text-primary">speaks</span>.<br />
+                Stories that <span className="font-serif italic font-medium text-primary">stick</span>.
+              </h1>
+            </Reveal>
 
-            <p className="text-lg md:text-xl text-muted-foreground font-light leading-relaxed mb-10 max-w-xl">
-              I'm Kalab — founder of KMS Creative. I craft logos, graphic design, video edits, and QR menus that elevate brands.
-            </p>
+            <Reveal delay={250}>
+              <p className="text-lg md:text-xl text-muted-foreground font-light leading-relaxed mb-10 max-w-xl">
+                I'm Kalab — founder of KMS Creative. I craft logos, graphic design, video edits, and QR menus that elevate brands.
+              </p>
+            </Reveal>
 
-            <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-              <a
-                href="#services"
-                className="inline-flex items-center justify-center px-10 py-4 bg-primary hover:opacity-90 text-primary-foreground rounded-full font-semibold transition-[var(--transition-smooth)] active:scale-95"
-                style={{ boxShadow: "var(--shadow-elegant)" }}
-              >
-                Explore services
-              </a>
-              <a
-                href="#contact"
-                className="inline-flex items-center justify-center px-10 py-4 bg-card/40 hover:bg-accent border border-border rounded-full font-semibold transition-[var(--transition-smooth)] active:scale-95"
-              >
-                Start a project
-              </a>
-            </div>
+            <Reveal delay={400}>
+              <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                <a
+                  href="#services"
+                  className="inline-flex items-center justify-center px-10 py-4 bg-primary hover:opacity-90 hover:scale-[1.03] text-primary-foreground rounded-full font-semibold transition-[var(--transition-smooth)] active:scale-95"
+                  style={{ boxShadow: "var(--shadow-elegant)" }}
+                >
+                  Explore services
+                </a>
+                <a
+                  href="#contact"
+                  className="inline-flex items-center justify-center px-10 py-4 bg-card/40 hover:bg-accent hover:scale-[1.03] border border-border rounded-full font-semibold transition-[var(--transition-smooth)] active:scale-95"
+                >
+                  Start a project
+                </a>
+              </div>
+            </Reveal>
           </div>
 
           {/* Featured Image Card */}
-          <div className="mt-24 md:mt-32 relative max-w-2xl mx-auto group">
-            <div
-              className="absolute -inset-1 rounded-3xl blur opacity-30 group-hover:opacity-50 transition duration-1000"
-              style={{ background: "var(--gradient-primary)" }}
-            />
-            <div
-              className="relative aspect-square md:aspect-[4/3] bg-card rounded-3xl overflow-hidden flex items-center justify-center border border-border"
-              style={{ boxShadow: "var(--shadow-glow)" }}
-            >
-              <img src={logo} alt="KMS Creative" className="w-full h-full object-cover" />
+          <Reveal delay={500} className="mt-24 md:mt-32 max-w-2xl mx-auto">
+            <div className="relative group">
+              <div
+                className="absolute -inset-1 rounded-3xl blur opacity-30 group-hover:opacity-60 transition duration-1000"
+                style={{ background: "var(--gradient-primary)" }}
+              />
+              <div
+                className="relative aspect-square md:aspect-[4/3] bg-card rounded-3xl overflow-hidden flex items-center justify-center border border-border transition-transform duration-700 group-hover:scale-[1.02]"
+                style={{ boxShadow: "var(--shadow-glow)" }}
+              >
+                <img src={logo} alt="KMS Creative" className="w-full h-full object-cover" />
+              </div>
             </div>
-          </div>
+          </Reveal>
         </section>
 
         {/* SERVICES */}
         <section id="services" className="max-w-6xl mx-auto px-6 mb-32 md:mb-40">
-          <div className="text-center mb-16 md:mb-20">
-            <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-primary">What I do</span>
-            <h2 className="text-4xl md:text-5xl font-light mt-6 mb-4 tracking-tight">
-              Services tailored to your brand
-            </h2>
-            <p className="text-muted-foreground text-sm max-w-md mx-auto">
-              Tap a card to read the full details — then hit{" "}
-              <span className="text-primary font-medium">Order on Telegram</span> only when you're ready.
-            </p>
-          </div>
+          <Reveal>
+            <div className="text-center mb-16 md:mb-20">
+              <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-primary">What I do</span>
+              <h2 className="text-4xl md:text-5xl font-light mt-6 mb-4 tracking-tight">
+                Services tailored to your brand
+              </h2>
+              <p className="text-muted-foreground text-sm max-w-md mx-auto">
+                Tap a card to read the full details — then hit{" "}
+                <span className="text-primary font-medium">Order on Telegram</span> only when you're ready.
+              </p>
+            </div>
+          </Reveal>
+
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((s, i) => (
