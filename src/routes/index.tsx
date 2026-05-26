@@ -124,9 +124,9 @@ function Index() {
       className="relative min-h-screen text-foreground antialiased selection:bg-primary/30 overflow-hidden scroll-smooth"
       style={{
         background: `
-          radial-gradient(ellipse at 20% ${10 + t * 30}%, oklch(${0.28 + t * 0.08} ${0.16 + t * 0.06} 295 / ${0.55 + t * 0.25}), transparent 55%),
-          radial-gradient(ellipse at 80% ${90 - t * 20}%, oklch(${0.32 + t * 0.05} 0.2 280 / ${0.4 + t * 0.3}), transparent 60%),
-          linear-gradient(180deg, oklch(${0.08 - t * 0.02} 0.02 285), oklch(${0.06 + t * 0.04} ${0.04 + t * 0.05} 290))
+          radial-gradient(ellipse at 20% ${10 + t * 30}%, oklch(${0.34 + t * 0.05} ${0.2 + t * 0.04} 295 / ${0.75 + t * 0.2}), transparent 55%),
+          radial-gradient(ellipse at 80% ${90 - t * 20}%, oklch(${0.36 + t * 0.04} 0.22 285 / ${0.65 + t * 0.25}), transparent 60%),
+          linear-gradient(180deg, oklch(${0.2 + t * 0.02} ${0.14 + t * 0.02} 290), oklch(${0.15 + t * 0.04} ${0.16 + t * 0.02} 290))
         `,
         transition: "background 0.6s ease-out",
       }}
