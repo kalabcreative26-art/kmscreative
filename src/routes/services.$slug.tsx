@@ -34,7 +34,7 @@ export const Route = createFileRoute("/services/$slug")({
 });
 
 function ServicePage() {
-  const { service } = Route.useLoaderData();
+  const { service } = Route.useLoaderData() as { service: import("@/lib/services").Service };
   const Icon = service.icon;
   const otherServices = services.filter((s) => s.slug !== service.slug).slice(0, 3);
 
