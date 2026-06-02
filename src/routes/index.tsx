@@ -124,21 +124,21 @@ function Index() {
       className="relative min-h-screen text-foreground antialiased selection:bg-primary/30 overflow-hidden scroll-smooth"
       style={{
         background: `
-          radial-gradient(ellipse at 20% ${10 + t * 30}%, oklch(${0.34 + t * 0.05} ${0.2 + t * 0.04} 295 / ${0.75 + t * 0.2}), transparent 55%),
-          radial-gradient(ellipse at 80% ${90 - t * 20}%, oklch(${0.36 + t * 0.04} 0.22 285 / ${0.65 + t * 0.25}), transparent 60%),
-          linear-gradient(180deg, oklch(${0.2 + t * 0.02} ${0.14 + t * 0.02} 290), oklch(${0.15 + t * 0.04} ${0.16 + t * 0.02} 290))
+          radial-gradient(ellipse at 20% ${10 + t * 30}%, oklch(0.18 0.02 285 / ${0.55 + t * 0.15}), transparent 55%),
+          radial-gradient(ellipse at 80% ${90 - t * 20}%, oklch(0.16 0.018 280 / ${0.5 + t * 0.2}), transparent 60%),
+          linear-gradient(180deg, oklch(0.05 0.005 280), oklch(0.03 0.004 280))
         `,
         transition: "background 0.6s ease-out",
       }}
     >
-      {/* floating orbs */}
+      {/* subtle ambient glow orbs */}
       <div
-        className="pointer-events-none fixed top-1/4 -left-32 w-[420px] h-[420px] rounded-full blur-[140px] opacity-50 animate-pulse"
-        style={{ background: "var(--gradient-primary)", animationDuration: "6s" }}
+        className="pointer-events-none fixed top-1/4 -left-32 w-[420px] h-[420px] rounded-full blur-[140px] opacity-20 animate-pulse"
+        style={{ background: "oklch(0.32 0.05 280)", animationDuration: "6s" }}
       />
       <div
-        className="pointer-events-none fixed bottom-1/4 -right-32 w-[480px] h-[480px] rounded-full blur-[160px] opacity-40 animate-pulse"
-        style={{ background: "var(--gradient-primary)", animationDuration: "8s", animationDelay: "1s" }}
+        className="pointer-events-none fixed bottom-1/4 -right-32 w-[480px] h-[480px] rounded-full blur-[160px] opacity-15 animate-pulse"
+        style={{ background: "oklch(0.32 0.05 280)", animationDuration: "8s", animationDelay: "1s" }}
       />
 
 
