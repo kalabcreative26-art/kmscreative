@@ -1,10 +1,21 @@
 import { Link } from "@tanstack/react-router";
-import { Sparkles, Send } from "lucide-react";
-import type { ReactNode } from "react";
+import { Sparkles, Send, LogIn, LayoutDashboard } from "lucide-react";
+import { useEffect, useState, type ReactNode } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 export const TELEGRAM_URL = "https://t.me/kalabms";
 
 export function SiteNav() {
+  const [signedIn, setSignedIn] = useState(false);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => setSignedIn(!!data.session));
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
+      setSignedIn(!!session);
+    });
+    return () => sub.subscription.unsubscribe();
+  }, []);
+
   return (
     <header className="fixed top-0 inset-x-0 z-50 border-b border-border/40 bg-background/70 backdrop-blur-xl">
       <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -21,15 +32,35 @@ export function SiteNav() {
           <Link to="/about" className="hover:text-primary transition-colors" activeProps={{ className: "text-primary" }}>About</Link>
           <a href="/#services" className="hover:text-primary transition-colors">Services</a>
         </div>
-        <a
-          href={TELEGRAM_URL}
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex items-center gap-2 rounded-full border border-primary/40 px-4 py-1.5 text-xs uppercase tracking-[0.15em] text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
-        >
-          <Send className="h-3 w-3" />
-          Get Started
-        </a>
+        <div className="flex items-center gap-2">
+          {signedIn ? (
+            <Link
+              to="/dashboard"
+              className="inline-flex items-center gap-2 rounded-full border border-primary/40 px-4 py-1.5 text-xs uppercase tracking-[0.15em] text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+            >
+              <LayoutDashboard className="h-3 w-3" />
+              Dashboard
+            </Link>
+          ) : (
+            <Link
+              to="/auth"
+              className="inline-flex items-center gap-2 rounded-full border border-primary/40 px-4 py-1.5 text-xs uppercase tracking-[0.15em] text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+            >
+              <LogIn className="h-3 w-3" />
+              Client Login
+            </Link>
+          )}
+          <a
+            href={TELEGRAM_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="hidden sm:inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs uppercase tracking-[0.15em] text-primary-foreground transition-transform hover:scale-[1.02]"
+            style={{ background: "var(--gradient-primary)" }}
+          >
+            <Send className="h-3 w-3" />
+            Inquire
+          </a>
+        </div>
       </nav>
     </header>
   );
