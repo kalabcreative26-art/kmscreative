@@ -16,7 +16,7 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
 });
 
 type Profile = { display_name: string | null; avatar_url: string | null };
-type Project = { id: string; title: string; description: string | null; status: string; progress: number; updated_at: string };
+type Project = { id: string; project_name: string; description: string | null; status: string; progress: number; due_date: string | null; client_email: string; updated_at: string };
 type Message = { id: string; subject: string; body: string; read: boolean; created_at: string };
 
 function Dashboard() {
@@ -31,11 +31,12 @@ function Dashboard() {
     (async () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
-      setEmail(user.email ?? "");
+      const userEmail = user.email ?? "";
+      setEmail(userEmail);
 
       const [{ data: p }, { data: pr }, { data: ms }] = await Promise.all([
         supabase.from("profiles").select("display_name, avatar_url").eq("id", user.id).maybeSingle(),
-        supabase.from("projects").select("*").eq("user_id", user.id).order("updated_at", { ascending: false }),
+        supabase.from("projects").select("*").ilike("client_email", userEmail).order("due_date", { ascending: true, nullsFirst: false }),
         supabase.from("messages").select("*").eq("user_id", user.id).order("created_at", { ascending: false }),
       ]);
       setProfile(p as Profile | null);
@@ -63,7 +64,7 @@ function Dashboard() {
     if (h < 18) return "Good afternoon";
     return "Good evening";
   })();
-  const activeCount = projects.filter((p) => p.status !== "completed").length;
+  const activeCount = projects.filter((p) => p.status !== "Completed").length;
   const unreadCount = messages.filter((m) => !m.read).length;
 
   return (
@@ -107,7 +108,7 @@ function Dashboard() {
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-12">
           <StatCard icon={<Folder className="h-4 w-4" />} label="Active projects" value={activeCount} />
           <StatCard icon={<Mail className="h-4 w-4" />} label="Unread messages" value={unreadCount} />
-          <StatCard icon={<CheckCircle2 className="h-4 w-4" />} label="Completed" value={projects.filter((p) => p.status === "completed").length} />
+          <StatCard icon={<CheckCircle2 className="h-4 w-4" />} label="Completed" value={projects.filter((p) => p.status === "Completed").length} />
         </div>
 
         {/* Active Projects */}
@@ -234,22 +235,21 @@ function SectionHeader({ eyebrow, title, right }: { eyebrow: string; title: stri
 }
 
 function ProjectRow({ project }: { project: Project }) {
-  const statusLabel = project.status.replace("_", " ");
   return (
     <div className="group rounded-xl border border-border bg-card/40 p-5 hover:border-primary/40 transition-colors" style={{ boxShadow: "var(--shadow-elegant)" }}>
       <div className="flex items-start justify-between gap-4">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-[10px] uppercase tracking-[0.25em] text-primary">{statusLabel}</span>
+            <span className="text-[10px] uppercase tracking-[0.25em] text-primary">{project.status}</span>
           </div>
-          <h3 className="text-lg font-medium truncate">{project.title}</h3>
+          <h3 className="text-lg font-medium truncate">{project.project_name}</h3>
           {project.description && (
             <p className="text-sm text-muted-foreground font-light mt-1 line-clamp-2">{project.description}</p>
           )}
         </div>
         <span className="text-xs text-muted-foreground/70 inline-flex items-center gap-1 shrink-0">
           <Clock className="h-3 w-3" />
-          {formatDate(project.updated_at)}
+          {project.due_date ? `Due ${new Date(project.due_date).toLocaleDateString()}` : formatDate(project.updated_at)}
         </span>
       </div>
       <div className="mt-4">
