@@ -64,7 +64,7 @@ function Dashboard() {
     if (h < 18) return "Good afternoon";
     return "Good evening";
   })();
-  const activeCount = projects.filter((p) => p.status !== "completed").length;
+  const activeCount = projects.filter((p) => p.status !== "Completed").length;
   const unreadCount = messages.filter((m) => !m.read).length;
 
   return (
