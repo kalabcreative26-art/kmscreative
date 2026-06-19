@@ -108,7 +108,7 @@ function Dashboard() {
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-12">
           <StatCard icon={<Folder className="h-4 w-4" />} label="Active projects" value={activeCount} />
           <StatCard icon={<Mail className="h-4 w-4" />} label="Unread messages" value={unreadCount} />
-          <StatCard icon={<CheckCircle2 className="h-4 w-4" />} label="Completed" value={projects.filter((p) => p.status === "completed").length} />
+          <StatCard icon={<CheckCircle2 className="h-4 w-4" />} label="Completed" value={projects.filter((p) => p.status === "Completed").length} />
         </div>
 
         {/* Active Projects */}
