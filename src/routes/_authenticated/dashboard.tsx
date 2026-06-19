@@ -16,7 +16,7 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
 });
 
 type Profile = { display_name: string | null; avatar_url: string | null };
-type Project = { id: string; title: string; description: string | null; status: string; progress: number; updated_at: string };
+type Project = { id: string; project_name: string; description: string | null; status: string; progress: number; due_date: string | null; client_email: string; updated_at: string };
 type Message = { id: string; subject: string; body: string; read: boolean; created_at: string };
 
 function Dashboard() {
@@ -31,11 +31,12 @@ function Dashboard() {
     (async () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
-      setEmail(user.email ?? "");
+      const userEmail = user.email ?? "";
+      setEmail(userEmail);
 
       const [{ data: p }, { data: pr }, { data: ms }] = await Promise.all([
         supabase.from("profiles").select("display_name, avatar_url").eq("id", user.id).maybeSingle(),
-        supabase.from("projects").select("*").eq("user_id", user.id).order("updated_at", { ascending: false }),
+        supabase.from("projects").select("*").ilike("client_email", userEmail).order("due_date", { ascending: true, nullsFirst: false }),
         supabase.from("messages").select("*").eq("user_id", user.id).order("created_at", { ascending: false }),
       ]);
       setProfile(p as Profile | null);
