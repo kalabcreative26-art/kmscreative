@@ -201,8 +201,8 @@ function Home() {
         geo,
         new THREE.MeshBasicMaterial({ color: 0xc084fc, wireframe: true, transparent: true, opacity: 0.3 }),
       );
-      mesh.position.set(...d.pos);
-      wire.position.set(...d.pos);
+      mesh.position.set(d.pos[0], d.pos[1], d.pos[2]);
+      wire.position.set(d.pos[0], d.pos[1], d.pos[2]);
       mesh.userData = d;
       wire.userData = d;
       icoGroup.add(mesh, wire);
