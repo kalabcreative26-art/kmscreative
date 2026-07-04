@@ -8,13 +8,12 @@ import {
   Send,
   Sun,
   Moon,
-  Menu,
-  X,
   Sparkles,
 } from "lucide-react";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { ShaderBackground } from "@/components/ShaderBackground";
+import { GlassArtefact } from "@/components/GlassArtefact";
 import { useTheme } from "@/hooks/use-theme";
 
 export const TELEGRAM_URL = "https://t.me/kalabms";
@@ -40,29 +39,9 @@ function useSignedIn() {
 }
 
 export function SiteNav() {
-  const [expanded, setExpanded] = useState(false);
   const { theme, toggle: toggleTheme } = useTheme();
   const signedIn = useSignedIn();
-  const rootRef = useRef<HTMLDivElement>(null);
   const location = useRouterState({ select: (s) => s.location.pathname });
-
-  // Collapse on outside click / esc
-  useEffect(() => {
-    if (!expanded) return;
-    const onDown = (e: MouseEvent) => {
-      if (!rootRef.current?.contains(e.target as Node)) setExpanded(false);
-    };
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setExpanded(false); };
-    document.addEventListener("mousedown", onDown);
-    document.addEventListener("keydown", onKey);
-    return () => {
-      document.removeEventListener("mousedown", onDown);
-      document.removeEventListener("keydown", onKey);
-    };
-  }, [expanded]);
-
-  // Collapse on route change
-  useEffect(() => { setExpanded(false); }, [location]);
 
   const items: NavItem[] = [
     { to: "/", label: "Home", icon: Home, exact: true },
@@ -74,65 +53,59 @@ export function SiteNav() {
   ];
 
   return (
-    <div ref={rootRef} className="fixed top-4 inset-x-0 z-50 flex justify-center px-3">
+    <div className="fixed top-4 inset-x-0 z-50 flex justify-center px-3">
       <div
-        className={`glass glass-specular relative flex items-center rounded-full overflow-hidden gap-1 pl-3 pr-2 py-2 transition-[width] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-          expanded ? "w-[min(96vw,780px)]" : "w-[min(96vw,360px)] md:w-[min(96vw,780px)]"
-        }`}
+        className="glass glass-specular relative flex items-center gap-1 pl-3 pr-2 py-2 rounded-full w-[min(96vw,860px)]"
         style={{ borderRadius: 9999 }}
       >
-        {/* Logo */}
         <Link to="/" className="relative z-10 flex items-center gap-2 shrink-0 pr-2">
           <div
             className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
-            style={{ background: "var(--gradient-primary)", boxShadow: "var(--shadow-glow), inset 0 1px 0 rgba(255,255,255,0.4)" }}
+            style={{
+              background: "var(--gradient-primary)",
+              boxShadow: "var(--shadow-glow), inset 0 1px 0 rgba(255,255,255,0.4)",
+            }}
           >
             <Sparkles className="h-4 w-4 text-white" />
           </div>
-          <span className="hidden sm:inline text-[11px] font-semibold tracking-[0.22em] uppercase whitespace-nowrap">
+          <span className="hidden md:inline text-[11px] font-semibold tracking-[0.22em] uppercase whitespace-nowrap">
             KMs<span className="text-primary">·</span>Creative
           </span>
         </Link>
 
-        {/* Nav items — always visible on md+, toggle on mobile */}
-        <div
-          className={`relative z-10 flex items-center gap-1 flex-1 min-w-0 md:flex ${
-            expanded ? "flex" : "hidden"
-          }`}
-        >
+        <div className="relative z-10 flex items-center gap-1 flex-1 min-w-0 overflow-x-auto no-scrollbar">
           {items.map((it) => {
             const Icon = it.icon;
             const active =
               !it.hash &&
               (it.exact ? location === it.to : location.startsWith(it.to));
-            const base = `group relative flex items-center justify-center gap-1.5 flex-1 min-w-0 px-3 py-2 rounded-full text-[11px] font-semibold uppercase tracking-[0.14em] transition-all ${
+            const base = `flex items-center justify-center gap-1.5 shrink-0 px-3 py-2 rounded-full text-[11px] font-semibold uppercase tracking-[0.14em] transition-all ${
               active
-                ? "text-primary-foreground"
-                : "text-foreground/80 hover:text-foreground hover:bg-white/5"
+                ? "text-white"
+                : "text-foreground/85 hover:text-foreground hover:bg-white/5"
             }`;
-            const activeBg = active
+            const activeStyle = active
               ? { background: "var(--gradient-primary)", boxShadow: "var(--shadow-glow)" }
               : undefined;
             return it.hash ? (
-              <a key={it.to} href={it.to} className={base} style={activeBg}>
+              <a key={it.to} href={it.to} className={base} style={activeStyle}>
                 <Icon className="h-3.5 w-3.5" />
-                <span className="truncate">{it.label}</span>
+                <span>{it.label}</span>
               </a>
             ) : (
-              <Link key={it.to} to={it.to} className={base} style={activeBg}>
+              <Link key={it.to} to={it.to} className={base} style={activeStyle}>
                 <Icon className="h-3.5 w-3.5" />
-                <span className="truncate">{it.label}</span>
+                <span>{it.label}</span>
               </Link>
             );
           })}
         </div>
 
-        {/* Right cluster */}
         <div className="relative z-10 flex items-center gap-1.5 shrink-0 ml-auto">
           <button
             onClick={toggleTheme}
             aria-label="Toggle theme"
-            className="grid place-items-center w-9 h-9 rounded-full text-foreground/80 hover:text-primary transition-colors"
+            className="grid place-items-center w-9 h-9 rounded-full text-foreground/85 hover:text-primary transition-colors"
           >
             {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </button>
@@ -146,18 +119,6 @@ export function SiteNav() {
             <Send className="h-3 w-3" />
             Inquire
           </a>
-          <button
-            onClick={() => setExpanded((v) => !v)}
-            aria-label={expanded ? "Collapse menu" : "Expand menu"}
-            aria-expanded={expanded}
-            className="md:hidden grid place-items-center w-9 h-9 rounded-full text-foreground hover:text-primary transition-all"
-            style={{ background: "var(--glass-tint-strong)" }}
-          >
-            <div className="relative w-4 h-4">
-              <Menu className={`h-4 w-4 absolute inset-0 transition-all duration-300 ${expanded ? "opacity-0 rotate-90" : "opacity-100 rotate-0"}`} />
-              <X className={`h-4 w-4 absolute inset-0 transition-all duration-300 ${expanded ? "opacity-100 rotate-0" : "opacity-0 -rotate-90"}`} />
-            </div>
-          </button>
         </div>
       </div>
     </div>
@@ -178,7 +139,12 @@ export function SiteFooter() {
 }
 
 export function PageBackground() {
-  return <ShaderBackground />;
+  return (
+    <>
+      <ShaderBackground />
+      <GlassArtefact />
+    </>
+  );
 }
 
 export function PageShell({ children }: { children: ReactNode }) {
