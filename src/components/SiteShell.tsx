@@ -89,7 +89,7 @@ export function SiteNav() {
           >
             <Sparkles className="h-4 w-4 text-white" />
           </div>
-          <span className="text-[11px] font-semibold tracking-[0.22em] uppercase whitespace-nowrap">
+          <span className="hidden sm:inline text-[11px] font-semibold tracking-[0.22em] uppercase whitespace-nowrap">
             KMs<span className="text-primary">·</span>Creative
           </span>
         </Link>
