@@ -76,28 +76,28 @@ export function SiteNav() {
   return (
     <div ref={rootRef} className="fixed top-4 inset-x-0 z-50 flex justify-center px-3">
       <div
-        className={`glass glass-specular relative flex items-center rounded-full transition-[width,padding,gap] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] overflow-hidden ${
-          expanded ? "gap-1 pl-3 pr-2 py-2 w-[min(96vw,780px)]" : "gap-2 pl-3 pr-2 py-2 w-[min(96vw,340px)]"
+        className={`glass glass-specular relative flex items-center rounded-full overflow-hidden gap-1 pl-3 pr-2 py-2 transition-[width] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          expanded ? "w-[min(96vw,780px)]" : "w-[min(96vw,360px)] md:w-[min(96vw,780px)]"
         }`}
         style={{ borderRadius: 9999 }}
       >
         {/* Logo */}
         <Link to="/" className="relative z-10 flex items-center gap-2 shrink-0 pr-2">
           <div
-            className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 shadow-inner"
+            className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
             style={{ background: "var(--gradient-primary)", boxShadow: "var(--shadow-glow), inset 0 1px 0 rgba(255,255,255,0.4)" }}
           >
             <Sparkles className="h-4 w-4 text-white" />
           </div>
-          <span className="hidden sm:inline text-[11px] font-semibold tracking-[0.22em] uppercase whitespace-nowrap">
+          <span className="text-[11px] font-semibold tracking-[0.22em] uppercase whitespace-nowrap">
             KMs<span className="text-primary">·</span>Creative
           </span>
         </Link>
 
-        {/* Expanded items */}
+        {/* Nav items — always visible on md+, toggle on mobile */}
         <div
-          className={`relative z-10 flex items-center gap-1 flex-1 min-w-0 transition-all duration-500 ${
-            expanded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4 pointer-events-none absolute"
+          className={`relative z-10 flex items-center gap-1 flex-1 min-w-0 md:flex ${
+            expanded ? "flex" : "hidden"
           }`}
         >
           {items.map((it) => {
@@ -105,55 +105,37 @@ export function SiteNav() {
             const active =
               !it.hash &&
               (it.exact ? location === it.to : location.startsWith(it.to));
+            const base = `group relative flex items-center justify-center gap-1.5 flex-1 min-w-0 px-3 py-2 rounded-full text-[11px] font-semibold uppercase tracking-[0.14em] transition-all ${
+              active
+                ? "text-primary-foreground"
+                : "text-foreground/80 hover:text-foreground hover:bg-white/5"
+            }`;
+            const activeBg = active
+              ? { background: "var(--gradient-primary)", boxShadow: "var(--shadow-glow)" }
+              : undefined;
             return it.hash ? (
-              <a
-                key={it.to}
-                href={it.to}
-                className={`group flex flex-col items-center justify-center gap-0.5 flex-1 min-w-0 px-2 py-1.5 rounded-2xl text-[10px] font-semibold uppercase tracking-[0.12em] transition-colors ${
-                  active ? "text-primary" : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                <Icon className="h-4 w-4" />
+              <a key={it.to} href={it.to} className={base} style={activeBg}>
+                <Icon className="h-3.5 w-3.5" />
                 <span className="truncate">{it.label}</span>
               </a>
             ) : (
-              <Link
-                key={it.to}
-                to={it.to}
-                className={`group flex flex-col items-center justify-center gap-0.5 flex-1 min-w-0 px-2 py-1.5 rounded-2xl text-[10px] font-semibold uppercase tracking-[0.12em] transition-colors ${
-                  active ? "text-primary" : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                <Icon className="h-4 w-4" />
+              <Link key={it.to} to={it.to} className={base} style={activeBg}>
+                <Icon className="h-3.5 w-3.5" />
                 <span className="truncate">{it.label}</span>
-                {active && (
-                  <span className="mt-0.5 h-[2px] w-4 rounded-full bg-primary" />
-                )}
               </Link>
             );
           })}
-
-          <button
-            onClick={toggleTheme}
-            aria-label="Toggle theme"
-            className="flex flex-col items-center justify-center gap-0.5 px-2 py-1.5 rounded-2xl text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground hover:text-foreground transition-colors"
-          >
-            {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-            <span className="truncate">{theme === "dark" ? "Light" : "Dark"}</span>
-          </button>
         </div>
 
         {/* Right cluster */}
         <div className="relative z-10 flex items-center gap-1.5 shrink-0 ml-auto">
-          {!expanded && (
-            <button
-              onClick={toggleTheme}
-              aria-label="Toggle theme"
-              className="hidden sm:grid place-items-center w-9 h-9 rounded-full text-foreground/80 hover:text-primary transition-colors"
-            >
-              {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-            </button>
-          )}
+          <button
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+            className="grid place-items-center w-9 h-9 rounded-full text-foreground/80 hover:text-primary transition-colors"
+          >
+            {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          </button>
           <a
             href={TELEGRAM_URL}
             target="_blank"
@@ -168,7 +150,7 @@ export function SiteNav() {
             onClick={() => setExpanded((v) => !v)}
             aria-label={expanded ? "Collapse menu" : "Expand menu"}
             aria-expanded={expanded}
-            className="grid place-items-center w-9 h-9 rounded-full text-foreground hover:text-primary transition-all"
+            className="md:hidden grid place-items-center w-9 h-9 rounded-full text-foreground hover:text-primary transition-all"
             style={{ background: "var(--glass-tint-strong)" }}
           >
             <div className="relative w-4 h-4">
