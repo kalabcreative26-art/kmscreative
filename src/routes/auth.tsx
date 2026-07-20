@@ -233,7 +233,7 @@ function AuthPage() {
                     <input
                       ref={fileRef}
                       type="file"
-                      accept="image/*"
+                      accept="image/jpeg,image/png,image/webp,image/gif"
                       className="hidden"
                       onChange={(e) => onPick(e.target.files?.[0] ?? null)}
                     />
