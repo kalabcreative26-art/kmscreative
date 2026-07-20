@@ -76,13 +76,13 @@ function parseVec3(v: string, fallback: [number, number, number]): [number, numb
   return fallback;
 }
 
-export function ShaderBackground() {
+export function ShaderBackground({ lowPower = false }: { lowPower?: boolean }) {
   const ref = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const canvas = ref.current;
     if (!canvas) return;
-    const gl = canvas.getContext("webgl", { antialias: false, premultipliedAlpha: false });
+    const gl = canvas.getContext("webgl", { antialias: false, premultipliedAlpha: false, powerPreference: lowPower ? "low-power" : "default" });
     if (!gl) return;
 
     const compile = (type: number, src: string) => {
@@ -134,7 +134,8 @@ export function ShaderBackground() {
     window.addEventListener("pointermove", onMove, { passive: true });
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      const cap = lowPower ? 0.75 : 1.5;
+      const dpr = Math.min(window.devicePixelRatio || 1, cap);
       canvas.width = Math.floor(window.innerWidth * dpr);
       canvas.height = Math.floor(window.innerHeight * dpr);
       canvas.style.width = "100%";
@@ -143,6 +144,10 @@ export function ShaderBackground() {
     };
     resize();
     window.addEventListener("resize", resize);
+
+    // Throttle to ~30fps on low-power devices
+    const frameInterval = lowPower ? 1000 / 30 : 0;
+    let lastFrame = 0;
 
     const readTheme = () => {
       const s = getComputedStyle(document.documentElement);
@@ -163,7 +168,11 @@ export function ShaderBackground() {
 
     const loop = () => {
       if (!running) return;
-      const t = (performance.now() - start) / 1000;
+      raf = requestAnimationFrame(loop);
+      const now = performance.now();
+      if (frameInterval && now - lastFrame < frameInterval) return;
+      lastFrame = now;
+      const t = (now - start) / 1000;
       gl.uniform2f(uRes, canvas.width, canvas.height);
       gl.uniform1f(uTime, t);
       gl.uniform2f(uMouse, mouse.x || canvas.width * 0.5, mouse.y || canvas.height * 0.5);
@@ -172,7 +181,6 @@ export function ShaderBackground() {
       gl.uniform3f(uC, theme.c[0], theme.c[1], theme.c[2]);
       gl.uniform3f(uBg, theme.bg[0], theme.bg[1], theme.bg[2]);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-      raf = requestAnimationFrame(loop);
     };
     loop();
 
