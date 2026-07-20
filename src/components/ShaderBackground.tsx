@@ -203,7 +203,7 @@ export function ShaderBackground({ lowPower = false }: { lowPower?: boolean }) {
       document.removeEventListener("visibilitychange", onVis);
       obs.disconnect();
     };
-  }, []);
+  }, [lowPower]);
 
   return (
     <>
