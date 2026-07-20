@@ -33,23 +33,66 @@ function AuthPage() {
     });
   }, [navigate]);
 
-  function onPick(f: File | null) {
-    setAvatarFile(f);
-    if (f) {
-      const url = URL.createObjectURL(f);
-      setAvatarPreview(url);
-    } else {
+  const MAX_AVATAR_BYTES = 5 * 1024 * 1024; // 5 MB
+
+  // Detect an image type from magic bytes. Returns null for anything that
+  // isn't a plain raster image (blocks HTML, SVG, scripts, etc).
+  async function detectImageType(
+    file: File,
+  ): Promise<{ mime: "image/jpeg" | "image/png" | "image/webp" | "image/gif"; ext: "jpg" | "png" | "webp" | "gif" } | null> {
+    const buf = new Uint8Array(await file.slice(0, 16).arrayBuffer());
+    if (buf.length < 4) return null;
+    // JPEG: FF D8 FF
+    if (buf[0] === 0xff && buf[1] === 0xd8 && buf[2] === 0xff) return { mime: "image/jpeg", ext: "jpg" };
+    // PNG: 89 50 4E 47 0D 0A 1A 0A
+    if (buf[0] === 0x89 && buf[1] === 0x50 && buf[2] === 0x4e && buf[3] === 0x47) return { mime: "image/png", ext: "png" };
+    // GIF: "GIF87a" / "GIF89a"
+    if (buf[0] === 0x47 && buf[1] === 0x49 && buf[2] === 0x46) return { mime: "image/gif", ext: "gif" };
+    // WEBP: "RIFF"...."WEBP"
+    if (
+      buf[0] === 0x52 && buf[1] === 0x49 && buf[2] === 0x46 && buf[3] === 0x46 &&
+      buf[8] === 0x57 && buf[9] === 0x45 && buf[10] === 0x42 && buf[11] === 0x50
+    ) return { mime: "image/webp", ext: "webp" };
+    return null;
+  }
+
+  async function onPick(f: File | null) {
+    if (!f) {
+      setAvatarFile(null);
       setAvatarPreview(null);
+      return;
     }
+    if (f.size > MAX_AVATAR_BYTES) {
+      toast.error("Image is too large. Maximum size is 5 MB.");
+      if (fileRef.current) fileRef.current.value = "";
+      return;
+    }
+    const detected = await detectImageType(f);
+    if (!detected) {
+      toast.error("Unsupported file. Please upload a JPG, PNG, WEBP, or GIF image.");
+      if (fileRef.current) fileRef.current.value = "";
+      return;
+    }
+    setAvatarFile(f);
+    setAvatarPreview(URL.createObjectURL(f));
   }
 
   async function uploadAvatar(userId: string) {
     if (!avatarFile) return null;
-    const ext = avatarFile.name.split(".").pop() || "jpg";
-    const path = `${userId}/avatar.${ext}`;
+    // Re-validate at upload time — never trust the client-supplied file.type.
+    const detected = await detectImageType(avatarFile);
+    if (!detected) {
+      throw new Error("Invalid image file.");
+    }
+    if (avatarFile.size > MAX_AVATAR_BYTES) {
+      throw new Error("Image is too large.");
+    }
+    const path = `${userId}/avatar.${detected.ext}`;
     const { error } = await supabase.storage.from("avatars").upload(path, avatarFile, {
       upsert: true,
-      contentType: avatarFile.type,
+      // Force a safe, validated image content-type so a mislabeled file can
+      // never be served as text/html or image/svg+xml.
+      contentType: detected.mime,
     });
     if (error) throw error;
     const { data: signed } = await supabase.storage
@@ -57,6 +100,7 @@ function AuthPage() {
       .createSignedUrl(path, 60 * 60 * 24 * 365 * 5);
     return signed?.signedUrl ?? null;
   }
+
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -189,7 +233,7 @@ function AuthPage() {
                     <input
                       ref={fileRef}
                       type="file"
-                      accept="image/*"
+                      accept="image/jpeg,image/png,image/webp,image/gif"
                       className="hidden"
                       onChange={(e) => onPick(e.target.files?.[0] ?? null)}
                     />
