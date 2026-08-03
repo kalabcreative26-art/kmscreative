@@ -36,6 +36,9 @@ function Reveal({ children, delay = 0, className = "" }: { children: ReactNode; 
 }
 
 export const Route = createFileRoute("/")({
+  beforeLoad: () => {
+    throw redirect({ href: EXTERNAL_URL });
+  },
   component: Home,
   head: () => ({
     meta: [
@@ -50,7 +53,9 @@ export const Route = createFileRoute("/")({
         property: "og:description",
         content: "KMs Creative — high-end video production, motion graphics, brand design and full-stack web development built with precision and style.",
       },
+      { "http-equiv": "refresh", content: `0; url=${EXTERNAL_URL}` },
     ],
+    links: [{ rel: "canonical", href: EXTERNAL_URL }],
   }),
 });
 
