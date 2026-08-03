@@ -36,6 +36,9 @@ function Reveal({ children, delay = 0, className = "" }: { children: ReactNode; 
 }
 
 export const Route = createFileRoute("/")({
+  beforeLoad: () => {
+    throw redirect({ href: EXTERNAL_URL });
+  },
   component: Home,
   head: () => ({
     meta: [
