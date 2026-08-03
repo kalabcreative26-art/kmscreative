@@ -55,7 +55,6 @@ export const Route = createFileRoute("/")({
 function Home() {
   return (
     <PageShell>
-      <style>{`#lovable-badge, [id*='lovable-badge'], a[href*='lovable.dev'], a[href*='lovable.app'] { display: none !important; }`}</style>
       {/* HERO */}
       <section className="max-w-6xl mx-auto px-6 pt-16 pb-32 md:pt-24 md:pb-40">
         <Reveal>
