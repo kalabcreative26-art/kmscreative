@@ -58,6 +58,9 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
+  useEffect(() => {
+    window.location.replace(EXTERNAL_URL);
+  }, []);
   return (
     <PageShell>
       {/* HERO */}
