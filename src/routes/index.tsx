@@ -46,7 +46,7 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "KMs Creative — Crafting Digital Excellence" },
       {
         property: "og:description",
-        content: "Video, motion, design and web development. One studio. Premium results.",
+        content: "KMs Creative — high-end video production, motion graphics, brand design and full-stack web development built with precision and style.",
       },
     ],
   }),
