@@ -102,18 +102,16 @@ export function SiteNav() {
           className="glass glass-specular relative flex items-center gap-1 pl-3 pr-2 py-2"
           style={{ borderRadius: 9999 }}
         >
-          <Link to="/" className="relative z-10 flex items-center gap-2 shrink-0 pr-2">
-            <div
-              className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
-              style={{
-                background: "var(--gradient-primary)",
-                boxShadow: "var(--shadow-glow), inset 0 1px 0 rgba(255,255,255,0.4)",
-              }}
+          <Link to="/" className="relative z-10 flex items-center gap-2 shrink-0 pr-2" aria-label="KMS Creative home">
+            <span
+              className="grid place-items-center h-9 rounded-full px-2.5 shrink-0 bg-white"
+              style={{ boxShadow: "var(--shadow-glow), inset 0 1px 0 rgba(255,255,255,0.4)" }}
             >
-              <Sparkles className="h-4 w-4 text-white" />
-            </div>
-            <span className="text-[11px] font-semibold tracking-[0.22em] uppercase whitespace-nowrap">
-              KMS<span className="text-primary">·</span>Creative
+              <img
+                src={kmsLogo.url}
+                alt="KMS Creative logo"
+                className="h-5 w-auto object-contain"
+              />
             </span>
           </Link>
 
