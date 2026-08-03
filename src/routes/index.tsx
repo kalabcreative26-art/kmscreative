@@ -1,8 +1,10 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { ArrowRight, Send } from "lucide-react";
 import { PageShell, TELEGRAM_URL } from "@/components/SiteShell";
 import { services } from "@/lib/services";
+
+const EXTERNAL_URL = "https://kmscreative.vercel.app";
 
 function Reveal({ children, delay = 0, className = "" }: { children: ReactNode; delay?: number; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
