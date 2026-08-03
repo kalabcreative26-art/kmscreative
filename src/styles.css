@@ -218,3 +218,11 @@
   scrollbar-width: none;
   &::-webkit-scrollbar { display: none; }
 }
+
+/* Hide Lovable badge/branding across all routes */
+#lovable-badge,
+[id*="lovable-badge"],
+a[href*="lovable.dev"],
+a[href*="lovable.app"] {
+  display: none !important;
+}
