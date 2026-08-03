@@ -9,8 +9,8 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
   component: Dashboard,
   head: () => ({
     meta: [
-      { title: "Client Dashboard — KMs Creative" },
-      { name: "description", content: "Your private KMs Creative client dashboard with active projects and messages." },
+      { title: "Client Dashboard — KMS Creative" },
+      { name: "description", content: "Your private KMS Creative client dashboard with active projects and messages." },
     ],
   }),
 });
@@ -99,7 +99,7 @@ function Dashboard() {
               Welcome back, <span className="font-serif italic text-primary">{name}</span>.
             </h1>
             <p className="text-muted-foreground mt-3 text-sm font-light">
-              Here's what's happening with your work at KMs Creative.
+              Here's what's happening with your work at KMS Creative.
             </p>
           </div>
         </div>

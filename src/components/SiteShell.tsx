@@ -113,7 +113,7 @@ export function SiteNav() {
               <Sparkles className="h-4 w-4 text-white" />
             </div>
             <span className="text-[11px] font-semibold tracking-[0.22em] uppercase whitespace-nowrap">
-              KMs<span className="text-primary">·</span>Creative
+              KMS<span className="text-primary">·</span>Creative
             </span>
           </Link>
 
@@ -180,7 +180,7 @@ export function SiteFooter() {
   return (
     <footer className="relative z-10 border-t border-border/40 py-12 mt-24">
       <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-[10px] uppercase tracking-[0.3em] text-muted-foreground/70">
-        <p>© {new Date().getFullYear()} KMs Creative · All rights reserved</p>
+        <p>© {new Date().getFullYear()} KMS Creative · All rights reserved</p>
         <a href={TELEGRAM_URL} target="_blank" rel="noreferrer" className="hover:text-primary transition-colors">
           t.me/kalabms
         </a>
