@@ -1,10 +1,8 @@
-import { createFileRoute, Link, redirect } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { ArrowRight, Send } from "lucide-react";
 import { PageShell, TELEGRAM_URL } from "@/components/SiteShell";
 import { services } from "@/lib/services";
-
-const EXTERNAL_URL = "https://kmscreative.vercel.app";
 
 function Reveal({ children, delay = 0, className = "" }: { children: ReactNode; delay?: number; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -36,9 +34,6 @@ function Reveal({ children, delay = 0, className = "" }: { children: ReactNode; 
 }
 
 export const Route = createFileRoute("/")({
-  beforeLoad: () => {
-    throw redirect({ href: EXTERNAL_URL });
-  },
   component: Home,
   head: () => ({
     meta: [
@@ -58,9 +53,6 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
-  useEffect(() => {
-    window.location.replace(EXTERNAL_URL);
-  }, []);
   return (
     <PageShell>
       {/* HERO */}
