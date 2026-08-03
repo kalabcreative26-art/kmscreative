@@ -10,8 +10,8 @@ export const Route = createFileRoute("/auth")({
   component: AuthPage,
   head: () => ({
     meta: [
-      { title: "Client Login — KMs Creative" },
-      { name: "description", content: "Sign in or create an account to access your KMs Creative dashboard." },
+      { title: "Client Login — KMS Creative" },
+      { name: "description", content: "Sign in or create an account to access your KMS Creative dashboard." },
     ],
   }),
 });
@@ -137,7 +137,7 @@ function AuthPage() {
             {mode === "signin" ? "Client Login" : "Create your account"}
           </h1>
           <p className="text-sm text-muted-foreground mb-8">
-            {mode === "signin" ? "Welcome back to KMs Creative." : "Join KMs Creative to manage your projects."}
+            {mode === "signin" ? "Welcome back to KMS Creative." : "Join KMS Creative to manage your projects."}
           </p>
 
           <button

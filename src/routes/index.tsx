@@ -37,16 +37,16 @@ export const Route = createFileRoute("/")({
   component: Home,
   head: () => ({
     meta: [
-      { title: "KMs Creative — Crafting Digital Excellence" },
+      { title: "KMS Creative — Crafting Digital Excellence" },
       {
         name: "description",
         content:
-          "KMs Creative — high-end video production, motion graphics, brand design and full-stack web development built with precision and style.",
+          "KMS Creative — high-end video production, motion graphics, brand design and full-stack web development built with precision and style.",
       },
-      { property: "og:title", content: "KMs Creative — Crafting Digital Excellence" },
+      { property: "og:title", content: "KMS Creative — Crafting Digital Excellence" },
       {
         property: "og:description",
-        content: "KMs Creative — high-end video production, motion graphics, brand design and full-stack web development built with precision and style.",
+        content: "KMS Creative — high-end video production, motion graphics, brand design and full-stack web development built with precision and style.",
       },
     ],
   }),
@@ -66,7 +66,7 @@ function Home() {
 
         <Reveal delay={120}>
           <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-light leading-[1.02] tracking-[-0.02em] max-w-5xl">
-            KMs Creative:{" "}
+            KMS Creative:{" "}
             <span className="font-serif italic font-normal" style={{ background: "var(--gradient-primary)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
               Crafting
             </span>{" "}

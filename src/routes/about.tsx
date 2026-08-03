@@ -6,16 +6,16 @@ export const Route = createFileRoute("/about")({
   component: AboutPage,
   head: () => ({
     meta: [
-      { title: "About — KMs Creative" },
+      { title: "About — KMS Creative" },
       {
         name: "description",
         content:
           "Multi-disciplinary creative expert specializing in Premiere Pro, After Effects, Alight Motion, brand design and web development.",
       },
-      { property: "og:title", content: "About — KMs Creative" },
+      { property: "og:title", content: "About — KMS Creative" },
       {
         property: "og:description",
-        content: "Meet the creative behind KMs Creative.",
+        content: "Meet the creative behind KMS Creative.",
       },
     ],
   }),

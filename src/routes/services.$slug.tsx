@@ -12,8 +12,8 @@ export const Route = createFileRoute("/services/$slug")({
   },
   head: ({ loaderData }) => {
     const s = loaderData?.service;
-    const title = s ? `${s.title} — KMs Creative` : "Service — KMs Creative";
-    const desc = s?.short ?? "KMs Creative services.";
+    const title = s ? `${s.title} — KMS Creative` : "Service — KMS Creative";
+    const desc = s?.short ?? "KMS Creative services.";
     return {
       meta: [
         { title },
