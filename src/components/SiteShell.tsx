@@ -8,7 +8,6 @@ import {
   Send,
   Sun,
   Moon,
-  Sparkles,
   Menu,
   X,
 } from "lucide-react";
