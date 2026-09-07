@@ -10,6 +10,8 @@ import {
   Moon,
   Menu,
   X,
+  Settings,
+  Mail,
 } from "lucide-react";
 import { lazy, Suspense, useEffect, useState, type ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -17,6 +19,7 @@ import kmsLogo from "@/assets/kms-logo.jpg.asset.json";
 import { ShaderBackground } from "@/components/ShaderBackground";
 import { useTheme } from "@/hooks/use-theme";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useSiteSettings } from "@/hooks/use-site-settings";
 
 const GlassArtefact = lazy(() =>
   import("@/components/GlassArtefact").then((m) => ({ default: m.GlassArtefact })),
@@ -31,6 +34,7 @@ type NavItem = {
   hash?: boolean;
   exact?: boolean;
 };
+
 
 function useSignedIn() {
   const [signedIn, setSignedIn] = useState(false);
