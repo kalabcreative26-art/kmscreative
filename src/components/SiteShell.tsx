@@ -51,6 +51,7 @@ function useSignedIn() {
 export function SiteNav() {
   const { theme, toggle: toggleTheme } = useTheme();
   const signedIn = useSignedIn();
+  const { settings } = useSiteSettings();
   const location = useRouterState({ select: (s) => s.location.pathname });
   const [open, setOpen] = useState(false);
 
@@ -63,10 +64,15 @@ export function SiteNav() {
     { to: "/", label: "Home", icon: Home, exact: true },
     { to: "/about", label: "About", icon: UserRound },
     { to: "/#services", label: "Services", icon: Layers, hash: true },
-    signedIn
-      ? { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard }
-      : { to: "/auth", label: "Login", icon: LogIn },
+    { to: "/#contact", label: "Contact", icon: Mail, hash: true },
+    ...(signedIn
+      ? [
+          { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+          { to: "/settings", label: "Settings", icon: Settings },
+        ]
+      : [{ to: "/auth", label: "Login", icon: LogIn }]),
   ];
+
 
   const isActive = (it: NavItem) =>
     !it.hash && (it.exact ? location === it.to : location.startsWith(it.to));
