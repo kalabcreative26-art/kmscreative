@@ -10,6 +10,8 @@ import {
   Moon,
   Menu,
   X,
+  Settings,
+  Mail,
 } from "lucide-react";
 import { lazy, Suspense, useEffect, useState, type ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -17,6 +19,7 @@ import kmsLogo from "@/assets/kms-logo.jpg.asset.json";
 import { ShaderBackground } from "@/components/ShaderBackground";
 import { useTheme } from "@/hooks/use-theme";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useSiteSettings } from "@/hooks/use-site-settings";
 
 const GlassArtefact = lazy(() =>
   import("@/components/GlassArtefact").then((m) => ({ default: m.GlassArtefact })),
@@ -31,6 +34,7 @@ type NavItem = {
   hash?: boolean;
   exact?: boolean;
 };
+
 
 function useSignedIn() {
   const [signedIn, setSignedIn] = useState(false);
@@ -47,6 +51,7 @@ function useSignedIn() {
 export function SiteNav() {
   const { theme, toggle: toggleTheme } = useTheme();
   const signedIn = useSignedIn();
+  const { settings } = useSiteSettings();
   const location = useRouterState({ select: (s) => s.location.pathname });
   const [open, setOpen] = useState(false);
 
@@ -59,10 +64,15 @@ export function SiteNav() {
     { to: "/", label: "Home", icon: Home, exact: true },
     { to: "/about", label: "About", icon: UserRound },
     { to: "/#services", label: "Services", icon: Layers, hash: true },
-    signedIn
-      ? { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard }
-      : { to: "/auth", label: "Login", icon: LogIn },
+    { to: "/#contact", label: "Contact", icon: Mail, hash: true },
+    ...(signedIn
+      ? [
+          { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+          { to: "/settings", label: "Settings", icon: Settings },
+        ]
+      : [{ to: "/auth", label: "Login", icon: LogIn }]),
   ];
+
 
   const isActive = (it: NavItem) =>
     !it.hash && (it.exact ? location === it.to : location.startsWith(it.to));
