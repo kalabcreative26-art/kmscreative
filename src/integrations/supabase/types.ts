@@ -14,6 +14,30 @@ export type Database = {
   }
   public: {
     Tables: {
+      contact_messages: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          message: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          message: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string
+          name?: string
+        }
+        Relationships: []
+      }
       messages: {
         Row: {
           body: string
@@ -104,6 +128,36 @@ export type Database = {
           title?: string
           updated_at?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      site_settings: {
+        Row: {
+          brand_name: string
+          email: string
+          id: string
+          logo_url: string | null
+          phone: string
+          telegram_url: string
+          updated_at: string
+        }
+        Insert: {
+          brand_name?: string
+          email?: string
+          id?: string
+          logo_url?: string | null
+          phone?: string
+          telegram_url?: string
+          updated_at?: string
+        }
+        Update: {
+          brand_name?: string
+          email?: string
+          id?: string
+          logo_url?: string | null
+          phone?: string
+          telegram_url?: string
+          updated_at?: string
         }
         Relationships: []
       }
