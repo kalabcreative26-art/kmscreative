@@ -38,6 +38,86 @@ export type Database = {
         }
         Relationships: []
       }
+      conversation_messages: {
+        Row: {
+          body: string
+          conversation_id: string
+          created_at: string
+          id: string
+          is_from_owner: boolean
+          read_at: string | null
+          sender_id: string
+        }
+        Insert: {
+          body: string
+          conversation_id: string
+          created_at?: string
+          id?: string
+          is_from_owner?: boolean
+          read_at?: string | null
+          sender_id: string
+        }
+        Update: {
+          body?: string
+          conversation_id?: string
+          created_at?: string
+          id?: string
+          is_from_owner?: boolean
+          read_at?: string | null
+          sender_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "conversation_messages_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      conversations: {
+        Row: {
+          client_email: string
+          client_id: string
+          client_name: string
+          client_unread_count: number
+          created_at: string
+          id: string
+          last_message_at: string
+          owner_unread_count: number
+          service_slug: string | null
+          subject: string
+          updated_at: string
+        }
+        Insert: {
+          client_email: string
+          client_id: string
+          client_name: string
+          client_unread_count?: number
+          created_at?: string
+          id?: string
+          last_message_at?: string
+          owner_unread_count?: number
+          service_slug?: string | null
+          subject?: string
+          updated_at?: string
+        }
+        Update: {
+          client_email?: string
+          client_id?: string
+          client_name?: string
+          client_unread_count?: number
+          created_at?: string
+          id?: string
+          last_message_at?: string
+          owner_unread_count?: number
+          service_slug?: string | null
+          subject?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       messages: {
         Row: {
           body: string
@@ -161,15 +241,42 @@ export type Database = {
         }
         Relationships: []
       }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "owner" | "client"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -296,6 +403,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["owner", "client"],
+    },
   },
 } as const
