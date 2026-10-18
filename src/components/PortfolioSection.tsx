@@ -89,48 +89,62 @@ export function PortfolioSection() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {works.map((w) => (
-          <Link
-            key={w.title}
-            to="/services/$slug"
-            params={{ slug: w.slug }}
-            className="card-premium group flex flex-col overflow-hidden"
-          >
-            <div
-              className="relative h-44 overflow-hidden"
-              style={{
-                background: `linear-gradient(135deg, oklch(0.42 0.22 ${w.hue} / 0.75), oklch(0.16 0.06 ${w.hue} / 0.9))`,
-              }}
-            >
+        {works.map((w) => {
+          const inquireTitle = getService(w.slug)?.title ?? w.category;
+          return (
+            <div key={w.title} className="card-premium group relative flex flex-col overflow-hidden">
               <div
-                className="absolute inset-0 opacity-60 transition-transform duration-[900ms] ease-out group-hover:scale-110"
+                className="relative h-44 overflow-hidden"
                 style={{
-                  background: `radial-gradient(circle at 30% 20%, oklch(0.75 0.22 ${w.hue} / 0.45), transparent 60%)`,
+                  background: `linear-gradient(135deg, oklch(0.42 0.22 ${w.hue} / 0.75), oklch(0.16 0.06 ${w.hue} / 0.9))`,
                 }}
-              />
-              <w.icon className="absolute bottom-5 left-6 h-8 w-8 text-white/85 transition-transform duration-500 group-hover:-translate-y-1" />
-              <ArrowUpRight className="absolute top-5 right-5 h-5 w-5 text-white/70 transition-all duration-500 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-white" />
-            </div>
-
-            <div className="flex flex-1 flex-col p-7">
-              <span className="text-[10px] uppercase tracking-[0.32em] font-semibold text-primary">
-                {w.category}
-              </span>
-              <h3 className="text-xl font-light tracking-tight mt-4">{w.title}</h3>
-              <p className="text-sm text-muted-foreground font-light leading-relaxed mt-3 flex-1">{w.blurb}</p>
-              <div className="flex flex-wrap gap-2 mt-6">
-                {w.tags.map((t) => (
-                  <span
-                    key={t}
-                    className="rounded-full border border-border/70 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-muted-foreground/80"
-                  >
-                    {t}
-                  </span>
-                ))}
+              >
+                <div
+                  className="absolute inset-0 opacity-60 transition-transform duration-[900ms] ease-out group-hover:scale-110"
+                  style={{
+                    background: `radial-gradient(circle at 30% 20%, oklch(0.75 0.22 ${w.hue} / 0.45), transparent 60%)`,
+                  }}
+                />
+                <w.icon className="absolute bottom-5 left-6 h-8 w-8 text-white/85 transition-transform duration-500 group-hover:-translate-y-1" />
+                <ArrowUpRight className="absolute top-5 right-5 h-5 w-5 text-white/70 transition-all duration-500 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-white" />
               </div>
+
+              <div className="flex flex-1 flex-col p-7">
+                <span className="text-[10px] uppercase tracking-[0.32em] font-semibold text-primary">
+                  {w.category}
+                </span>
+                <h3 className="text-xl font-light tracking-tight mt-4">{w.title}</h3>
+                <p className="text-sm text-muted-foreground font-light leading-relaxed mt-3 flex-1">{w.blurb}</p>
+                <div className="flex flex-wrap gap-2 mt-6">
+                  {w.tags.map((t) => (
+                    <span
+                      key={t}
+                      className="rounded-full border border-border/70 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-muted-foreground/80"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+                <a
+                  href={telegramLink(settings.telegram_url, inquireTitle)}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="relative z-20 mt-6 inline-flex w-fit items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-primary transition-all hover:bg-primary/20 hover:border-primary/60 hover:scale-[1.03] active:scale-95"
+                >
+                  <Send className="h-3 w-3" />
+                  Inquire on Telegram
+                </a>
+              </div>
+
+              <Link
+                to="/services/$slug"
+                params={{ slug: w.slug }}
+                aria-label={`Explore ${w.title}`}
+                className="absolute inset-0 z-10"
+              />
             </div>
-          </Link>
-        ))}
+          );
+        })}
       </div>
     </section>
   );
