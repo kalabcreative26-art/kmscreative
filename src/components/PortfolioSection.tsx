@@ -72,6 +72,7 @@ const works: Work[] = [
 ];
 
 export function PortfolioSection() {
+  const { settings } = useSiteSettings();
   return (
     <section id="work" className="max-w-6xl mx-auto px-6 py-28 md:py-36 scroll-mt-28">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 md:mb-20">

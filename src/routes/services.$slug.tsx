@@ -69,6 +69,17 @@ function ServicePage() {
             <p className="text-lg text-muted-foreground font-light leading-[1.8] max-w-2xl">
               {service.long}
             </p>
+            <div className="mt-10">
+              <a
+                href={inquireLink}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-primary transition-all hover:bg-primary/20 hover:border-primary/60 hover:scale-[1.03] active:scale-95"
+              >
+                <Send className="h-3 w-3" />
+                Inquire on Telegram
+              </a>
+            </div>
           </div>
           <aside className="md:col-span-4 space-y-8 md:pt-10">
             <div>
@@ -144,7 +155,7 @@ function ServicePage() {
             Message me directly on Telegram with your brief — I'll reply with next steps.
           </p>
           <a
-            href={TELEGRAM_URL}
+            href={inquireLink}
             target="_blank"
             rel="noreferrer"
             className="group inline-flex items-center justify-center gap-3 px-10 py-5 text-primary-foreground rounded-full text-sm font-semibold uppercase tracking-[0.2em] hover:scale-[1.02] active:scale-95 transition-transform"
