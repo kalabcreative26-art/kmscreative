@@ -129,7 +129,7 @@ export function PortfolioSection() {
                   href={telegramLink(settings.telegram_url, inquireTitle)}
                   target="_blank"
                   rel="noreferrer"
-                  className="relative z-20 mt-6 inline-flex w-fit items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-primary transition-all hover:bg-primary/20 hover:border-primary/60 hover:scale-[1.03] active:scale-95"
+                  className="relative z-20 mt-6 inline-flex w-fit items-center gap-2 whitespace-nowrap rounded-full border border-primary/30 bg-primary/10 px-3.5 py-2.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-primary transition-all hover:bg-primary/20 hover:border-primary/60 hover:scale-[1.03] active:scale-95"
                 >
                   <Send className="h-3 w-3" />
                   Inquire on Telegram
