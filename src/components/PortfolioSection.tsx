@@ -1,5 +1,8 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight, Film, Palette, QrCode, Sparkles, Code, type LucideIcon } from "lucide-react";
+import { ArrowUpRight, Film, Palette, QrCode, Sparkles, Code, Send, type LucideIcon } from "lucide-react";
+import { getService } from "@/lib/services";
+import { telegramLink } from "@/lib/telegram";
+import { useSiteSettings } from "@/hooks/use-site-settings";
 
 type Work = {
   title: string;
