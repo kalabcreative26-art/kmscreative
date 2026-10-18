@@ -5,9 +5,11 @@ export const TELEGRAM_FALLBACK = "https://t.me/kalabms";
 /** Ready-to-send message text for a given service (or a general enquiry). */
 export function telegramMessageFor(serviceTitle?: string) {
   if (!serviceTitle) {
-    return "Hello KMS Creative! I found you through your website and I'd like to discuss a project.";
+    return "Hi KMS Creative! I found you through your website and I'd like to discuss a project.";
   }
-  return `Hello KMS Creative! I'd like to order ${serviceTitle}. Please tell me about pricing and the next steps.`;
+  const match = services.find((s) => s.title === serviceTitle);
+  if (match) return match.telegramMessage;
+  return `Hi KMS Creative! I'm interested in your ${serviceTitle} services.`;
 }
 
 /** Telegram deep link with the message already typed in. */
