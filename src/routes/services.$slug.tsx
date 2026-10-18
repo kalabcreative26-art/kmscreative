@@ -8,12 +8,11 @@ import { useSiteSettings } from "@/hooks/use-site-settings";
 export const Route = createFileRoute("/services/$slug")({
   component: ServicePage,
   loader: ({ params }) => {
-    const service = getService(params.slug);
-    if (!service) throw notFound();
-    return { service };
+    if (!getService(params.slug)) throw notFound();
+    return { slug: params.slug };
   },
   head: ({ loaderData }) => {
-    const s = loaderData?.service;
+    const s = loaderData ? getService(loaderData.slug) : undefined;
     const title = s ? `${s.title} — KMS Creative` : "Service — KMS Creative";
     const desc = s?.short ?? "KMS Creative services.";
     return {
@@ -36,7 +35,9 @@ export const Route = createFileRoute("/services/$slug")({
 });
 
 function ServicePage() {
-  const { service } = Route.useLoaderData() as { service: import("@/lib/services").Service };
+  const { slug } = Route.useLoaderData();
+  const service = getService(slug);
+  if (!service) throw notFound();
   const { settings } = useSiteSettings();
   const inquireLink = telegramLink(settings.telegram_url || TELEGRAM_URL, service.title);
   const Icon = service.icon;
