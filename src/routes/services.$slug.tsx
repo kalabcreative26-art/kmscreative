@@ -2,16 +2,17 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowRight, ArrowLeft, Send, Check } from "lucide-react";
 import { PageShell, TELEGRAM_URL } from "@/components/SiteShell";
 import { getService, services } from "@/lib/services";
+import { telegramLink } from "@/lib/telegram";
+import { useSiteSettings } from "@/hooks/use-site-settings";
 
 export const Route = createFileRoute("/services/$slug")({
   component: ServicePage,
   loader: ({ params }) => {
-    const service = getService(params.slug);
-    if (!service) throw notFound();
-    return { service };
+    if (!getService(params.slug)) throw notFound();
+    return { slug: params.slug };
   },
   head: ({ loaderData }) => {
-    const s = loaderData?.service;
+    const s = loaderData ? getService(loaderData.slug) : undefined;
     const title = s ? `${s.title} — KMS Creative` : "Service — KMS Creative";
     const desc = s?.short ?? "KMS Creative services.";
     return {
@@ -34,7 +35,11 @@ export const Route = createFileRoute("/services/$slug")({
 });
 
 function ServicePage() {
-  const { service } = Route.useLoaderData() as { service: import("@/lib/services").Service };
+  const { slug } = Route.useLoaderData();
+  const service = getService(slug);
+  if (!service) throw notFound();
+  const { settings } = useSiteSettings();
+  const inquireLink = telegramLink(settings.telegram_url || TELEGRAM_URL, service.title);
   const Icon = service.icon;
   const otherServices = services.filter((s) => s.slug !== service.slug).slice(0, 3);
 
@@ -65,6 +70,17 @@ function ServicePage() {
             <p className="text-lg text-muted-foreground font-light leading-[1.8] max-w-2xl">
               {service.long}
             </p>
+            <div className="mt-10">
+              <a
+                href={inquireLink}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-primary transition-all hover:bg-primary/20 hover:border-primary/60 hover:scale-[1.03] active:scale-95"
+              >
+                <Send className="h-3 w-3" />
+                Inquire on Telegram
+              </a>
+            </div>
           </div>
           <aside className="md:col-span-4 space-y-8 md:pt-10">
             <div>
@@ -140,7 +156,7 @@ function ServicePage() {
             Message me directly on Telegram with your brief — I'll reply with next steps.
           </p>
           <a
-            href={TELEGRAM_URL}
+            href={inquireLink}
             target="_blank"
             rel="noreferrer"
             className="group inline-flex items-center justify-center gap-3 px-10 py-5 text-primary-foreground rounded-full text-sm font-semibold uppercase tracking-[0.2em] hover:scale-[1.02] active:scale-95 transition-transform"

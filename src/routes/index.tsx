@@ -3,6 +3,8 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { ArrowRight, Send } from "lucide-react";
 import { PageShell, TELEGRAM_URL } from "@/components/SiteShell";
 import { services } from "@/lib/services";
+import { telegramLink } from "@/lib/telegram";
+import { useSiteSettings } from "@/hooks/use-site-settings";
 
 function Reveal({ children, delay = 0, className = "" }: { children: ReactNode; delay?: number; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -53,6 +55,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
+  const { settings } = useSiteSettings();
   return (
     <PageShell>
       {/* HERO */}
@@ -123,17 +126,15 @@ function Home() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {services.map((s, i) => (
             <Reveal key={s.slug} delay={i * 80}>
-              <Link
-                to="/services/$slug"
-                params={{ slug: s.slug }}
-                className="group relative block h-full p-8 rounded-2xl border border-border bg-card/40 hover:bg-card hover:border-primary/40 transition-all duration-500 hover:-translate-y-1 overflow-hidden"
+              <div
+                className="group relative flex h-full flex-col p-8 rounded-2xl border border-border bg-card/40 hover:bg-card hover:border-primary/40 transition-all duration-500 hover:-translate-y-1 overflow-hidden"
                 style={{ boxShadow: "var(--shadow-elegant)" }}
               >
                 <div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                   style={{ background: "radial-gradient(circle at 30% 0%, oklch(0.55 0.25 295 / 0.18), transparent 70%)" }}
                 />
-                <div className="relative">
+                <div className="relative flex-1">
                   <div className="flex items-center justify-between mb-12">
                     <span className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground/60 font-mono">
                       0{i + 1}
@@ -146,12 +147,31 @@ function Home() {
                   </div>
                   <h3 className="text-2xl font-light mb-3 tracking-tight">{s.title}</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed font-light mb-8">{s.short}</p>
-                  <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.3em] text-primary font-semibold">
-                    Explore
-                    <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
-                  </div>
                 </div>
-              </Link>
+
+                <div className="relative z-20 flex flex-wrap items-center justify-between gap-3">
+                  <a
+                    href={telegramLink(settings.telegram_url, s.title)}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-primary/30 bg-primary/10 px-3.5 py-2.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-primary transition-all hover:bg-primary/20 hover:border-primary/60 hover:scale-[1.03] active:scale-95"
+                  >
+                    <Send className="h-3 w-3" />
+                    Inquire on Telegram
+                  </a>
+                  <span className="hidden sm:inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.28em] text-muted-foreground/70 font-semibold">
+                    Details
+                    <ArrowRight className="h-3 w-3" />
+                  </span>
+                </div>
+
+                <Link
+                  to="/services/$slug"
+                  params={{ slug: s.slug }}
+                  aria-label={`Explore ${s.title}`}
+                  className="absolute inset-0 z-10 rounded-2xl"
+                />
+              </div>
             </Reveal>
           ))}
         </div>

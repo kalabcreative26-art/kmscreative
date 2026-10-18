@@ -9,6 +9,8 @@ export type Service = {
   deliverables: string[];
   gallery: { title: string; tag: string; hue: number }[];
   icon: LucideIcon;
+  /** Pre-filled Telegram text used by every "Inquire on Telegram" link for this service. */
+  telegramMessage: string;
 };
 
 export const services: Service[] = [
@@ -26,6 +28,7 @@ export const services: Service[] = [
       { title: "Product Story", tag: "Cinematic", hue: 290 },
     ],
     icon: Film,
+    telegramMessage: "Hi KMS Creative! I'm interested in your Video Editing services.",
   },
   {
     slug: "motion-graphics",
@@ -41,6 +44,7 @@ export const services: Service[] = [
       { title: "UI Animation", tag: "App promo", hue: 290 },
     ],
     icon: Sparkles,
+    telegramMessage: "Hi KMS Creative! I'd like to get a quote for Motion Graphics.",
   },
   {
     slug: "graphic-design",
@@ -56,6 +60,7 @@ export const services: Service[] = [
       { title: "Social Kit", tag: "Templates", hue: 290 },
     ],
     icon: Palette,
+    telegramMessage: "Hi KMS Creative! I need branding and logo design.",
   },
   {
     slug: "web-development",
@@ -71,6 +76,7 @@ export const services: Service[] = [
       { title: "Web App", tag: "Custom", hue: 290 },
     ],
     icon: Code,
+    telegramMessage: "Hi KMS Creative! I'm interested in building a website.",
   },
   {
     slug: "business-essentials",
@@ -86,6 +92,7 @@ export const services: Service[] = [
       { title: "Loyalty Card", tag: "Print", hue: 290 },
     ],
     icon: QrCode,
+    telegramMessage: "Hi KMS Creative! I need a QR menu and business cards.",
   },
 ];
 
