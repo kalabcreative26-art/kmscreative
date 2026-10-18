@@ -2,6 +2,8 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowRight, ArrowLeft, Send, Check } from "lucide-react";
 import { PageShell, TELEGRAM_URL } from "@/components/SiteShell";
 import { getService, services } from "@/lib/services";
+import { telegramLink } from "@/lib/telegram";
+import { useSiteSettings } from "@/hooks/use-site-settings";
 
 export const Route = createFileRoute("/services/$slug")({
   component: ServicePage,
@@ -35,6 +37,8 @@ export const Route = createFileRoute("/services/$slug")({
 
 function ServicePage() {
   const { service } = Route.useLoaderData() as { service: import("@/lib/services").Service };
+  const { settings } = useSiteSettings();
+  const inquireLink = telegramLink(settings.telegram_url || TELEGRAM_URL, service.title);
   const Icon = service.icon;
   const otherServices = services.filter((s) => s.slug !== service.slug).slice(0, 3);
 
