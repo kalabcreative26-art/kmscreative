@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { ArrowRight, Send } from "lucide-react";
 import { PageShell, TELEGRAM_URL } from "@/components/SiteShell";
+import { PortfolioSection } from "@/components/PortfolioSection";
 import { services } from "@/lib/services";
 import { telegramLink } from "@/lib/telegram";
 import { useSiteSettings } from "@/hooks/use-site-settings";
@@ -176,6 +177,8 @@ function Home() {
           ))}
         </div>
       </section>
+
+      <PortfolioSection />
 
       {/* CTA */}
       <section className="max-w-4xl mx-auto px-6 mb-24 text-center">
