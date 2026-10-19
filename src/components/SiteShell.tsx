@@ -61,6 +61,7 @@ function useSignedIn() {
 
 export function SiteNav() {
   const { theme, toggle: toggleTheme } = useTheme();
+  const signedIn = useSignedIn();
   const { settings } = useSiteSettings();
   const location = useRouterState({ select: (s) => s.location.pathname });
   const [open, setOpen] = useState(false);
@@ -81,6 +82,12 @@ export function SiteNav() {
       hash: true,
       external: true,
     },
+    ...(signedIn
+      ? [
+          { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+          { to: "/settings", label: "Settings", icon: Settings },
+        ]
+      : [{ to: "/auth", label: "Login", icon: LogIn }]),
   ];
 
 
@@ -164,17 +171,6 @@ export function SiteNav() {
               <Send className="h-3 w-3" />
               Inquire
             </a>
-            <a
-              href={TIKTOK_URL}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="KMS Creative on TikTok"
-              className="hidden sm:inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-white transition-transform hover:scale-[1.03]"
-              style={{ background: "var(--gradient-primary)", boxShadow: "var(--shadow-glow)" }}
-            >
-              <TikTokIcon className="h-3 w-3" />
-              TikTok
-            </a>
             {/* Mobile menu button */}
             <button
               onClick={() => setOpen((v) => !v)}
@@ -203,16 +199,6 @@ export function SiteNav() {
             >
               <Send className="h-4 w-4" />
               Inquire
-            </a>
-            <a
-              href={TIKTOK_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-white"
-              style={{ background: "var(--gradient-primary)", boxShadow: "var(--shadow-glow)" }}
-            >
-              <TikTokIcon className="h-4 w-4" />
-              TikTok
             </a>
           </div>
         )}
