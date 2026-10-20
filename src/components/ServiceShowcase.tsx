@@ -1,5 +1,8 @@
 import { useRef, useState } from "react";
-import { Play, ExternalLink, Check, Monitor, Smartphone, Zap } from "lucide-react";
+import { Play, ExternalLink, Check, Monitor, Smartphone, Zap, X } from "lucide-react";
+import webRestaurant from "@/assets/web-restaurant.jpg";
+import webCorporate from "@/assets/web-corporate.jpg";
+import webRealestate from "@/assets/web-realestate.jpg";
 
 /**
  * Sample media cards shown on each service page.
@@ -168,59 +171,59 @@ function DesignShowcase() {
 }
 
 const sites = [
-  { name: "Agency Site", url: "kmscreative.lovable.app", demo: "https://kmscreative.lovable.app", features: ["Multi-page", "Glass UI", "Telegram orders"], hue: 295 },
-  { name: "Restaurant Landing", url: "demo-restaurant.app", features: ["QR menu", "Booking button", "Mobile-first"], hue: 280 },
-  { name: "Creator Portfolio", url: "demo-portfolio.app", features: ["Video gallery", "Fast loading", "SEO ready"], hue: 305 },
+  { name: "Restaurant Menu Website", category: "Restaurant", img: webRestaurant, features: ["Digital QR menu", "Book a table", "Mobile-first"] },
+  { name: "Big Company Website", category: "Corporate", img: webCorporate, features: ["Multi-page", "Services & stats", "Contact flow"] },
+  { name: "Real Estate Website", category: "Real Estate", img: webRealestate, features: ["Property search", "Listing cards", "Enquiry button"] },
 ];
 
 function WebShowcase() {
+  const [open, setOpen] = useState<(typeof sites)[number] | null>(null);
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-      {sites.map((s) => (
-        <div key={s.name} className="card-premium group overflow-hidden flex flex-col">
-          {/* browser mockup */}
-          <div className="border-b border-border/60">
-            <div className="flex items-center gap-1.5 px-4 py-2.5">
-              <span className="h-2 w-2 rounded-full bg-foreground/25" />
-              <span className="h-2 w-2 rounded-full bg-foreground/25" />
-              <span className="h-2 w-2 rounded-full bg-foreground/25" />
-              <span className="ml-3 truncate rounded-full bg-foreground/5 px-3 py-0.5 text-[10px] text-muted-foreground">{s.url}</span>
-            </div>
-            <div className="relative aspect-[16/10] overflow-hidden" style={{ background: `linear-gradient(160deg, oklch(0.2 0.08 ${s.hue}), oklch(0.08 0.02 ${s.hue}))` }}>
-              <div className="absolute inset-0 p-5 transition-transform duration-700 group-hover:-translate-y-3">
-                <div className="h-2 w-16 rounded-full bg-primary/70" />
-                <div className="mt-4 h-4 w-3/4 rounded bg-foreground/70" />
-                <div className="mt-2 h-4 w-1/2 rounded bg-foreground/40" />
-                <div className="mt-4 h-6 w-24 rounded-full bg-primary" />
-                <div className="mt-5 grid grid-cols-3 gap-2">
-                  {[0, 1, 2].map((k) => <div key={k} className="h-12 rounded-lg bg-foreground/10" />)}
-                </div>
+    <>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        {sites.map((s) => (
+          <div key={s.name} className="card-premium group overflow-hidden flex flex-col">
+            <button type="button" onClick={() => setOpen(s)} className="block text-left" aria-label={`View ${s.name}`}>
+              <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-border/60">
+                <span className="h-2 w-2 rounded-full bg-foreground/25" />
+                <span className="h-2 w-2 rounded-full bg-foreground/25" />
+                <span className="h-2 w-2 rounded-full bg-foreground/25" />
+                <span className="ml-3 truncate text-[10px] uppercase tracking-[0.2em] text-muted-foreground">{s.category}</span>
               </div>
+              <div className="relative aspect-[16/10] overflow-hidden">
+                <img src={s.img} alt={s.name} loading="lazy" width={1280} height={800} className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
+              </div>
+            </button>
+            <div className="p-6 flex flex-1 flex-col">
+              <span className="text-[10px] uppercase tracking-[0.28em] text-primary">{s.category}</span>
+              <h4 className="text-lg font-light tracking-tight mt-2">{s.name}</h4>
+              <div className="mt-3 flex gap-3 text-muted-foreground">
+                <Monitor className="h-3.5 w-3.5" /><Smartphone className="h-3.5 w-3.5" /><Zap className="h-3.5 w-3.5" />
+              </div>
+              <ul className="mt-4 space-y-1.5 text-sm text-muted-foreground flex-1">
+                {s.features.map((f) => (
+                  <li key={f} className="flex items-center gap-2"><Check className="h-3.5 w-3.5 text-primary" />{f}</li>
+                ))}
+              </ul>
+              <button type="button" onClick={() => setOpen(s)} className="mt-6 inline-flex w-fit items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-primary transition-all hover:bg-primary/20 hover:scale-[1.03]">
+                <ExternalLink className="h-3 w-3" /> View full preview
+              </button>
             </div>
           </div>
-          <div className="p-6 flex flex-1 flex-col">
-            <h4 className="text-lg font-light tracking-tight">{s.name}</h4>
-            <div className="mt-3 flex gap-3 text-muted-foreground">
-              <Monitor className="h-3.5 w-3.5" /><Smartphone className="h-3.5 w-3.5" /><Zap className="h-3.5 w-3.5" />
-            </div>
-            <ul className="mt-4 space-y-1.5 text-sm text-muted-foreground flex-1">
-              {s.features.map((f) => (
-                <li key={f} className="flex items-center gap-2"><Check className="h-3.5 w-3.5 text-primary" />{f}</li>
-              ))}
-            </ul>
-            {s.demo ? (
-              <a href={s.demo} target="_blank" rel="noreferrer" className="mt-6 inline-flex w-fit items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-primary transition-all hover:bg-primary/20 hover:scale-[1.03]">
-                <ExternalLink className="h-3 w-3" /> Live demo
-              </a>
-            ) : (
-              <span className="mt-6 inline-flex w-fit items-center gap-2 rounded-full border border-border px-4 py-2.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-                Demo coming soon
-              </span>
-            )}
+        ))}
+      </div>
+      {open && (
+        <div className="fixed inset-0 z-[100] grid place-items-center bg-background/85 backdrop-blur-md p-4" onClick={() => setOpen(null)}>
+          <div className="relative w-full max-w-5xl" onClick={(e) => e.stopPropagation()}>
+            <button type="button" onClick={() => setOpen(null)} aria-label="Close" className="glass absolute -top-12 right-0 grid h-10 w-10 place-items-center rounded-full">
+              <X className="h-4 w-4" />
+            </button>
+            <img src={open.img} alt={open.name} className="w-full rounded-2xl border border-border" />
+            <p className="mt-3 text-center text-sm text-muted-foreground">{open.name}</p>
           </div>
         </div>
-      ))}
-    </div>
+      )}
+    </>
   );
 }
 
