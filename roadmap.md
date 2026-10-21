@@ -1,6 +1,6 @@
 # Roadmap
 
-- [ ] Interactive video, branding and social workflow showcases; preserve Website Development & Publishing
+- [x] Interactive video, branding and social workflow showcases; preserve Website Development & Publishing
 - [ ] Verify mobile/desktop interactions and publish requested updates
 
 - [x] Service-aware Telegram message links
