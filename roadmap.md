@@ -1,5 +1,8 @@
 # Roadmap
 
+- [x] Interactive video, branding and social workflow showcases; preserve Website Development & Publishing
+- [ ] Verify mobile/desktop interactions and publish requested updates
+
 - [x] Service-aware Telegram message links
 - [x] Remove login, dashboard and client accounts (portfolio-only site)
 - [x] TikTok as a button next to Telegram
