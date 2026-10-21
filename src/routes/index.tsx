@@ -5,6 +5,7 @@ import { PageShell, TELEGRAM_URL } from "@/components/SiteShell";
 import { services } from "@/lib/services";
 import { telegramLink } from "@/lib/telegram";
 import { useSiteSettings } from "@/hooks/use-site-settings";
+import { WorkflowShowcases } from "@/components/WorkflowShowcases";
 
 function Reveal({ children, delay = 0, className = "" }: { children: ReactNode; delay?: number; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -46,6 +47,8 @@ export const Route = createFileRoute("/")({
           "KMS Creative — high-end video production, motion graphics, brand design and full-stack web development built with precision and style.",
       },
       { property: "og:title", content: "KMS Creative — Crafting Digital Excellence" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       {
         property: "og:description",
         content: "KMS Creative — high-end video production, motion graphics, brand design and full-stack web development built with precision and style.",
@@ -113,7 +116,7 @@ function Home() {
             <div>
               <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-primary">Services</span>
               <h2 className="text-4xl md:text-5xl font-light mt-6 tracking-tight max-w-2xl">
-                Five disciplines.{" "}
+                Creative disciplines.{" "}
                 <span className="font-serif italic text-primary">One studio.</span>
               </h2>
             </div>
@@ -176,6 +179,8 @@ function Home() {
           ))}
         </div>
       </section>
+
+      <WorkflowShowcases />
 
       {/* CTA */}
       <section className="max-w-4xl mx-auto px-6 mb-24 text-center">

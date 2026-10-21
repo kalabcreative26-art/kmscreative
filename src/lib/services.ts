@@ -1,4 +1,4 @@
-import { Film, Sparkles, Palette, Code, QrCode, type LucideIcon } from "lucide-react";
+import { Film, Sparkles, Palette, Code, QrCode, TrendingUp, type LucideIcon } from "lucide-react";
 
 export type Service = {
   slug: string;
@@ -14,6 +14,17 @@ export type Service = {
 };
 
 export const services: Service[] = [
+  {
+    slug: "social-media-management",
+    title: "Social Media Management",
+    short: "Content strategy and promotional marketing for creator and business growth.",
+    long: "Scaling creator and business profiles across TikTok, Instagram, and YouTube with high-converting short-form content. Strategy, campaign visuals and analytics bring every post into a cohesive brand story.",
+    tools: ["Content Strategy", "Analytics", "Short-Form Editing"],
+    deliverables: ["Content strategy", "Campaign creative", "Reels & TikTok thumbnails", "Performance insights"],
+    gallery: [],
+    icon: TrendingUp,
+    telegramMessage: "Hi KMS Creative! I'm interested in your Social Media Management and Promotional Marketing services.",
+  },
   {
     slug: "video-production",
     title: "Video Production",
