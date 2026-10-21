@@ -3,6 +3,7 @@ import { Film, Palette, TrendingUp, Heart, MessageCircle, Bookmark, ArrowUpRight
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import motionDemo from "@/assets/kms-motion-demo.mp4.asset.json";
+import motionWebm from "@/assets/kms-motion-demo.webm.asset.json";
 import sneaker from "@/assets/social-sneaker.jpg";
 import { telegramLink } from "@/lib/telegram";
 
@@ -43,9 +44,11 @@ export function VideoWorkflow() {
     description="High-octane commercial edits, smooth speed ramping, and precise beat-syncing."
     tools={["Adobe Premiere Pro", "After Effects", "CapCut", "Alight Motion"]} inquiry="Video Production">
     <div className="relative aspect-video overflow-hidden bg-background">
-      <video ref={videoRef} key={fallback ? "fallback" : "supplied"} src={fallback ? motionDemo.url : suppliedVideo} onError={() => setFallback(true)}
+      <video ref={videoRef} key={fallback ? "fallback" : "supplied"} src={fallback ? undefined : suppliedVideo} onError={() => setFallback(true)}
         autoPlay muted loop playsInline controls preload="metadata" aria-label="Cinematic editing sample video"
-        className="h-full w-full object-contain" />
+        className="h-full w-full object-contain">
+        {fallback && <><source src={motionWebm.url} type="video/webm" /><source src={motionDemo.url} type="video/mp4" /></>}
+      </video>
       <span className="pointer-events-none absolute left-3 top-3 rounded border border-border bg-background/90 px-2 py-1 text-[9px] font-mono text-workflow-cyan">
         {fallback ? "KMS MOTION · SAMPLE ANIMATION" : "MIXKIT · SAMPLE FOOTAGE"}
       </span>
