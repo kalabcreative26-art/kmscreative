@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Film, Palette, TrendingUp, Heart, MessageCircle, Bookmark, ArrowUpRight, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
@@ -32,11 +32,18 @@ function Workflow({ number, category, title, description, tools, children, inqui
 
 export function VideoWorkflow() {
   const [fallback, setFallback] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      if ((videoRef.current?.readyState ?? 0) < 2) setFallback(true);
+    }, 4000);
+    return () => window.clearTimeout(timer);
+  }, []);
   return <Workflow number="01" category="Video Editing & Motion Graphics" title="Cinematic Speed Ramps & Velocity Edits"
     description="High-octane commercial edits, smooth speed ramping, and precise beat-syncing."
     tools={["Adobe Premiere Pro", "After Effects", "CapCut", "Alight Motion"]} inquiry="Video Production">
     <div className="relative aspect-video overflow-hidden bg-background">
-      <video key={fallback ? "fallback" : "supplied"} src={fallback ? motionDemo.url : suppliedVideo} onError={() => setFallback(true)}
+      <video ref={videoRef} key={fallback ? "fallback" : "supplied"} src={fallback ? motionDemo.url : suppliedVideo} onError={() => setFallback(true)}
         autoPlay muted loop playsInline controls preload="metadata" aria-label="Cinematic editing sample video"
         className="h-full w-full object-contain" />
       <span className="pointer-events-none absolute left-3 top-3 rounded border border-border bg-background/90 px-2 py-1 text-[9px] font-mono text-workflow-cyan">
@@ -122,11 +129,11 @@ export function SocialWorkflow() {
 }
 
 export function WorkflowShowcases() {
-  return <section className="workflow-theme mx-auto mb-24 max-w-6xl px-6" aria-labelledby="workflow-heading">
+  return <section className="mx-auto mb-24 max-w-6xl px-6" aria-labelledby="workflow-heading">
     <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
       <div><span className="text-xs font-mono text-workflow-cyan">CRAFT / PROCESS / IMPACT</span><h2 id="workflow-heading" className="mt-3 text-3xl font-light md:text-4xl">Inside the <span className="font-serif italic text-primary">creative process.</span></h2></div>
       <div className="flex gap-3 text-primary" aria-hidden="true"><Film className="h-4 w-4" /><Palette className="h-4 w-4" /><TrendingUp className="h-4 w-4 text-workflow-cyan" /></div>
     </div>
-    <div className="grid grid-cols-1 items-start gap-5 md:grid-cols-2 lg:grid-cols-3"><VideoWorkflow /><BrandWorkflow /><SocialWorkflow /></div>
+    <div className="workflow-theme grid grid-cols-1 items-start gap-5 md:grid-cols-2 lg:grid-cols-3"><VideoWorkflow /><BrandWorkflow /><SocialWorkflow /></div>
   </section>;
 }
