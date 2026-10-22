@@ -1,7 +1,8 @@
 # Roadmap
 
 - [x] Interactive video, branding and social workflow showcases; preserve Website Development & Publishing
-- [ ] Verify mobile/desktop interactions and publish requested updates
+- [x] Verify mobile/desktop interactions
+- [ ] Publish updates (waiting on owner approval; publishing was declined)
 
 - [x] Service-aware Telegram message links
 - [x] Remove login, dashboard and client accounts (portfolio-only site)
