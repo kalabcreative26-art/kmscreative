@@ -3,7 +3,6 @@ import { Play, ExternalLink, Check, Monitor, Smartphone, Zap, X } from "lucide-r
 import webRestaurant from "@/assets/web-restaurant.jpg";
 import webCorporate from "@/assets/web-corporate.jpg";
 import webRealestate from "@/assets/web-realestate.jpg";
-import { VideoWorkflow, BrandWorkflow, SocialWorkflow } from "@/components/WorkflowShowcases";
 
 /**
  * Sample media cards shown on each service page.
@@ -230,13 +229,12 @@ function WebShowcase() {
 
 /** Returns the showcase for a service, or null to use the default gallery. */
 export function ServiceShowcase({ slug }: { slug: string }) {
-  if (slug === "video-production" || slug === "motion-graphics") return <div className="workflow-theme mx-auto max-w-3xl"><VideoWorkflow /></div>;
-  if (slug === "graphic-design") return <div className="workflow-theme mx-auto max-w-3xl"><BrandWorkflow /></div>;
-  if (slug === "social-media-management") return <div className="workflow-theme mx-auto max-w-3xl"><SocialWorkflow /></div>;
+  if (slug === "video-production" || slug === "motion-graphics") return <VideoShowcase />;
+  if (slug === "graphic-design") return <DesignShowcase />;
   if (slug === "web-development") return <WebShowcase />;
   return null;
 }
 
 export function hasShowcase(slug: string) {
-  return ["video-production", "motion-graphics", "graphic-design", "social-media-management", "web-development"].includes(slug);
+  return ["video-production", "motion-graphics", "graphic-design", "web-development"].includes(slug);
 }

@@ -56,7 +56,6 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  --color-workflow-cyan: var(--workflow-cyan);
 }
 
 /* LIGHT THEME (default) */
@@ -117,15 +116,6 @@
   --shader-b: 0.35 0.65 0.98;
   --shader-c: 0.98 0.55 0.85;
   --shader-bg: 0.96 0.94 1.0;
-  --workflow-cyan: oklch(0.78 0.13 200);
-  --workflow-obsidian: #0B0C10;
-  --workflow-foreground: oklch(0.97 0.005 290);
-  --workflow-muted: oklch(0.72 0.025 290);
-  --workflow-surface: oklch(0.17 0.015 290);
-  --workflow-line: oklch(0.28 0.03 290);
-  --workflow-purple: oklch(0.73 0.21 295);
-  --workflow-glow: 0 12px 36px -20px color-mix(in oklab, var(--workflow-purple) 60%, transparent);
-  --workflow-shade: linear-gradient(180deg, var(--workflow-obsidian), transparent 30%, transparent 40%, var(--workflow-obsidian));
 }
 
 /* DARK THEME */
@@ -333,28 +323,4 @@ h1, h2, h3, h4, .font-display {
     background: color-mix(in oklab, var(--primary) 8%, transparent);
     box-shadow: 0 20px 45px -25px color-mix(in oklab, var(--primary) 70%, transparent);
   }
-}
-
-.workflow-theme {
-  --background: var(--workflow-obsidian);
-  --card: var(--workflow-obsidian);
-  --foreground: var(--workflow-foreground);
-  --muted-foreground: var(--workflow-muted);
-  --border: var(--workflow-line);
-  --secondary: var(--workflow-surface);
-  --primary: var(--workflow-purple);
-  color: var(--foreground);
-}
-.workflow-theme h2, .workflow-theme h3, .workflow-theme p { letter-spacing: 0; }
-.workflow-card { transition: border-color 250ms ease, box-shadow 250ms ease, transform 250ms ease; }
-.workflow-card:hover { border-color: var(--primary); box-shadow: var(--workflow-glow); transform: translateY(-3px); }
-.identity-artwork { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; background: var(--card); }
-.identity-final { background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 36px 36px; }
-.identity-draft { background: var(--secondary); }
-.identity-wordmark { display: flex; font-family: var(--font-display); font-size: 70px; font-weight: 700; line-height: 1.1; margin-top: 12px; }
-.identity-draft .identity-wordmark { font-family: var(--font-serif); font-style: italic; font-weight: 400; transform: rotate(-5deg); }
-.identity-grid { display: flex; justify-content: space-between; align-items: center; gap: 24px; width: min(100%, 280px); }
-.social-shade { background: var(--workflow-shade); }
-@media (prefers-reduced-motion: reduce) {
-  .workflow-card, .workflow-card:hover { transition: none; transform: none; }
 }
