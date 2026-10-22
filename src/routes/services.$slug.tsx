@@ -4,7 +4,6 @@ import { PageShell, TELEGRAM_URL } from "@/components/SiteShell";
 import { getService, services } from "@/lib/services";
 import { telegramLink } from "@/lib/telegram";
 import { useSiteSettings } from "@/hooks/use-site-settings";
-import { ServiceShowcase, hasShowcase } from "@/components/ServiceShowcase";
 
 export const Route = createFileRoute("/services/$slug")({
   component: ServicePage,
@@ -116,9 +115,6 @@ function ServicePage() {
               Project showcase
             </span>
           </div>
-          {hasShowcase(service.slug) ? (
-            <ServiceShowcase slug={service.slug} />
-          ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {service.gallery.map((g, i) => (
               <div
@@ -141,7 +137,6 @@ function ServicePage() {
               </div>
             ))}
           </div>
-          )}
         </section>
 
         {/* CTA */}

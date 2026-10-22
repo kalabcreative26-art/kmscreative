@@ -3,14 +3,18 @@ import {
   Home,
   UserRound,
   Layers,
+  LogIn,
+  LayoutDashboard,
   Send,
   Sun,
   Moon,
   Menu,
   X,
+  Settings,
   Mail,
 } from "lucide-react";
 import { lazy, Suspense, useEffect, useState, type ReactNode } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import kmsLogo from "@/assets/kms-logo.jpg.asset.json";
 import { ShaderBackground } from "@/components/ShaderBackground";
 import { useTheme } from "@/hooks/use-theme";
@@ -43,8 +47,21 @@ type NavItem = {
 };
 
 
+function useSignedIn() {
+  const [signedIn, setSignedIn] = useState(false);
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => setSignedIn(!!data.session));
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
+      setSignedIn(!!session);
+    });
+    return () => sub.subscription.unsubscribe();
+  }, []);
+  return signedIn;
+}
+
 export function SiteNav() {
   const { theme, toggle: toggleTheme } = useTheme();
+  const signedIn = useSignedIn();
   const { settings } = useSiteSettings();
   const location = useRouterState({ select: (s) => s.location.pathname });
   const [open, setOpen] = useState(false);
@@ -65,6 +82,12 @@ export function SiteNav() {
       hash: true,
       external: true,
     },
+    ...(signedIn
+      ? [
+          { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+          { to: "/settings", label: "Settings", icon: Settings },
+        ]
+      : [{ to: "/auth", label: "Login", icon: LogIn }]),
   ];
 
 
@@ -139,16 +162,6 @@ export function SiteNav() {
               {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             </button>
             <a
-              href={TIKTOK_URL}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="KMS Creative on TikTok"
-              className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-primary transition-all hover:bg-primary/20 hover:scale-[1.03]"
-            >
-              <TikTokIcon className="h-3 w-3" />
-              TikTok
-            </a>
-            <a
               href={TELEGRAM_URL}
               target="_blank"
               rel="noreferrer"
@@ -187,15 +200,6 @@ export function SiteNav() {
               <Send className="h-4 w-4" />
               Inquire
             </a>
-            <a
-              href={TIKTOK_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center justify-center gap-2 rounded-2xl border border-primary/30 bg-primary/10 px-4 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-primary"
-            >
-              <TikTokIcon className="h-4 w-4" />
-              TikTok
-            </a>
           </div>
         )}
       </div>
@@ -208,14 +212,24 @@ export function SiteFooter() {
     <footer className="relative z-10 border-t border-border/40 py-12 mt-24">
       <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-[10px] uppercase tracking-[0.3em] text-muted-foreground/70">
         <p>© {new Date().getFullYear()} KMS Creative · All rights reserved</p>
-        <div className="flex flex-wrap items-center justify-center gap-3">
-          <a href={TELEGRAM_URL} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-primary transition-all hover:bg-primary/20 hover:border-primary/60 hover:scale-[1.03] active:scale-95">
-            <Send className="h-3 w-3" />
-            Telegram
+        <div className="flex items-center gap-7">
+          <a
+            href={TELEGRAM_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="hover:text-primary transition-colors"
+          >
+            t.me/kalabms
           </a>
-          <a href={TIKTOK_URL} target="_blank" rel="noreferrer" aria-label="KMS Creative on TikTok" className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-primary transition-all hover:bg-primary/20 hover:border-primary/60 hover:scale-[1.03] active:scale-95">
-            <TikTokIcon className="h-3 w-3" />
-            TikTok
+          <a
+            href={TIKTOK_URL}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="KMS Creative on TikTok"
+            className="inline-flex items-center gap-2.5 hover:text-primary transition-colors"
+          >
+            <TikTokIcon className="h-3.5 w-3.5" />
+            <span>TikTok</span>
           </a>
         </div>
       </div>
