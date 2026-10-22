@@ -5,7 +5,6 @@ import { PageShell, TELEGRAM_URL } from "@/components/SiteShell";
 import { services } from "@/lib/services";
 import { telegramLink } from "@/lib/telegram";
 import { useSiteSettings } from "@/hooks/use-site-settings";
-import { WorkflowShowcase } from "@/components/WorkflowShowcase";
 
 function Reveal({ children, delay = 0, className = "" }: { children: ReactNode; delay?: number; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -177,8 +176,6 @@ function Home() {
           ))}
         </div>
       </section>
-
-      <WorkflowShowcase />
 
       {/* CTA */}
       <section className="max-w-4xl mx-auto px-6 mb-24 text-center">
