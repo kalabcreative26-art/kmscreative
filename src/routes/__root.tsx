@@ -83,8 +83,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:site", content: "@Lovable" },
       { name: "twitter:title", content: "KMS Creative — Crafting Digital Excellence" },
       { name: "twitter:description", content: "KMS Creative — high-end video production, motion graphics, brand design and full-stack web development built with precision and style." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/5596d1ed-8d43-49ea-a60c-17c0b98111f8/id-preview-87f06703--761c7174-cf56-46ca-a2ff-f53f3a28cb04.lovable.app-1779378205877.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/5596d1ed-8d43-49ea-a60c-17c0b98111f8/id-preview-87f06703--761c7174-cf56-46ca-a2ff-f53f3a28cb04.lovable.app-1779378205877.png" },
     ],
     links: [
       {
@@ -95,7 +93,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap",
       },
       { rel: "icon", type: "image/png", href: "/favicon.png" },
     ],
