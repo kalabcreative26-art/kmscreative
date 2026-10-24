@@ -119,13 +119,13 @@ function OwnerInbox() {
           </div>
           <h1 className="text-3xl font-light tracking-tight">Studio only</h1>
           <p className="text-muted-foreground font-light mt-3 text-sm">
-            This inbox belongs to KMS Creative. Your own messages are on your dashboard.
+            This inbox belongs to KMS Creative.
           </p>
           <Link
-            to="/dashboard"
+            to="/"
             className="btn-primary-glow inline-flex items-center gap-2 rounded-full px-8 py-3.5 mt-8 text-[11px] font-semibold uppercase tracking-[0.2em]"
           >
-            Go to dashboard
+            Back to the site
           </Link>
         </section>
       </PageShell>
