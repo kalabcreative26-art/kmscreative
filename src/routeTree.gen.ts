@@ -12,8 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AboutRouteImport } from './routes/about'
-import { Route as AuthRouteImport } from './routes/auth'
-import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedInboxRouteImport } from './routes/_authenticated/inbox'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
@@ -31,16 +29,6 @@ const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
   getParentRoute: () => rootRouteImport,
-} as any)
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedInboxRoute = AuthenticatedInboxRouteImport.update({
   id: '/inbox',
@@ -61,8 +49,6 @@ const ServicesSlugRoute = ServicesSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/auth': typeof AuthRoute
-  '/dashboard': typeof AuthenticatedDashboardRoute
   '/inbox': typeof AuthenticatedInboxRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/services/$slug': typeof ServicesSlugRoute
@@ -70,8 +56,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/auth': typeof AuthRoute
-  '/dashboard': typeof AuthenticatedDashboardRoute
   '/inbox': typeof AuthenticatedInboxRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/services/$slug': typeof ServicesSlugRoute
@@ -81,38 +65,20 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
-  '/auth': typeof AuthRoute
-  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/inbox': typeof AuthenticatedInboxRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/services/$slug': typeof ServicesSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/about'
-    | '/auth'
-    | '/dashboard'
-    | '/inbox'
-    | '/settings'
-    | '/services/$slug'
+  fullPaths: '/' | '/about' | '/inbox' | '/settings' | '/services/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/about'
-    | '/auth'
-    | '/dashboard'
-    | '/inbox'
-    | '/settings'
-    | '/services/$slug'
+  to: '/' | '/about' | '/inbox' | '/settings' | '/services/$slug'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/about'
-    | '/auth'
-    | '/_authenticated/dashboard'
     | '/_authenticated/inbox'
     | '/_authenticated/settings'
     | '/services/$slug'
@@ -122,7 +88,6 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
-  AuthRoute: typeof AuthRoute
   ServicesSlugRoute: typeof ServicesSlugRoute
 }
 
@@ -149,20 +114,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/dashboard': {
-      id: '/_authenticated/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
     '/_authenticated/inbox': {
       id: '/_authenticated/inbox'
       path: '/inbox'
@@ -188,13 +139,11 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
-  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedInboxRoute: typeof AuthenticatedInboxRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedInboxRoute: AuthenticatedInboxRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
 }
@@ -206,7 +155,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
-  AuthRoute: AuthRoute,
   ServicesSlugRoute: ServicesSlugRoute,
 }
 export const routeTree = rootRouteImport
