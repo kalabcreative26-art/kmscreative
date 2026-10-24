@@ -8,11 +8,9 @@ import {
   Moon,
   Menu,
   X,
-  Settings,
   Mail,
 } from "lucide-react";
 import { lazy, Suspense, useEffect, useState, type ReactNode } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import kmsLogo from "@/assets/kms-logo.jpg.asset.json";
 import { ShaderBackground } from "@/components/ShaderBackground";
 import { useTheme } from "@/hooks/use-theme";
@@ -52,22 +50,8 @@ type NavItem = {
   external?: boolean;
 };
 
-function useSignedIn() {
-  const [signedIn, setSignedIn] = useState(false);
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => setSignedIn(!!data.session));
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
-      setSignedIn(!!session);
-    });
-    return () => sub.subscription.unsubscribe();
-  }, []);
-  return signedIn;
-}
-
 export function SiteNav() {
   const { theme, toggle: toggleTheme } = useTheme();
-  const signedIn = useSignedIn();
-  const { settings } = useSiteSettings();
   const location = useRouterState({ select: (s) => s.location.pathname });
   const [open, setOpen] = useState(false);
 
@@ -81,13 +65,10 @@ export function SiteNav() {
     { to: "/about", label: "About", icon: UserRound },
     { to: "/#services", label: "Services", icon: Layers, hash: true },
     {
-      to: settings.telegram_url || TELEGRAM_URL,
+      to: "/contact",
       label: "Contact",
       icon: Mail,
-      hash: true,
-      external: true,
     },
-    ...(signedIn ? [{ to: "/settings", label: "Settings", icon: Settings }] : []),
   ];
 
   const isActive = (it: NavItem) =>

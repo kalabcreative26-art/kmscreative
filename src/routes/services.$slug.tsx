@@ -4,6 +4,17 @@ import { PageShell, TELEGRAM_URL } from "@/components/SiteShell";
 import { getService, services } from "@/lib/services";
 import { telegramLink } from "@/lib/telegram";
 import { useSiteSettings } from "@/hooks/use-site-settings";
+import menuScreenshot from "@/assets/website-menu.jpg";
+import estateScreenshot from "@/assets/website-estate.jpg";
+import barberScreenshot from "@/assets/website-barber.jpg";
+import portfolioScreenshot from "@/assets/website-portfolio.jpg";
+
+const websiteScreenshots = [
+  { src: menuScreenshot, alt: "Custom restaurant menu website concept screenshot" },
+  { src: estateScreenshot, alt: "Real estate website concept screenshot" },
+  { src: barberScreenshot, alt: "Barbershop website concept screenshot" },
+  { src: portfolioScreenshot, alt: "Creative portfolio website concept screenshot" },
+];
 
 export const Route = createFileRoute("/services/$slug")({
   component: ServicePage,
@@ -21,6 +32,8 @@ export const Route = createFileRoute("/services/$slug")({
         { name: "description", content: desc },
         { property: "og:title", content: title },
         { property: "og:description", content: desc },
+        { property: "og:type", content: "website" },
+        { name: "twitter:card", content: "summary" },
       ],
     };
   },
@@ -116,7 +129,11 @@ function ServicePage() {
             </span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {service.gallery.map((g, i) => (
+            {service.slug === "web-development" ? websiteScreenshots.map((image) => (
+              <div key={image.src} className="group aspect-[30/19] overflow-hidden rounded-2xl border border-border bg-card">
+                <img src={image.src} alt={image.alt} loading="lazy" width={1440} height={912} className="h-full w-full object-contain transition-transform duration-700 group-hover:scale-[1.02] motion-reduce:transition-none" />
+              </div>
+            )) : service.gallery.map((g, i) => (
               <div
                 key={g.title}
                 className="group relative aspect-[16/10] rounded-2xl overflow-hidden border border-border bg-card"

@@ -13,6 +13,8 @@ export const Route = createFileRoute("/about")({
           "Multi-disciplinary creative expert specializing in Premiere Pro, After Effects, Alight Motion, brand design and web development.",
       },
       { property: "og:title", content: "About — KMS Creative" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       {
         property: "og:description",
         content: "Meet the creative behind KMS Creative.",

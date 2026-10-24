@@ -46,6 +46,8 @@ export const Route = createFileRoute("/")({
           "KMS Creative — high-end video production, motion graphics, brand design and full-stack web development built with precision and style.",
       },
       { property: "og:title", content: "KMS Creative — Crafting Digital Excellence" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       {
         property: "og:description",
         content: "KMS Creative — high-end video production, motion graphics, brand design and full-stack web development built with precision and style.",
