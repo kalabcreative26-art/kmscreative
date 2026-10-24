@@ -238,7 +238,7 @@ export function SiteFooter() {
             href={TELEGRAM_URL}
             target="_blank"
             rel="noreferrer"
-            className={SOCIAL_PILL}
+            className={`inline-flex ${SOCIAL_PILL}`}
             style={SOCIAL_PILL_STYLE}
           >
             <Send className="h-3 w-3" />
