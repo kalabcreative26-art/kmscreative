@@ -249,7 +249,7 @@ export function SiteFooter() {
             target="_blank"
             rel="noreferrer"
             aria-label="KMS Creative on TikTok"
-            className={SOCIAL_PILL}
+            className={`inline-flex ${SOCIAL_PILL}`}
             style={SOCIAL_PILL_STYLE}
           >
             <TikTokIcon className="h-3 w-3" />
