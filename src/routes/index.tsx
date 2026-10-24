@@ -60,12 +60,6 @@ function Home() {
     <PageShell>
       {/* HERO */}
       <section className="max-w-6xl mx-auto px-6 pt-16 pb-32 md:pt-24 md:pb-40">
-        <Reveal>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary text-[10px] uppercase tracking-[0.3em] font-semibold mb-10">
-            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-            Multi-disciplinary creative studio
-          </div>
-        </Reveal>
 
         <Reveal delay={120}>
           <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-light leading-[1.02] tracking-[-0.02em] max-w-5xl">
