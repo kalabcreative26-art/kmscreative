@@ -26,9 +26,9 @@ const GlassArtefact = lazy(() =>
 export const TELEGRAM_URL = "https://t.me/kalabms";
 export const TIKTOK_URL = "https://www.tiktok.com/@kms_creative16?_r=1&_t=ZS-9AeHYgayzrU";
 
-/** Shared style for the Telegram / TikTok pill buttons. */
+/** Shared style for the Telegram / TikTok pill buttons (display utility added per use). */
 const SOCIAL_PILL =
-  "inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-white transition-transform hover:scale-[1.03]";
+  "items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-white transition-transform hover:scale-[1.03]";
 const SOCIAL_PILL_STYLE = {
   background: "var(--gradient-primary)",
   boxShadow: "var(--shadow-glow)",
