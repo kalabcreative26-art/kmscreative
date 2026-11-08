@@ -1,5 +1,8 @@
 # Roadmap
 
+- [ ] Apply the requested ambient purple mesh, Expo glass and reversible page transitions
+- [ ] Apply light sample-inspired typography and replace four video-production blanks with uploaded videos (no captions)
+
 - [x] Add secure owner/client roles and private conversations
 - [x] Add service-aware Telegram message choices (cards + service pages, exact per-service text)
 - [x] Fix service pages returning a server error (icon component no longer sent through page data)
