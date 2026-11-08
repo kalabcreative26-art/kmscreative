@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, Film, Palette, QrCode, Sparkles, Code, Send, type LucideIcon } from "lucide-react";
 import { getService } from "@/lib/services";
@@ -78,7 +79,7 @@ export function PortfolioSection() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 md:mb-20">
         <div>
           <span className="eyebrow">Selected Work</span>
-          <h2 className="text-4xl md:text-6xl font-light mt-6 tracking-[-0.035em] leading-[1.05] max-w-2xl">
+          <h2 className="text-4xl md:text-6xl font-light mt-6 tracking-normal leading-[1.05] max-w-2xl">
             Logos, graphics, film and{" "}
             <span className="font-serif italic text-primary">QR menus.</span>
           </h2>
@@ -92,7 +93,7 @@ export function PortfolioSection() {
         {works.map((w) => {
           const inquireTitle = getService(w.slug)?.title ?? w.category;
           return (
-            <div key={w.title} className="card-premium group relative flex flex-col overflow-hidden">
+            <div key={w.title} className="expo-glass-effect card-premium group relative flex flex-col overflow-hidden">
               <div
                 className="relative h-44 overflow-hidden"
                 style={{
@@ -110,30 +111,29 @@ export function PortfolioSection() {
               </div>
 
               <div className="flex flex-1 flex-col p-7">
-                <span className="text-[10px] uppercase tracking-[0.32em] font-semibold text-primary">
+                <span className="text-[10px] uppercase tracking-normal font-semibold text-primary">
                   {w.category}
                 </span>
-                <h3 className="text-xl font-light tracking-tight mt-4">{w.title}</h3>
+                <h3 className="text-xl font-light tracking-normal mt-4">{w.title}</h3>
                 <p className="text-sm text-muted-foreground font-light leading-relaxed mt-3 flex-1">{w.blurb}</p>
                 <div className="flex flex-wrap gap-2 mt-6">
                   {w.tags.map((t) => (
                     <span
                       key={t}
-                      className="rounded-full border border-border/70 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-muted-foreground/80"
+                      className="rounded-full border border-border/70 px-3 py-1 text-[10px] uppercase tracking-normal text-muted-foreground/80"
                     >
                       {t}
                     </span>
                   ))}
                 </div>
-                <a
-                  href={telegramLink(settings.telegram_url, inquireTitle)}
+                <Button asChild variant="glass" className="h-auto"><a                   href={telegramLink(settings.telegram_url, inquireTitle)}
                   target="_blank"
                   rel="noreferrer"
-                  className="relative z-20 mt-6 inline-flex w-fit items-center gap-2 whitespace-nowrap rounded-full border border-primary/30 bg-primary/10 px-3.5 py-2.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-primary transition-all hover:bg-primary/20 hover:border-primary/60 hover:scale-[1.03] active:scale-95"
+                  className="relative z-20 mt-6 inline-flex w-fit items-center gap-2 whitespace-nowrap rounded-full border border-primary/30 bg-primary/10 px-3.5 py-2.5 text-[10px] font-semibold uppercase tracking-normal text-primary transition-all hover:bg-primary/20 hover:border-primary/60 hover:scale-[1.03] active:scale-95"
                 >
                   <Send className="h-3 w-3" />
                   Inquire on Telegram
-                </a>
+                </a></Button>
               </div>
 
               <Link

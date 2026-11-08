@@ -16,6 +16,8 @@ export const Route = createFileRoute("/_authenticated/inbox")({
       },
       { property: "og:title", content: "Studio Inbox — KMS Creative" },
       { property: "og:description", content: "Read and reply to client messages privately." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
 });

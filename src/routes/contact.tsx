@@ -35,8 +35,8 @@ function ContactPage() {
         <div className="border-t border-border">
           {contacts.map((contact) => (
             <Button key={contact.name} asChild variant="ghost" className="group h-auto w-full justify-start gap-5 rounded-none border-b border-border px-1 py-7 md:py-9 whitespace-normal hover:bg-primary/5">
-              <a href={contact.href} {...(contact.external ? { target: "_blank", rel: "noreferrer" } : {})} aria-label={`${contact.name} ${contact.detail}`}>
-                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl border border-primary/25 bg-primary/10 text-primary">
+              <Button asChild variant="glass" className="h-auto"><a href={contact.href} {...(contact.external ? { target: "_blank", rel: "noreferrer" } : {})} aria-label={`${contact.name} ${contact.detail}`}>
+                <span className="expo-glass-effect grid h-12 w-12 shrink-0 place-items-center rounded-xl border border-primary/25 bg-primary/10 text-primary">
                   <contact.icon className="h-5 w-5" />
                 </span>
                 <span className="min-w-0 flex-1">
@@ -44,7 +44,7 @@ function ContactPage() {
                   <span className="block mt-1 text-sm text-muted-foreground break-words">{contact.detail}</span>
                 </span>
                 <ArrowUpRight className="h-5 w-5 text-primary transition-transform group-hover:-translate-y-1 group-hover:translate-x-1 motion-reduce:transform-none" />
-              </a>
+              </a></Button>
             </Button>
           ))}
         </div>

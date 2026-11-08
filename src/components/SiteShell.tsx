@@ -16,6 +16,8 @@ import { ShaderBackground } from "@/components/ShaderBackground";
 import { useTheme } from "@/hooks/use-theme";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useSiteSettings } from "@/hooks/use-site-settings";
+import { Button } from "@/components/ui/button";
+import { RouteTransition } from "@/components/RouteTransition";
 
 const GlassArtefact = lazy(() =>
   import("@/components/GlassArtefact").then((m) => ({ default: m.GlassArtefact })),
@@ -26,7 +28,7 @@ export const TIKTOK_URL = "https://www.tiktok.com/@kms_creative16?_r=1&_t=ZS-9Ae
 
 /** Shared style for the Telegram / TikTok pill buttons (display utility added per use). */
 const SOCIAL_PILL =
-  "items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-white transition-transform hover:scale-[1.03]";
+  "expo-glass-effect items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-primary-foreground transition-transform hover:scale-[1.03]";
 const SOCIAL_PILL_STYLE = {
   background: "var(--gradient-primary)",
   boxShadow: "var(--shadow-glow)",
@@ -80,10 +82,10 @@ export function SiteNav() {
     const base =
       variant === "desktop"
         ? `flex items-center gap-1.5 shrink-0 px-3 py-2 rounded-full text-[11px] font-semibold uppercase tracking-[0.14em] transition-all ${
-            active ? "text-white" : "text-foreground/85 hover:text-foreground hover:bg-white/5"
+            active ? "text-primary-foreground expo-glass-effect" : "text-foreground/85 hover:text-foreground hover:bg-foreground/5"
           }`
         : `flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold transition-all ${
-            active ? "text-white" : "text-foreground/85 hover:bg-white/5"
+            active ? "text-primary-foreground expo-glass-effect" : "text-foreground/85 hover:bg-foreground/5"
           }`;
     const activeStyle = active
       ? { background: "var(--gradient-primary)", boxShadow: "var(--shadow-glow)" }
@@ -112,7 +114,7 @@ export function SiteNav() {
       <div className="w-[min(96vw,860px)]">
         {/* Top bar */}
         <div
-          className="glass glass-specular relative flex items-center gap-1 pl-3 pr-2 py-2"
+          className="glass glass-specular expo-glass-effect relative flex items-center gap-1 pl-3 pr-2 py-2"
           style={{ borderRadius: 9999 }}
         >
           <Link to="/" className="relative z-10 flex items-center gap-2 shrink-0 pr-2" aria-label="KMS Creative home">
@@ -134,13 +136,13 @@ export function SiteNav() {
           </div>
 
           <div className="relative z-10 flex items-center gap-1.5 shrink-0 ml-auto">
-            <button
+            <Button variant="ghost" size="icon"
               onClick={toggleTheme}
               aria-label="Toggle theme"
-              className="grid place-items-center w-9 h-9 rounded-full text-foreground/85 hover:text-primary transition-colors"
+              className="expo-glass-effect grid place-items-center w-9 h-9 rounded-full text-foreground/85 hover:text-primary transition-colors"
             >
               {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-            </button>
+            </Button>
             <a
               href={TIKTOK_URL}
               target="_blank"
@@ -163,21 +165,21 @@ export function SiteNav() {
               Inquire
             </a>
             {/* Mobile menu button */}
-            <button
+            <Button variant="ghost" size="icon"
               onClick={() => setOpen((v) => !v)}
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
-              className="md:hidden grid place-items-center w-9 h-9 rounded-full text-foreground/85 hover:text-primary transition-colors"
+              className="expo-glass-effect md:hidden grid place-items-center w-9 h-9 rounded-full text-foreground/85 hover:text-primary transition-colors"
             >
               {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-            </button>
+            </Button>
           </div>
         </div>
 
         {/* Mobile menu sheet */}
         {open && (
           <div
-            className="glass glass-specular md:hidden mt-2 p-2 rounded-3xl flex flex-col gap-1"
+            className="glass glass-specular expo-glass-effect md:hidden mt-2 p-2 rounded-3xl flex flex-col gap-1"
             style={{ borderRadius: 24 }}
           >
             {items.map((it) => renderItem(it, "mobile"))}
@@ -185,7 +187,7 @@ export function SiteNav() {
               href={TELEGRAM_URL}
               target="_blank"
               rel="noreferrer"
-              className="mt-1 flex items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-white"
+              className="expo-glass-effect mt-1 flex items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-primary-foreground"
               style={{ background: "var(--gradient-primary)", boxShadow: "var(--shadow-glow)" }}
             >
               <Send className="h-4 w-4" />
@@ -196,7 +198,7 @@ export function SiteNav() {
               target="_blank"
               rel="noreferrer"
               aria-label="KMS Creative on TikTok"
-              className="flex items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-white"
+              className="expo-glass-effect flex items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-primary-foreground"
               style={{ background: "var(--gradient-primary)", boxShadow: "var(--shadow-glow)" }}
             >
               <TikTokIcon className="h-4 w-4" />
@@ -259,7 +261,9 @@ export function PageBackground() {
 
   return (
     <>
-      <ShaderBackground lowPower={isMobile || reducedMotion} />
+      <div className="ambient-background" aria-hidden="true" />
+      <div className="custom-background-overlay" aria-hidden="true" />
+      <div className="shader-layer"><ShaderBackground lowPower={isMobile || reducedMotion} /></div>
       {showArtefact && (
         <Suspense fallback={null}>
           <GlassArtefact />
@@ -270,11 +274,15 @@ export function PageBackground() {
 }
 
 export function PageShell({ children }: { children: ReactNode }) {
+  return <>{children}</>;
+}
+
+export function SiteLayout({ children }: { children: ReactNode }) {
   return (
     <main className="relative min-h-screen text-foreground antialiased selection:bg-primary/30 overflow-x-hidden scroll-smooth">
       <PageBackground />
       <SiteNav />
-      <div className="pt-28 relative z-10">{children}</div>
+      <div className="pt-28 relative z-10"><RouteTransition>{children}</RouteTransition></div>
       <SiteFooter />
     </main>
   );

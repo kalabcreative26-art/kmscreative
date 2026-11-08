@@ -86,7 +86,8 @@ export function ShaderBackground({ lowPower = false }: { lowPower?: boolean }) {
     if (!gl) return;
 
     const compile = (type: number, src: string) => {
-      const s = gl.createShader(type)!;
+      const s = gl.createShader(type);
+      if (!s) return null;
       gl.shaderSource(s, src);
       gl.compileShader(s);
       if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
@@ -99,7 +100,8 @@ export function ShaderBackground({ lowPower = false }: { lowPower?: boolean }) {
     const vs = compile(gl.VERTEX_SHADER, VERT);
     const fs = compile(gl.FRAGMENT_SHADER, FRAG);
     if (!vs || !fs) return;
-    const prog = gl.createProgram()!;
+    const prog = gl.createProgram();
+    if (!prog) return;
     gl.attachShader(prog, vs);
     gl.attachShader(prog, fs);
     gl.linkProgram(prog);
@@ -163,12 +165,13 @@ export function ShaderBackground({ lowPower = false }: { lowPower?: boolean }) {
     obs.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
 
     const start = performance.now();
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let raf = 0;
     let running = true;
 
     const loop = () => {
       if (!running) return;
-      raf = requestAnimationFrame(loop);
+      if (!reducedMotion.matches) raf = requestAnimationFrame(loop);
       const now = performance.now();
       if (frameInterval && now - lastFrame < frameInterval) return;
       lastFrame = now;
@@ -202,6 +205,10 @@ export function ShaderBackground({ lowPower = false }: { lowPower?: boolean }) {
       window.removeEventListener("pointermove", onMove);
       document.removeEventListener("visibilitychange", onVis);
       obs.disconnect();
+      gl.deleteBuffer(buf);
+      gl.deleteProgram(prog);
+      gl.deleteShader(vs);
+      gl.deleteShader(fs);
     };
   }, [lowPower]);
 
