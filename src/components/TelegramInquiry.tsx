@@ -1,5 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { ArrowRight, Send, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { telegramChoices, telegramLink } from "@/lib/telegram";
 import { useSiteSettings } from "@/hooks/use-site-settings";
 
@@ -28,14 +29,14 @@ export function TelegramInquiry({
 
   return (
     <>
-      <button type="button" onClick={() => setOpen(true)} className={className} style={style}>
+      <Button variant="glass" type="button" onClick={() => setOpen(true)} className={className} style={style}>
         {children ?? (
           <>
             <Send className="h-4 w-4" />
             Message on Telegram
           </>
         )}
-      </button>
+      </Button>
 
       {open && (
         <div
@@ -43,27 +44,27 @@ export function TelegramInquiry({
           onClick={() => setOpen(false)}
         >
           <div
-            className="glass glass-specular w-full max-w-lg max-h-[85vh] overflow-y-auto p-6 md:p-8"
+            className="expo-glass-effect glass glass-specular w-full max-w-lg max-h-[85vh] overflow-y-auto p-6 md:p-8"
             style={{ borderRadius: 28 }}
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-start justify-between gap-4 mb-6">
               <div>
                 <span className="eyebrow">Telegram</span>
-                <h3 className="text-2xl font-light tracking-tight mt-3">
+                <h3 className="text-2xl font-light tracking-normal mt-3">
                   What can I <span className="font-serif italic text-primary">create for you?</span>
                 </h3>
                 <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
                   Pick one — Telegram opens with your message already written. All you do is press send.
                 </p>
               </div>
-              <button
+              <Button variant="glass" size="icon"
                 onClick={() => setOpen(false)}
                 aria-label="Close"
                 className="grid place-items-center h-9 w-9 rounded-full text-muted-foreground hover:text-foreground transition-colors shrink-0"
               >
                 <X className="h-4 w-4" />
-              </button>
+              </Button>
             </div>
 
             <div className="flex flex-col gap-2">
@@ -77,7 +78,7 @@ export function TelegramInquiry({
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => setOpen(false)}
-                  className="group flex items-center gap-4 rounded-2xl border border-border/60 bg-background/30 px-5 py-4 transition-all hover:border-primary/40 hover:bg-background/60"
+                  className="expo-glass-effect group flex items-center gap-4 rounded-2xl border border-border/60 bg-background/30 px-5 py-4 transition-all hover:border-primary/40 hover:bg-background/60"
                 >
                   <span className="min-w-0 flex-1">
                     <span className="block text-sm font-medium truncate">{c.title}</span>

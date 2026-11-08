@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, Send } from "lucide-react";
 import { PageShell, TELEGRAM_URL } from "@/components/SiteShell";
@@ -27,8 +28,8 @@ function AboutPage() {
   return (
     <PageShell>
       <section className="max-w-4xl mx-auto px-6 pt-16 pb-24 md:pt-24 md:pb-32">
-        <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-primary">About</span>
-        <h1 className="text-5xl md:text-7xl font-light mt-6 mb-12 tracking-[-0.02em] leading-[1.05]">
+        <span className="text-[10px] uppercase tracking-normal font-bold text-primary">About</span>
+        <h1 className="text-5xl md:text-7xl font-light mt-6 mb-12 tracking-normal leading-[1.05]">
           A multi-disciplinary{" "}
           <span className="font-serif italic text-primary">creative</span> expert.
         </h1>
@@ -47,24 +48,23 @@ function AboutPage() {
             { k: "React / TS", v: "Web" },
           ].map((s) => (
             <div key={s.k}>
-              <div className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground mb-1">{s.v}</div>
-              <div className="text-sm font-medium tracking-tight">{s.k}</div>
+              <div className="text-[10px] uppercase tracking-normal text-muted-foreground mb-1">{s.v}</div>
+              <div className="text-sm font-medium tracking-normal">{s.k}</div>
             </div>
           ))}
         </div>
 
         <div className="mt-16">
-          <a
-            href={TELEGRAM_URL}
+          <Button asChild variant="glass" className="h-auto"><a             href={TELEGRAM_URL}
             target="_blank"
             rel="noreferrer"
-            className="group inline-flex items-center justify-center gap-3 px-8 py-4 text-primary-foreground rounded-full text-sm font-semibold uppercase tracking-[0.2em] hover:scale-[1.02] active:scale-95 transition-transform"
+            className="group inline-flex items-center justify-center gap-3 px-8 py-4 text-primary-foreground rounded-full text-sm font-semibold uppercase tracking-normal hover:scale-[1.02] active:scale-95 transition-transform"
             style={{ background: "var(--gradient-primary)", boxShadow: "var(--shadow-glow)" }}
           >
             <Send className="h-4 w-4" />
             Get Started
             <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-          </a>
+          </a></Button>
         </div>
       </section>
     </PageShell>
