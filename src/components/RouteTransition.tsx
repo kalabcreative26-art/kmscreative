@@ -7,13 +7,13 @@ export function RouteTransition({ children }: { children: ReactNode }) {
   const previous = useRef({ path: location.pathname, index: location.state.__TSR_index ?? 0 });
   const index = location.state.__TSR_index ?? 0;
   const changed = previous.current.path !== location.pathname;
-  const backward = changed && (location.pathname === "/" || index < previous.current.index);
+  const backward = location.pathname === "/" || index < previous.current.index;
   const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     previous.current = { path: location.pathname, index };
     document.documentElement.dataset.navigation = backward ? "back" : "forward";
-  }, [location.pathname, index, backward]);
+  }, [location.pathname, index]);
 
   return (
     <motion.div
