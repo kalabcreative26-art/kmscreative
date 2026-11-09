@@ -14,4 +14,5 @@
 - [x] Fill the four website development examples with screenshots only
 - [x] Verify these changes on desktop and phone
 - [x] Apply Apple-style glass polish
+- [x] Use the supplied purple glow picture as the site background (dark: glow as-is, light: soft lavender wash)
 - [ ] Email alerts remain off: blocked until an owned, verified sending domain is available

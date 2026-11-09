@@ -149,7 +149,7 @@
   --secondary: oklch(0.14 0.03 285);
   --secondary-foreground: oklch(0.98 0.005 290);
   --muted: oklch(0.14 0.025 285);
-  --muted-foreground: oklch(0.7 0.03 290);
+  --muted-foreground: oklch(0.78 0.02 290);
   --accent: oklch(0.4 0.18 295);
   --accent-foreground: oklch(0.98 0.005 290);
   --destructive: oklch(0.6 0.24 27);
@@ -409,12 +409,35 @@ h1, h2, h3, h4, .font-display {
 }
 
 /* Purple/white wave glow background */
-.wave-bg { position: fixed; inset: 0; z-index: -20; background: #07040f; overflow: hidden; pointer-events: none; }
-.wave-bg::before, .wave-bg::after {
-  content: ""; position: absolute; left: -20%; right: -20%; height: 70vh; bottom: -18vh; border-radius: 50% 50% 0 0;
-  background: radial-gradient(ellipse at 50% 35%, #f3e8ff 0%, #a855f7 28%, #6d28d9 52%, transparent 72%);
-  filter: blur(40px); animation: kms-wave 9s ease-in-out infinite alternate;
+/* Site background: the supplied purple glow arc on near-black */
+.bg-arc {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-color: #05020c;
+  background-image: var(--bg-arc-image, none);
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: cover;
 }
-.wave-bg::after { opacity: .55; bottom: -28vh; animation-duration: 13s; animation-direction: alternate-reverse; }
-@keyframes kms-wave { from { transform: translateX(-4%) scaleY(.92); } to { transform: translateX(4%) scaleY(1.08); } }
-@media (prefers-reduced-motion: reduce) { .wave-bg::before, .wave-bg::after { animation: none; } }
+/* Keeps the glow from washing out the copy that sits on top of it. */
+.bg-arc::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #05020c;
+  opacity: 0.45;
+}
+html:not(.dark) .bg-arc::before { opacity: 0; }
+/* Light mode keeps the same picture, washed to a soft lavender glow. */
+html:not(.dark) .bg-arc {
+  background-color: #faf8ff;
+}
+html:not(.dark) .bg-arc::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #faf8ff;
+  opacity: 0.82;
+}
