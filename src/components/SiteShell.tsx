@@ -11,8 +11,8 @@ import {
 } from "lucide-react";
 import { lazy, Suspense, useEffect, useState, type ReactNode } from "react";
 import kmsLogo from "@/assets/kms-logo.jpg.asset.json";
+import bgArc from "@/assets/bg-purple-arc.jpg.asset.json";
 import { useTheme } from "@/hooks/use-theme";
-import { useIsMobile } from "@/hooks/use-mobile";
 import { useSiteSettings } from "@/hooks/use-site-settings";
 import { Button } from "@/components/ui/button";
 import { RouteTransition } from "@/components/RouteTransition";
@@ -223,24 +223,12 @@ export function SiteFooter() {
 }
 
 export function PageBackground() {
-  const isMobile = useIsMobile();
-  const [reducedMotion, setReducedMotion] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReducedMotion(mq.matches);
-    const onChange = () => setReducedMotion(mq.matches);
-    mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
-  }, []);
-
-  // Skip heavy 3D artefact on mobile & when user prefers reduced motion.
-  const showArtefact = !isMobile && !reducedMotion;
-
   return (
-    <>
-      <div className="wave-bg" aria-hidden="true" />
-    </>
+    <div
+      className="bg-arc"
+      aria-hidden="true"
+      style={{ "--bg-arc-image": `url(${bgArc.url})` } as React.CSSProperties}
+    />
   );
 }
 
