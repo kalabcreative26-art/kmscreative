@@ -6,7 +6,8 @@ import {
   Send,
   Sun,
   Moon,
-  Menu,
+  MoreHorizontal,
+  Lamp,
   X,
   Mail,
 } from "lucide-react";
@@ -28,11 +29,8 @@ export const TIKTOK_URL = "https://www.tiktok.com/@kms_creative16?_r=1&_t=ZS-9Ae
 
 /** Shared style for the Telegram / TikTok pill buttons (display utility added per use). */
 const SOCIAL_PILL =
-  "expo-glass-effect items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-primary-foreground transition-transform hover:scale-[1.03]";
-const SOCIAL_PILL_STYLE = {
-  background: "var(--gradient-primary)",
-  boxShadow: "var(--shadow-glow)",
-} as const;
+  "ios-glass items-center gap-1.5 rounded-full px-4 py-2 text-xs font-medium";
+const SOCIAL_PILL_STYLE = {} as const;
 
 /** Official TikTok mark (the icon library has no brand glyphs). */
 export function TikTokIcon({ className = "h-4 w-4" }: { className?: string }) {
@@ -82,14 +80,12 @@ export function SiteNav() {
     const base =
       variant === "desktop"
         ? `flex items-center gap-1.5 shrink-0 px-3 py-2 rounded-full text-[11px] font-semibold uppercase tracking-[0.14em] transition-all ${
-            active ? "text-primary-foreground expo-glass-effect" : "text-foreground/85 hover:text-foreground hover:bg-foreground/5"
+            active ? "ios-glass" : "text-foreground/85 hover:text-foreground hover:bg-foreground/5"
           }`
         : `flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold transition-all ${
-            active ? "text-primary-foreground expo-glass-effect" : "text-foreground/85 hover:bg-foreground/5"
+            active ? "ios-glass" : "text-foreground/85 hover:bg-foreground/5"
           }`;
-    const activeStyle = active
-      ? { background: "var(--gradient-primary)", boxShadow: "var(--shadow-glow)" }
-      : undefined;
+    const activeStyle = undefined;
     return it.hash ? (
       <a
         key={it.to}
@@ -138,10 +134,10 @@ export function SiteNav() {
           <div className="relative z-10 flex items-center gap-1.5 shrink-0 ml-auto">
             <Button variant="ghost" size="icon"
               onClick={toggleTheme}
-              aria-label="Toggle theme"
-              className="expo-glass-effect grid place-items-center w-9 h-9 rounded-full text-foreground/85 hover:text-primary transition-colors"
+              aria-label="Toggle light / dark (lamp)"
+              className="ios-glass grid place-items-center w-10 h-10 rounded-full"
             >
-              {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              <Lamp className={`h-4 w-4 transition-all ${theme === "dark" ? "text-primary drop-shadow-[0_0_6px_var(--primary)]" : "opacity-60"}`} />
             </Button>
             <a
               href={TIKTOK_URL}
@@ -154,24 +150,18 @@ export function SiteNav() {
               <TikTokIcon className="h-3 w-3" />
               TikTok
             </a>
-            <a
-              href={TELEGRAM_URL}
-              target="_blank"
-              rel="noreferrer"
-              className={`hidden sm:inline-flex ${SOCIAL_PILL}`}
-              style={SOCIAL_PILL_STYLE}
-            >
-              <Send className="h-3 w-3" />
-              Inquire
-            </a>
+            <Link to="/contact" className={`hidden sm:inline-flex ${SOCIAL_PILL}`}>
+              <Mail className="h-3 w-3" />
+              Contact
+            </Link>
             {/* Mobile menu button */}
             <Button variant="ghost" size="icon"
               onClick={() => setOpen((v) => !v)}
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
-              className="expo-glass-effect md:hidden grid place-items-center w-9 h-9 rounded-full text-foreground/85 hover:text-primary transition-colors"
+              className="ios-glass md:hidden grid place-items-center w-10 h-10 rounded-full"
             >
-              {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+              {open ? <X className="h-4 w-4" /> : <MoreHorizontal className="h-4 w-4" />}
             </Button>
           </div>
         </div>
@@ -183,23 +173,16 @@ export function SiteNav() {
             style={{ borderRadius: 24 }}
           >
             {items.map((it) => renderItem(it, "mobile"))}
-            <a
-              href={TELEGRAM_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="expo-glass-effect mt-1 flex items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-primary-foreground"
-              style={{ background: "var(--gradient-primary)", boxShadow: "var(--shadow-glow)" }}
-            >
-              <Send className="h-4 w-4" />
-              Inquire
-            </a>
+            <Link to="/contact" className="ios-glass mt-1 flex items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm font-medium">
+              <Mail className="h-4 w-4" />
+              Contact
+            </Link>
             <a
               href={TIKTOK_URL}
               target="_blank"
               rel="noreferrer"
               aria-label="KMS Creative on TikTok"
-              className="expo-glass-effect flex items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-primary-foreground"
-              style={{ background: "var(--gradient-primary)", boxShadow: "var(--shadow-glow)" }}
+              className="ios-glass flex items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm font-medium"
             >
               <TikTokIcon className="h-4 w-4" />
               TikTok
@@ -261,14 +244,7 @@ export function PageBackground() {
 
   return (
     <>
-      <div className="ambient-background" aria-hidden="true" />
-      <div className="custom-background-overlay" aria-hidden="true" />
-      <div className="shader-layer"><ShaderBackground lowPower={isMobile || reducedMotion} /></div>
-      {showArtefact && (
-        <Suspense fallback={null}>
-          <GlassArtefact />
-        </Suspense>
-      )}
+      <div className="wave-bg" aria-hidden="true" />
     </>
   );
 }

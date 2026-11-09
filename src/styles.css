@@ -395,3 +395,26 @@ h1, h2, h3, h4, .font-display {
     box-shadow: 0 20px 45px -25px color-mix(in oklab, var(--primary) 70%, transparent);
   }
 }
+
+/* iOS liquid glass buttons */
+@utility ios-glass {
+  background: linear-gradient(160deg, color-mix(in oklab, white 22%, transparent), color-mix(in oklab, var(--primary) 14%, transparent));
+  backdrop-filter: blur(18px) saturate(180%);
+  border: 1px solid color-mix(in oklab, white 35%, transparent);
+  box-shadow: inset 0 1px 1px color-mix(in oklab, white 55%, transparent), inset 0 -6px 14px color-mix(in oklab, var(--primary) 18%, transparent), 0 8px 24px -10px color-mix(in oklab, black 60%, transparent);
+  color: var(--foreground);
+  transition: transform 220ms cubic-bezier(.2,.8,.2,1), background 220ms;
+  &:hover { transform: scale(1.04); }
+  &:active { transform: scale(0.96); }
+}
+
+/* Purple/white wave glow background */
+.wave-bg { position: fixed; inset: 0; z-index: -20; background: #07040f; overflow: hidden; pointer-events: none; }
+.wave-bg::before, .wave-bg::after {
+  content: ""; position: absolute; left: -20%; right: -20%; height: 70vh; bottom: -18vh; border-radius: 50% 50% 0 0;
+  background: radial-gradient(ellipse at 50% 35%, #f3e8ff 0%, #a855f7 28%, #6d28d9 52%, transparent 72%);
+  filter: blur(40px); animation: kms-wave 9s ease-in-out infinite alternate;
+}
+.wave-bg::after { opacity: .55; bottom: -28vh; animation-duration: 13s; animation-direction: alternate-reverse; }
+@keyframes kms-wave { from { transform: translateX(-4%) scaleY(.92); } to { transform: translateX(4%) scaleY(1.08); } }
+@media (prefers-reduced-motion: reduce) { .wave-bg::before, .wave-bg::after { animation: none; } }

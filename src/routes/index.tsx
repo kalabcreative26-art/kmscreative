@@ -70,7 +70,7 @@ function Home() {
             <span className="font-serif italic font-normal" style={{ background: "var(--gradient-primary)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
               Crafting
             </span>{" "}
-            Digital Excellence.
+            Digital Management.
           </h1>
         </Reveal>
 
@@ -83,9 +83,8 @@ function Home() {
         <Reveal delay={420}>
           <div className="mt-12 flex flex-col sm:flex-row gap-3">
             <Button asChild variant="glass" className="h-auto"><a               href="#services"
-              className="group inline-flex items-center justify-center gap-2 px-8 py-4 text-primary-foreground rounded-full text-sm font-semibold uppercase tracking-normal hover:scale-[1.02] active:scale-95 transition-transform"
-              style={{ background: "var(--gradient-primary)", boxShadow: "var(--shadow-glow)" }}
-            >
+              className="group inline-flex items-center justify-center gap-2 px-8 py-4 ios-glass rounded-full text-sm font-medium tracking-normal hover:scale-[1.02] active:scale-95 transition-transform"
+                          >
               Explore Services
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </a></Button>
@@ -184,9 +183,8 @@ function Home() {
           <Button asChild variant="glass" className="h-auto"><a             href={TELEGRAM_URL}
             target="_blank"
             rel="noreferrer"
-            className="group inline-flex items-center justify-center gap-3 px-10 py-5 text-primary-foreground rounded-full text-sm font-semibold uppercase tracking-normal hover:scale-[1.02] active:scale-95 transition-transform"
-            style={{ background: "var(--gradient-primary)", boxShadow: "var(--shadow-glow)" }}
-          >
+            className="group inline-flex items-center justify-center gap-3 px-10 py-5 ios-glass rounded-full text-sm font-medium tracking-normal hover:scale-[1.02] active:scale-95 transition-transform"
+                      >
             <Send className="h-4 w-4" />
             Get Started on Telegram
             <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
