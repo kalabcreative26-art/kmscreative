@@ -421,6 +421,15 @@ h1, h2, h3, h4, .font-display {
   background-position: center bottom;
   background-size: cover;
 }
+/* Keeps the glow from washing out the copy that sits on top of it. */
+.bg-arc::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #05020c;
+  opacity: 0.45;
+}
+html:not(.dark) .bg-arc::before { opacity: 0; }
 /* Light mode keeps the same picture, washed to a soft lavender glow. */
 html:not(.dark) .bg-arc {
   background-color: #faf8ff;
