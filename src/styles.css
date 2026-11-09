@@ -413,7 +413,7 @@ h1, h2, h3, h4, .font-display {
 .bg-arc {
   position: fixed;
   inset: 0;
-  z-index: -20;
+  z-index: 0;
   pointer-events: none;
   background-color: #05020c;
   background-image: var(--bg-arc-image, none);
@@ -421,10 +421,14 @@ h1, h2, h3, h4, .font-display {
   background-position: center bottom;
   background-size: cover;
 }
-/* Light mode keeps a soft purple wash instead of the dark arc. */
+/* Light mode keeps the same picture, washed to a soft lavender glow. */
 html:not(.dark) .bg-arc {
-  background-color: #f7f4ff;
-  background-image:
-    radial-gradient(ellipse at 50% 108%, oklch(0.78 0.16 295 / 0.5), transparent 62%),
-    radial-gradient(ellipse at 12% 8%, oklch(0.92 0.05 295 / 0.7), transparent 55%);
+  background-color: #faf8ff;
+}
+html:not(.dark) .bg-arc::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #faf8ff;
+  opacity: 0.82;
 }
