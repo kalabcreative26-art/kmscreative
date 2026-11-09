@@ -4,8 +4,6 @@ import {
   UserRound,
   Layers,
   Send,
-  Sun,
-  Moon,
   MoreHorizontal,
   Lamp,
   X,
@@ -13,16 +11,13 @@ import {
 } from "lucide-react";
 import { lazy, Suspense, useEffect, useState, type ReactNode } from "react";
 import kmsLogo from "@/assets/kms-logo.jpg.asset.json";
-import { ShaderBackground } from "@/components/ShaderBackground";
 import { useTheme } from "@/hooks/use-theme";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useSiteSettings } from "@/hooks/use-site-settings";
 import { Button } from "@/components/ui/button";
 import { RouteTransition } from "@/components/RouteTransition";
 
-const GlassArtefact = lazy(() =>
-  import("@/components/GlassArtefact").then((m) => ({ default: m.GlassArtefact })),
-);
+
 
 export const TELEGRAM_URL = "https://t.me/kalabms";
 export const TIKTOK_URL = "https://www.tiktok.com/@kms_creative16?_r=1&_t=ZS-9AeHYgayzrU";
