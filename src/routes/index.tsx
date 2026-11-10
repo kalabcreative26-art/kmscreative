@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { ArrowRight, Send } from "lucide-react";
+import { ArrowRight, Phone, Send } from "lucide-react";
 import { PageShell, TELEGRAM_URL } from "@/components/SiteShell";
 import { services } from "@/lib/services";
 import { telegramLink } from "@/lib/telegram";
@@ -91,8 +91,8 @@ function Home() {
             <Button asChild variant="glass" className="h-auto"><Link to="/contact"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-transparent hover:bg-card border border-border hover:border-primary/40 rounded-full text-sm font-semibold uppercase tracking-normal transition-colors"
             >
-              <Send className="h-4 w-4" />
-              Get Started
+              <Phone className="h-4 w-4" />
+              Get Contact
             </Link></Button>
           </div>
         </Reveal>
@@ -181,8 +181,8 @@ function Home() {
           <Button asChild variant="glass" className="h-auto"><Link to="/contact"
             className="group inline-flex items-center justify-center gap-3 px-10 py-5 ios-glass rounded-full text-sm font-medium tracking-normal hover:scale-[1.02] active:scale-95 transition-transform"
                       >
-            <Send className="h-4 w-4" />
-            Get Started on Telegram
+            <Phone className="h-4 w-4" />
+            Get Contact
             <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
           </Link></Button>
         </Reveal>
