@@ -12,9 +12,9 @@
  */
 
 @theme inline {
-  --font-sans: "Cormorant Garamond", ui-serif, Georgia, serif;
-  --font-display: "Cormorant Garamond", ui-serif, Georgia, serif;
-  --font-serif: "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Syne", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Syne", ui-sans-serif, system-ui, sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -251,7 +251,7 @@ a[href*="lovable.app"] {
 /* Editorial typography */
 body {
   font-family: var(--font-sans);
-  font-weight: 300;
+  font-weight: 500;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -310,6 +310,7 @@ html[data-navigation="back"]::view-transition-old(page-content) { animation-name
 
 h1, h2, h3, h4, .font-display {
   font-family: var(--font-display);
+  font-weight: 700 !important;
   letter-spacing: 0;
 }
 
@@ -403,6 +404,8 @@ h1, h2, h3, h4, .font-display {
   border: 1px solid color-mix(in oklab, white 35%, transparent);
   box-shadow: inset 0 1px 1px color-mix(in oklab, white 55%, transparent), inset 0 -6px 14px color-mix(in oklab, var(--primary) 18%, transparent), 0 8px 24px -10px color-mix(in oklab, black 60%, transparent);
   color: var(--foreground);
+  border-radius: 18px !important;
+  font-weight: 600;
   transition: transform 220ms cubic-bezier(.2,.8,.2,1), background 220ms;
   &:hover { transform: scale(1.04); }
   &:active { transform: scale(0.96); }
