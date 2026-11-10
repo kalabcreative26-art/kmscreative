@@ -84,7 +84,7 @@
   --secondary: oklch(0.94 0.02 290);
   --secondary-foreground: oklch(0.2 0.04 290);
   --muted: oklch(0.94 0.02 290);
-  --muted-foreground: oklch(0.45 0.04 290);
+  --muted-foreground: oklch(0.4 0.05 290);
   --accent: oklch(0.9 0.06 295);
   --accent-foreground: oklch(0.2 0.06 290);
   --destructive: oklch(0.6 0.24 27);
@@ -451,7 +451,7 @@ html:not(.dark) .bg-arc::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: var(--primary);
+  background: linear-gradient(180deg, color-mix(in oklab, var(--primary) 42%, white), color-mix(in oklab, var(--primary) 72%, white));
   -webkit-mask-image: var(--bg-arc-image, none);
   mask-image: var(--bg-arc-image, none);
   -webkit-mask-mode: luminance;
