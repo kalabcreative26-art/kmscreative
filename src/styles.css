@@ -316,6 +316,9 @@ html[data-navigation="back"]::view-transition-old(page-content) { animation-name
 h1, h2, h3, h4, .font-display {
   font-family: var(--font-display);
   font-weight: 600 !important;
+  line-height: 1.18 !important;
+  overflow-wrap: break-word;
+  padding-bottom: 0.05em;
   letter-spacing: 0;
 }
 
