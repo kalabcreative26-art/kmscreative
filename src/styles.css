@@ -249,6 +249,11 @@ a[href*="lovable.app"] {
 }
 
 /* Editorial typography */
+html { font-size: 93.75%; }
+h1 { font-size: 0.85em; }
+h1.text-5xl { font-size: 2.6rem; }
+@media (min-width: 768px) { h1.text-5xl { font-size: 3.8rem; } }
+@media (min-width: 1024px) { h1.text-5xl { font-size: 4.4rem; } }
 body {
   font-family: var(--font-sans);
   font-weight: 500;
@@ -310,7 +315,7 @@ html[data-navigation="back"]::view-transition-old(page-content) { animation-name
 
 h1, h2, h3, h4, .font-display {
   font-family: var(--font-display);
-  font-weight: 700 !important;
+  font-weight: 600 !important;
   letter-spacing: 0;
 }
 
