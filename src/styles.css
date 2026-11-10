@@ -441,14 +441,27 @@ h1, h2, h3, h4, .font-display {
   opacity: 0.45;
 }
 html:not(.dark) .bg-arc::before { opacity: 0; }
-/* Light mode keeps the same picture, washed to a soft lavender glow. */
+/* Light mode: the same picture used as a brightness mask, so the glow reads as
+   real purple on a light page instead of being washed out. */
 html:not(.dark) .bg-arc {
-  background-color: #faf8ff;
+  background-color: #f4f0ff;
+  background-image: none;
 }
 html:not(.dark) .bg-arc::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: #faf8ff;
-  opacity: 0.82;
+  background:
+    radial-gradient(115% 85% at 50% 104%, color-mix(in oklab, var(--primary) 62%, transparent), transparent 72%),
+    linear-gradient(180deg, color-mix(in oklab, var(--primary) 16%, transparent), transparent 62%);
+  -webkit-mask-image: var(--bg-arc-image, none);
+  mask-image: var(--bg-arc-image, none);
+  -webkit-mask-mode: luminance;
+  mask-mode: luminance;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center bottom;
+  mask-position: center bottom;
+  -webkit-mask-size: cover;
+  mask-size: cover;
 }
