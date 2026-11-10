@@ -84,7 +84,7 @@
   --secondary: oklch(0.94 0.02 290);
   --secondary-foreground: oklch(0.2 0.04 290);
   --muted: oklch(0.94 0.02 290);
-  --muted-foreground: oklch(0.45 0.04 290);
+  --muted-foreground: oklch(0.4 0.05 290);
   --accent: oklch(0.9 0.06 295);
   --accent-foreground: oklch(0.2 0.06 290);
   --destructive: oklch(0.6 0.24 27);
@@ -441,14 +441,25 @@ h1, h2, h3, h4, .font-display {
   opacity: 0.45;
 }
 html:not(.dark) .bg-arc::before { opacity: 0; }
-/* Light mode keeps the same picture, washed to a soft lavender glow. */
+/* Light mode: the same picture used as a brightness mask, so the glow reads as
+   real purple on a light page instead of being washed out. */
 html:not(.dark) .bg-arc {
-  background-color: #faf8ff;
+  background-color: #f4f0ff;
+  background-image: none;
 }
 html:not(.dark) .bg-arc::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: #faf8ff;
-  opacity: 0.82;
+  background: linear-gradient(180deg, color-mix(in oklab, var(--primary) 42%, white), color-mix(in oklab, var(--primary) 72%, white));
+  -webkit-mask-image: var(--bg-arc-image, none);
+  mask-image: var(--bg-arc-image, none);
+  -webkit-mask-mode: luminance;
+  mask-mode: luminance;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center bottom;
+  mask-position: center bottom;
+  -webkit-mask-size: cover;
+  mask-size: cover;
 }
