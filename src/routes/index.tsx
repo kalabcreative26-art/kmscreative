@@ -65,9 +65,9 @@ function Home() {
       <section className="max-w-6xl mx-auto px-6 pt-16 pb-32 md:pt-24 md:pb-40">
 
         <Reveal delay={120}>
-          <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-light leading-[1.02] tracking-normal max-w-5xl">
+          <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-light leading-[1.15] tracking-normal max-w-5xl">
             KMS Creative:{" "}
-            <span className="font-serif italic font-normal" style={{ background: "var(--gradient-primary)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+            <span className="font-serif italic font-normal inline-block pb-2 pr-2" style={{ background: "var(--gradient-primary)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
               Crafting
             </span>{" "}
             Digital Management.
@@ -88,14 +88,12 @@ function Home() {
               Explore Services
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </a></Button>
-            <Button asChild variant="glass" className="h-auto"><a               href={TELEGRAM_URL}
-              target="_blank"
-              rel="noreferrer"
+            <Button asChild variant="glass" className="h-auto"><Link to="/contact"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-transparent hover:bg-card border border-border hover:border-primary/40 rounded-full text-sm font-semibold uppercase tracking-normal transition-colors"
             >
               <Send className="h-4 w-4" />
               Get Started
-            </a></Button>
+            </Link></Button>
           </div>
         </Reveal>
       </section>
@@ -180,15 +178,13 @@ function Home() {
           <p className="text-muted-foreground mb-10 text-lg font-light max-w-xl mx-auto">
             Let's talk about your project on Telegram and bring your vision to life.
           </p>
-          <Button asChild variant="glass" className="h-auto"><a             href={TELEGRAM_URL}
-            target="_blank"
-            rel="noreferrer"
+          <Button asChild variant="glass" className="h-auto"><Link to="/contact"
             className="group inline-flex items-center justify-center gap-3 px-10 py-5 ios-glass rounded-full text-sm font-medium tracking-normal hover:scale-[1.02] active:scale-95 transition-transform"
                       >
             <Send className="h-4 w-4" />
             Get Started on Telegram
             <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-          </a></Button>
+          </Link></Button>
         </Reveal>
       </section>
     </PageShell>
