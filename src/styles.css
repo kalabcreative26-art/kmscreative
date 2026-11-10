@@ -451,9 +451,7 @@ html:not(.dark) .bg-arc::after {
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(115% 85% at 50% 104%, color-mix(in oklab, var(--primary) 62%, transparent), transparent 72%),
-    linear-gradient(180deg, color-mix(in oklab, var(--primary) 16%, transparent), transparent 62%);
+  background: var(--primary);
   -webkit-mask-image: var(--bg-arc-image, none);
   mask-image: var(--bg-arc-image, none);
   -webkit-mask-mode: luminance;
